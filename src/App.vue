@@ -1,5 +1,5 @@
 <script setup>
-//import PlaceCard from './components/PlaceCard.vue';
+// import RestaurantCard from './components/RestaurantCard.vue';
 import Home from './pages/Home.vue';
 </script>
 
