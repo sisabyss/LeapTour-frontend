@@ -1,14 +1,14 @@
 <script setup>
 import { NCard } from 'naive-ui';
 import Carousel from './Carousel.vue';
-
 </script>
 
 <template>
     <div>
-        <n-card class="RatingCard">
-            <Carousel />
-            <div class="card-content">
+        <n-card class="RestaurtantCard">
+            <div class="myimage"><Carousel /></div>
+            <div class="cardword">
+                <div class="card-content">
                 <h5 class="title">Place Name</h5>
                 <div class="info">
                     <span class="label">Price</span>
@@ -17,7 +17,7 @@ import Carousel from './Carousel.vue';
                 <div class="info">
                     <span class="label">Rating</span>
                     <span class="value">
-                        <span class="rating">⭐⭐⭐⭐</span>
+                        <span class="rating">⭐⭐⭐⭐⭐</span>
                         <span>out of 123 reviews</span>
                     </span>
                 </div>
@@ -53,20 +53,31 @@ import Carousel from './Carousel.vue';
                     <button class="btn">Website</button>
                 </div>
             </div>
+            </div>
         </n-card>
     </div>
 </template>
 
 <style scoped>
-.RatingCard {
+.RestaurantCard {
     width: 100%;
     height: 100%;
+    display: flex;
 }
 
+.myimage {
+    height: 100%;
+    width: 35%;
+}
 .card-content {
     padding: 16px;
 }
 
+.cardword {
+    width: 50%;
+    height: 100%;
+    display: inline-block;
+}
 .title {
     margin: 0 0 16px;
     font-size: 1.5rem;
@@ -95,6 +106,7 @@ import Carousel from './Carousel.vue';
 .tags {
     margin: 16px 0;
 }
+
 
 .tag {
     display: inline-block;

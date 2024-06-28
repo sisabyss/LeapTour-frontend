@@ -225,6 +225,6 @@ const day3Places = [
     background-color: #dfd3ee;
     color: #7446af;
     float: right;
-    margin-right: 100px;
+    margin-right: 101px;
 }
 </style>

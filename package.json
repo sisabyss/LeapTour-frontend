@@ -10,6 +10,7 @@
     "lint": "eslint --cache --max-warnings 0 \"{src,mock}/**/*.{vue,ts,tsx}\" --fix"
   },
   "dependencies": {
+    "@fawmi/vue-google-maps": "^0.9.79",
     "vue": "^3.4.29"
   },
   "devDependencies": {

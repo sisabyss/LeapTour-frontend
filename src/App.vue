@@ -1,6 +1,12 @@
 <script setup>
 //import PlaceCard from './components/PlaceCard.vue';
-import Home from './pages/Home.vue';
+import AITripPage from './pages/AITripPage.vue';
+/* import Carousel from './components/Carousel.vue'; */
+/* import Home from './pages/Home.vue'; */
 </script>
 
-<template><Home /></template>
+<template>
+    <AITripPage />
+    <!--     <Home /> -->
+    <!--     <Carousel /> -->
+</template>
