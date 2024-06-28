@@ -10,6 +10,7 @@ export default [
 	{
 		rules: {
 			// 'vue/no-used-vars': 'errors'
+			'vue/multi-word-component-names': 'off',
 		},
 	},
 ];
