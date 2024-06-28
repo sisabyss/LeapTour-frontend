@@ -1,6 +1,6 @@
 <script setup>
-// import RestaurantCard from './components/RestaurantCard.vue';
-import Home from './pages/Home.vue';
+//  import RestaurantCard from './components/RestaurantCard.vue';
+ import Restaurant from './pages/Restaurant.vue';
 </script>
 
-<template><Home /></template>
+<template><Restaurant /></template>
