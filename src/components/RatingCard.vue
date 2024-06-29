@@ -17,7 +17,7 @@ import Carousel from './Carousel.vue';
                 <div class="info">
                     <span class="label">Rating</span>
                     <span class="value">
-                        <span class="rating">⭐⭐⭐⭐⭐</span>
+                        <span class="rating">⭐⭐⭐⭐</span>
                         <span>out of 123 reviews</span>
                     </span>
                 </div>
@@ -49,10 +49,8 @@ import Carousel from './Carousel.vue';
                     </div>
                 </div>
                 <div class="actions">
-                    <button class="btn"
-                        @click="() => window.open('https://www.tripadvisor.com', '_blank')">TripAdvisor</button>
-                    <button class="btn"
-                        @click="() => window.open('https://www.tripadvisor.com', '_blank')">Website</button>
+                    <button class="btn">TripAdvisor</button>
+                    <button class="btn">Website</button>
                 </div>
             </div>
         </n-card>
