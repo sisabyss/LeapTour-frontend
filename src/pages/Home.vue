@@ -17,7 +17,7 @@
         </button>
       </div>
       <!-- Section Background Image - Displays only on Large devices, Like Desktop -->
-      <div class="hidden mmd:block h-full col-span-9 bg-cover" :style="{ backgroundImage: '@/assets/tc_cards_desktop.jpeg' }" />
+      <div class="hidden mmd:block h-full col-span-9 bg-cover bg-[url('/src/assets/tc_cards_desktop.jpeg')]"></div>
     </div>
   </div>
 
