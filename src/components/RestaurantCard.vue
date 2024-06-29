@@ -1,13 +1,12 @@
 <script setup>
-import { NCard } from 'naive-ui';
 import Carousel from './Carousel.vue';
 </script>
 
 <template>
-    <div>
-        <n-card class="RestaurtantCard">
-            <div class="myimage"><Carousel /></div>
-            <div class="cardword">
+    <div >
+        <div class="container">
+            <div class="box box1" id="lunboqi"><Carousel /></div>
+            <div class="box box2" id="neirong">
                 <div class="card-content">
                 <h5 class="title">Place Name</h5>
                 <div class="info">
@@ -54,7 +53,7 @@ import Carousel from './Carousel.vue';
                 </div>
             </div>
             </div>
-        </n-card>
+        </div>
     </div>
 </template>
 
@@ -65,19 +64,35 @@ import Carousel from './Carousel.vue';
     display: flex;
 }
 
-.myimage {
-    height: 100%;
-    width: 35%;
-}
-.card-content {
-    padding: 16px;
+.container {
+  display: flex;
 }
 
-.cardword {
-    width: 50%;
-    height: 100%;
-    display: inline-block;
+.box {
+  height: auto; /* 默认高度，根据内容自动调整 */
+  border: 1px solid #ccc; /* 边框样式，可选 */
+  padding: 10px; /* 内边距，可选 */
 }
+
+.box1 {
+  width: 35%;
+}
+
+.box2 {
+  width: 55%;
+}
+
+/* 确保两个盒子高度一致 */
+.box1, .box2 {
+  align-self: stretch; /* 或者使用 'stretch' 让盒子高度填满父容器 */
+}
+
+.card-content {
+    padding: 16px;
+    height: 100%;
+    flex: 1;
+}
+
 .title {
     margin: 0 0 16px;
     font-size: 1.5rem;

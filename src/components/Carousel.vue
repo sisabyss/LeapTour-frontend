@@ -1,6 +1,5 @@
 <script setup>
 import { NCarousel } from 'naive-ui';
-
 </script>
 
 <template>
