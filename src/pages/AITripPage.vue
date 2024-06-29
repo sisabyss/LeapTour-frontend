@@ -47,7 +47,7 @@ const day3Places = [
                         </n-icon>
                     </div>
                     <div class="box2" style="padding: 5px;">
-                        <p style="color:darkgray;font-size:smaller;">This Trip is Powered
+                        <p style="color:darkgray;font-size: smaller;">This Trip is Powered
                             by
                             AI</p>
                     </div>
