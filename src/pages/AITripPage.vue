@@ -1,10 +1,53 @@
 <script setup>
 import NavBar from '../components/NavBar.vue';
-import Carousel from '../components/Carousel.vue';
 import RatingCard from '../components/RatingCard.vue';
 import { NButton, NCollapse, NCollapseItem } from 'naive-ui';
 import { NDivider } from 'naive-ui';
 import { Map, Calendar } from '@vicons/carbon'
+import { ref } from 'vue'
+import Swiper from '@/components/Swiper.vue'
+const cards = ref([
+    {
+        ImgSrc: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/08/48/2f/eb/mahamrityunjay-temple.jpg?w=300&h=300&s=1',
+        PlaceName: 'Discover Darwin',
+        Ifo: 'Find out why travelers like you are raving about Darwin'
+    },
+    {
+        ImgSrc: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/21/f7/1d/4d/caption.jpg?w=1000&h=-1&s=1',
+        PlaceName: 'Scenic Autumn Spot',
+        Ifo: 'Best of the Best tours, attractions & activities you won’t want to miss.'
+    },
+    {
+        ImgSrc: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/21/ab/94/ba/2de5214a-d5dc-42d2.jpg?w=400&h=-1&s=1',
+        PlaceName: 'Beautiful Hill Station',
+        Ifo: '5 beautiful hill stations in South India'
+    },
+    {
+        ImgSrc: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/21/f7/1d/4d/caption.jpg?w=1000&h=-1&s=1',
+        PlaceName: 'Scenic Autumn Spot',
+        Ifo: 'Best of the Best tours, attractions & activities you won’t want to miss.'
+    },
+    {
+        ImgSrc: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/25/c8/20/d4/45276d36-cc36-4a32.jpg?w=400&h=-1&s=1',
+        PlaceName: 'Stunning Places in India',
+        Ifo: '11 beautiful places in India that have to be seen to be believed'
+    },
+    {
+        ImgSrc: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/21/f7/1d/4d/caption.jpg?w=1000&h=-1&s=1',
+        PlaceName: 'Scenic Autumn Spot',
+        Ifo: 'Best of the Best tours, attractions & activities you won’t want to miss.'
+    },
+    {
+        ImgSrc: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/25/c8/20/d4/45276d36-cc36-4a32.jpg?w=400&h=-1&s=1',
+        PlaceName: 'Stunning Places in India',
+        Ifo: '11 beautiful places in India that have to be seen to be believed'
+    },
+    {
+        ImgSrc: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/25/c8/2e/9a/2520956e-5665-4e9f.jpg?w=400&h=-1&s=1',
+        PlaceName: 'Best Time to Visit Dubai',
+        Ifo: 'Best time to visit Dubai for great weather and deals'
+    }
+])
 const day1Places = [
     { name: "E'ling Park" },
     { name: "XiaoTianE (JianXin North Road)" },
@@ -70,8 +113,10 @@ const day3Places = [
             </div>
             <n-divider class="AITripdivider" />
             <p class="AITripSubTitle">Places To Stay</p>
-            <div class="AITripCarousel">
-                <Carousel />
+            <div class="AITripSwiper">
+                <div id="app">
+                    <Swiper :items="cards" width="50%"></Swiper>
+                </div>
             </div>
             <n-divider class="AITripdivider" />
             <!--               <div class="app-bar">
@@ -258,9 +303,9 @@ const day3Places = [
     padding: 5px;
 }
 
-.AITripCarousel {
+.AITripSwiper {
     margin: 30px;
-    width: 30vw;
+    width: 45vw;
     align: center;
     height: auto;
 }
