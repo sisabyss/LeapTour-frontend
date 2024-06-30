@@ -1,11 +1,54 @@
 <script setup>
 import NavBar from '../components/NavBar.vue';
-import Carousel from '../components/Carousel.vue';
 import RatingCard from '../components/RatingCard.vue';
 import { NButton, NCollapse, NCollapseItem } from 'naive-ui';
 import { NDivider } from 'naive-ui';
 import { Map, Calendar } from '@vicons/carbon';
 import { BMap, BZoom } from 'vue3-baidu-map-gl';
+import { ref } from 'vue'
+import Swiper from '@/components/Swiper.vue'
+const cards = ref([
+  {
+    ImgSrc: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/08/48/2f/eb/mahamrityunjay-temple.jpg?w=300&h=300&s=1',
+    PlaceName: 'Discover Darwin',
+    Ifo: 'Find out why travelers like you are raving about Darwin'
+  },
+  {
+    ImgSrc: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/21/f7/1d/4d/caption.jpg?w=1000&h=-1&s=1',
+    PlaceName: 'Scenic Autumn Spot',
+    Ifo: 'Best of the Best tours, attractions & activities you won’t want to miss.'
+  },
+  {
+    ImgSrc: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/21/ab/94/ba/2de5214a-d5dc-42d2.jpg?w=400&h=-1&s=1',
+    PlaceName: 'Beautiful Hill Station',
+    Ifo: '5 beautiful hill stations in South India'
+  },
+  {
+    ImgSrc: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/21/f7/1d/4d/caption.jpg?w=1000&h=-1&s=1',
+    PlaceName: 'Scenic Autumn Spot',
+    Ifo: 'Best of the Best tours, attractions & activities you won’t want to miss.'
+  },
+  {
+    ImgSrc: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/25/c8/20/d4/45276d36-cc36-4a32.jpg?w=400&h=-1&s=1',
+    PlaceName: 'Stunning Places in India',
+    Ifo: '11 beautiful places in India that have to be seen to be believed'
+  },
+  {
+    ImgSrc: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/21/f7/1d/4d/caption.jpg?w=1000&h=-1&s=1',
+    PlaceName: 'Scenic Autumn Spot',
+    Ifo: 'Best of the Best tours, attractions & activities you won’t want to miss.'
+  },
+  {
+    ImgSrc: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/25/c8/20/d4/45276d36-cc36-4a32.jpg?w=400&h=-1&s=1',
+    PlaceName: 'Stunning Places in India',
+    Ifo: '11 beautiful places in India that have to be seen to be believed'
+  },
+  {
+    ImgSrc: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/25/c8/2e/9a/2520956e-5665-4e9f.jpg?w=400&h=-1&s=1',
+    PlaceName: 'Best Time to Visit Dubai',
+    Ifo: 'Best time to visit Dubai for great weather and deals'
+  }
+])
 const day1Places = [
   { name: "E'ling Park" },
   { name: 'XiaoTianE (JianXin North Road)' },
@@ -47,16 +90,22 @@ const day3Places = [{ name: 'Place Name 1' }, { name: 'Place Name 2' }, { name: 
       </div>
       <h1 class="AITripTitle">Your Trip To Chongqing for 3 days</h1>
       <div class="Pagedescription">
-        Welcome to Chongqing! Today is packed with exciting outdoor adventures and delicious dining experiences. Start your day at E'ling Park, where
-        you can enjoy stunning views of the city and relax in nature. For lunch, head to XiaoTianE on JianXin North Road for some authentic local
-        cuisine. After refueling, visit the iconic Jiefang Monument and soak in the historical significance. Then, treat yourself to a delightful meal
-        at Latitude 29. End the day at Loquat Hill Park, a serene spot perfect for unwinding. Get ready for a day filled with exploration and
+        Welcome to Chongqing! Today is packed with exciting outdoor adventures and delicious dining experiences. Start
+        your day at E'ling Park, where
+        you can enjoy stunning views of the city and relax in nature. For lunch, head to XiaoTianE on JianXin North Road
+        for some authentic local
+        cuisine. After refueling, visit the iconic Jiefang Monument and soak in the historical significance. Then, treat
+        yourself to a delightful meal
+        at Latitude 29. End the day at Loquat Hill Park, a serene spot perfect for unwinding. Get ready for a day filled
+        with exploration and
         memorable moments!
       </div>
       <n-divider class="AITripdivider" />
       <p class="AITripSubTitle">Places To Stay</p>
-      <div class="AITripCarousel">
-        <Carousel />
+      <div class="AITripSwiper">
+        <div id="app">
+          <Swiper :items="cards" width="50%"></Swiper>
+        </div>
       </div>
       <n-divider class="AITripdivider" />
       <!--               <div class="app-bar">
@@ -81,10 +130,14 @@ const day3Places = [{ name: 'Place Name 1' }, { name: 'Place Name 2' }, { name: 
             <p class="AITripSubSubTitle">Day1</p>
           </div>
           <div class="day-description">
-            Welcome to Chongqing! Today is packed with exciting outdoor adventures and delicious dining experiences. Start your day at E'ling Park,
-            where you can enjoy stunning views of the city and relax in nature. For lunch, head to XiaoTianE on JianXin North Road for some authentic
-            local cuisine. After refueling, visit the iconic Jiefang Monument and soak in the historical significance. Then, treat yourself to a
-            delightful meal at Latitude 29. End the day at Loquat Hill Park, a serene spot perfect for unwinding. Get ready for a day filled with
+            Welcome to Chongqing! Today is packed with exciting outdoor adventures and delicious dining experiences.
+            Start your day at E'ling Park,
+            where you can enjoy stunning views of the city and relax in nature. For lunch, head to XiaoTianE on JianXin
+            North Road for some authentic
+            local cuisine. After refueling, visit the iconic Jiefang Monument and soak in the historical significance.
+            Then, treat yourself to a
+            delightful meal at Latitude 29. End the day at Loquat Hill Park, a serene spot perfect for unwinding. Get
+            ready for a day filled with
             exploration and memorable moments!
           </div>
           <view v-for="(place, index) in day1Places" :key="'day1-' + index">
@@ -108,10 +161,14 @@ const day3Places = [{ name: 'Place Name 1' }, { name: 'Place Name 2' }, { name: 
             <p class="AITripSubSubTitle">Day2</p>
           </div>
           <div class="day-description">
-            Welcome to Chongqing! Today is packed with exciting outdoor adventures and delicious dining experiences. Start your day at E'ling Park,
-            where you can enjoy stunning views of the city and relax in nature. For lunch, head to XiaoTianE on JianXin North Road for some authentic
-            local cuisine. After refueling, visit the iconic Jiefang Monument and soak in the historical significance. Then, treat yourself to a
-            delightful meal at Latitude 29. End the day at Loquat Hill Park, a serene spot perfect for unwinding. Get ready for a day filled with
+            Welcome to Chongqing! Today is packed with exciting outdoor adventures and delicious dining experiences.
+            Start your day at E'ling Park,
+            where you can enjoy stunning views of the city and relax in nature. For lunch, head to XiaoTianE on JianXin
+            North Road for some authentic
+            local cuisine. After refueling, visit the iconic Jiefang Monument and soak in the historical significance.
+            Then, treat yourself to a
+            delightful meal at Latitude 29. End the day at Loquat Hill Park, a serene spot perfect for unwinding. Get
+            ready for a day filled with
             exploration and memorable moments!
           </div>
           <view v-for="(place, index) in day2Places" :key="'day2-' + index">
@@ -135,10 +192,14 @@ const day3Places = [{ name: 'Place Name 1' }, { name: 'Place Name 2' }, { name: 
             <p class="AITripSubSubTitle">Day3</p>
           </div>
           <div class="day-description">
-            Welcome to Chongqing! Today is packed with exciting outdoor adventures and delicious dining experiences. Start your day at E'ling Park,
-            where you can enjoy stunning views of the city and relax in nature. For lunch, head to XiaoTianE on JianXin North Road for some authentic
-            local cuisine. After refueling, visit the iconic Jiefang Monument and soak in the historical significance. Then, treat yourself to a
-            delightful meal at Latitude 29. End the day at Loquat Hill Park, a serene spot perfect for unwinding. Get ready for a day filled with
+            Welcome to Chongqing! Today is packed with exciting outdoor adventures and delicious dining experiences.
+            Start your day at E'ling Park,
+            where you can enjoy stunning views of the city and relax in nature. For lunch, head to XiaoTianE on JianXin
+            North Road for some authentic
+            local cuisine. After refueling, visit the iconic Jiefang Monument and soak in the historical significance.
+            Then, treat yourself to a
+            delightful meal at Latitude 29. End the day at Loquat Hill Park, a serene spot perfect for unwinding. Get
+            ready for a day filled with
             exploration and memorable moments!
           </div>
           <view v-for="(place, index) in day3Places" :key="'day3-' + index">
@@ -231,9 +292,9 @@ const day3Places = [{ name: 'Place Name 1' }, { name: 'Place Name 2' }, { name: 
   padding: 5px;
 }
 
-.AITripCarousel {
+.AITripSwiper {
   margin: 30px;
-  width: 30vw;
+  width: 36vw;
   align: center;
   height: auto;
 }
