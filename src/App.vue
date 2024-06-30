@@ -1,4 +1,5 @@
 <script setup>
+
 //import PlaceCard from './components/PlaceCard.vue';
 /* import Carousel from './components/Carousel.vue'; */
 // import AITripPage from './pages/AITripPage.vue';

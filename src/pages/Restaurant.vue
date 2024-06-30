@@ -15,6 +15,8 @@
                             <div class="relative">
                                 <img src="../assets/logo.svg" alt="Map" class="w-full h-20 lg:h-full object-cover" />
                                 <div class="absolute w-full h-full top-0 flex items-center justify-center">
+                                    
+                                <div class="absolute w-full h-full top-0 flex items-center justify-center"></div>
                                     <button class="bg-white rounded-sm border border-black py-2 px-4 hover:bg-black hover:text-white"
                                         onClick=''>
                                         <p class="font-semibold flex items-center text-sm">
@@ -31,17 +33,27 @@
                     
 
                     <!-- {/* Restaurants List */} -->
-                    <div class="lg:col-span-9">
-                        
-                            <PlaceListLoader />
-                       
-                                
-                    </div>
+                    <div class="lg:col-span-9" >
+
+                            <RestaurantCard />
+
+                        <div class="my-8">
+                            <RestaurantCard />
+                        </div>
+                        <div class="my-8">
+                            <RestaurantCard />
+                        </div>
+                        <div class="my-8"> 
+                            <RestaurantCard />
+                        </div>
+                        <div class="my-8">
+                            <RestaurantCard />
+                        </div>
                     <!-- {/* / Restaurants List */} -->
                 </div>
 
             </div>
-
+            </div>
             <!-- {/* Footer Component */} -->
             <HomeFooter />
   </template>
@@ -49,6 +61,6 @@
   <script setup>
   import NavBar from '../components/NavBar.vue';
   import HomeFooter from '../components/HomeFooter.vue';
-  
+  import RestaurantCard from '../components/RestaurantCard.vue';
 
   </script>
