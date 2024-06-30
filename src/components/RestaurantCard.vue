@@ -29,7 +29,7 @@ import Carousel from './Carousel.vue';
                     <span class="tag">Tag 2</span>
                     <span class="tag">Tag 3</span>
                 </div>
-                <div class="additional-info">
+                <!-- <div class="additional-info">
                     <div class="address">
                         <svg xmlns="http://www.w3.org/2000/svg" style="width: 16px; height: 16px; margin-right: 5px;"
                             fill="currentColor" viewBox="0 0 24 24">
@@ -46,11 +46,11 @@ import Carousel from './Carousel.vue';
                         </svg>
                         Phone Info
                     </div>
-                </div>
-                <div class="actions">
+                </div> -->
+                <!-- <div class="actions">
                     <button class="btn">TripAdvisor</button>
                     <button class="btn">Website</button>
-                </div>
+                </div> -->
             </div>
             </div>
         </div>
@@ -82,9 +82,9 @@ import Carousel from './Carousel.vue';
   width: 55%;
 }
 
-/* 确保两个盒子高度一致 */
+
 .box1, .box2 {
-  align-self: stretch; /* 或者使用 'stretch' 让盒子高度填满父容器 */
+  align-self: stretch; 
 }
 
 .card-content {
@@ -122,7 +122,6 @@ import Carousel from './Carousel.vue';
 .tags {
     margin: 16px 0;
 }
-
 
 .tag {
     display: inline-block;
