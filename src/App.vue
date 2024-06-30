@@ -1,6 +1,6 @@
 <script setup>
-  //import FoodCommentCard from './components/FoodCommentCard.vue';
-  import RestaurantInfo from './pages/RestaurantInfo.vue';
+  // import FoodCommentCard from './components/FoodCommentCard.vue';
+  import HotelList from './pages/HotelList.vue';
 </script>
 
-<template><RestaurantInfo /></template>
+<template><HotelList /></template>
