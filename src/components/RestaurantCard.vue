@@ -93,7 +93,6 @@ import Carousel from './Carousel.vue';
     flex: 1;
 }
 
-
 .title {
     margin: 0 0 16px;
     font-size: 1.5rem;

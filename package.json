@@ -10,15 +10,18 @@
     "lint": "eslint --cache --max-warnings 0 \"{src,mock}/**/*.{vue,ts,tsx}\" --fix"
   },
   "dependencies": {
+    "@fawmi/vue-google-maps": "^0.9.79",
     "vue": "^3.4.29"
   },
   "devDependencies": {
     "@babel/core": "^7.24.7",
     "@babel/eslint-parser": "^7.24.7",
     "@eslint/js": "^9.5.0",
+    "@vicons/carbon": "^0.12.0",
     "@vitejs/plugin-vue": "^5.0.5",
     "autoprefixer": "^10.4.19",
     "axios": "^1.7.2",
+    "carbon": "^0.2.2",
     "eslint": "^9.5.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
@@ -32,6 +35,8 @@
     "vfonts": "^0.0.3",
     "vite": "^5.3.1",
     "vite-plugin-eslint": "^1.8.1",
-    "vue-owl-carousel": "^2.0.3"
+    "vue-owl-carousel": "^2.0.3",
+    "vue-router": "^4.4.0",
+    "vue3-baidu-map-gl": "^2.3.2"
   }
 }
