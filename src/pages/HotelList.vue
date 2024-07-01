@@ -14,10 +14,10 @@
         <div class="w-full relative">
           <span class="absolute text-xs bg-white font-semibold px-2 -top-2 left-2"> Check In </span>
           <!-- Input Field for 'checkin' date -->
-          <Input
+          <input
             type="date"
             name="checkin"
-            value="{filterParams}"
+            :value="filterParams"
             class="w-full rounded border-y border-r shadow px-4 py-2 border-l-8 border-l-green-600 focus:text-gray-700 focus:bg-white focus:border-green-600 focus:outline-none"
           />
         </div>
@@ -27,26 +27,33 @@
           <span class="absolute text-xs bg-white font-semibold px-2 -top-2 left-2"> Check Out </span>
 
           <!-- Input field for 'checkout' date -->
-          <Input
+          <input
             type="date"
             name="checkout"
-            value="{filterParams}"
+            :value="filterParams"
             class="w-full rounded border-y border-r shadow px-4 py-2 border-l-8 border-l-red-600 focus:text-gray-700 focus:bg-white focus:border-red-600 focus:outline-none"
           />
         </div>
 
         <!-- Guests -->
         <div class="w-full rounded border-y border-r shadow px-4 py-2 border-l-8 border-l-gray-500 relative">
-          <!-- {/* Click-enbaled Overlay, that toggles Guests Field */} -->
-          <div class="absolute w-full h-full top-0 left-0 cursor-pointer bg-transparent z-10" onClick="" />
+          <!-- Click-enbaled Overlay, that toggles Guests Field -->
+          <div
+            class="absolute w-full h-full top-0 left-0 cursor-pointer bg-transparent z-10"
+            @click="
+              () => {
+                guestsToggle = true;
+              }
+            "
+          />
 
           <span class="absolute text-xs bg-white font-semibold px-2 -top-2 left-0"> Guests </span>
 
           <!-- FilterParams 'rooms' and 'adults' properties displayed on input display -->
-          <p class="w-full">100 room, 100 adults</p>
+          <p class="w-full">{{ filterParams.rooms }} room, {{ filterParams.adults }} adults</p>
 
           <span class="absolute top-3 right-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="{2}">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -56,11 +63,18 @@
           </span>
 
           <!-- Dropdown is displayed If Guests Toggle is Clicked, hence 'guestsToggle' set to true -->
-          <div v-if="false" class="absolute z-20 w-full left-0 top-12">
+          <div v-if="guestsToggle" class="absolute z-20 w-full left-0 top-12">
             <div class="h-4 w-4 bg-white shadow transform rotate-45 mx-auto -mb-2 border border-gray-200" />
             <div class="bg-white shadow-md w-full p-4 space-y-2 relative">
               <!-- Close Button -->
-              <p class="flex justify-end pb-2 relative" onClick="">
+              <p
+                class="flex justify-end pb-2 relative"
+                @click="
+                  () => {
+                    guestsToggle = false;
+                  }
+                "
+              >
                 <svg class="h-4 w-4 block cursor-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                   <path
                     fillRule="evenodd"
@@ -77,8 +91,7 @@
                 <Input
                   type="number"
                   name="rooms"
-                  value="{filterParams}"
-                  handleChange="{handleChange}"
+                  :value="filterParams"
                   classProps="w-14 rounded border p-1 text-center focus:text-gray-700 focus:bg-white focus:outline-none"
                 />
               </div>
@@ -90,8 +103,7 @@
                 <Input
                   type="number"
                   name="adults"
-                  value="{filterParams}"
-                  handleChange="{handleChange}"
+                  :value="filterParams"
                   classProps="w-14 rounded border p-1 text-center focus:text-gray-700 focus:bg-white focus:outline-none"
                 />
               </div>
@@ -101,37 +113,39 @@
       </div>
     </div>
     <!-- / Check In/Out and Guests Filter -->
-  </div>
-  <div class="container mx-auto px-4 lg:grid lg:grid-cols-12 gap-2">
-    <!-- Map view with Route Link to map view -->
-    <div class="lg:col-span-3">
-      <div class="w-full border shadow mt-2 p-2">
-        <div class="relative">
-          <img src="../assets/logo.svg" alt="Map" class="w-full h-20 lg:h-full object-cover" />
-          <div class="absolute w-full h-full top-0 flex items-center justify-center">
-            <button class="bg-white rounded-sm border border-black py-2 px-4 hover:bg-black hover:text-white" onClick="">
-              <p class="font-semibold flex items-center text-sm">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                  <path
-                    fillRule="evenodd"
-                    d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-                View On Map
-              </p>
-            </button>
+
+    <div class="container mx-auto px-4 lg:grid lg:grid-cols-12 gap-2">
+      <!-- Map view with Route Link to map view -->
+      <div class="lg:col-span-3">
+        <div class="w-full border shadow mt-2 p-2">
+          <div class="relative">
+            <img src="../assets/map.png" alt="Map" class="w-full h-20 lg:h-full object-cover" />
+            <div class="absolute w-full h-full top-0 flex items-center justify-center">
+              <button class="bg-white rounded-sm border border-black py-2 px-4 hover:bg-black hover:text-white" onClick="">
+                <p class="font-semibold flex items-center text-sm">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path
+                      fillRule="evenodd"
+                      d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  View On Map
+                </p>
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <!-- / Map view -->
+      <!-- / Map view -->
 
-    <!-- Hotels Listing -->
-    <div class="lg:col-span-9">
-      <!-- Displays a loading if 'hotels' has no data in state or data fetching is in loading state -->
-      <PlaceListLoader v-if="true" />
-      <!-- Maps through 'hotels' list when it is ready or data fetching is not in loading state -->
+      <!-- Hotels Listing -->
+      <div class="lg:col-span-9">
+        <!-- Displays a loading if 'hotels' has no data in state or data fetching is in loading state -->
+        <PlaceListLoader v-if="mainContext.hotels == [] || mainContext.isLoading" />
+        <HotelCard v-for="(hotel, i) in mainContext.hotels" :key="i" :hotel="hotel"> </HotelCard>
+        <!-- Maps through 'hotels' list when it is ready or data fetching is not in loading state -->
+      </div>
     </div>
   </div>
 
@@ -144,4 +158,51 @@
 <script setup>
 import NavBar from '../components/NavBar.vue';
 import HomeFooter from '../components/HomeFooter.vue';
+import HotelCard from '../components/HotelCard.vue';
+// import PlaceListLoader from '../components/Loader/PlaceCardLoader.vue';
+import { useMainContextStore } from '../store/MainContext';
+import { watch } from 'vue';
+import axios from 'axios';
+import moment from 'moment/moment';
+import { getPlacesByLatLng } from '../api/tripadvisor';
+
+const mainContext = useMainContextStore();
+const filterParams = {
+  limit: 30,
+  rooms: 1,
+  adults: 1,
+  hotel_class: '4, 5',
+  checkin: moment(new Date()).format('YYYY-MM-DD'),
+  checkout: '',
+  nights: 1,
+  pricesmax: '',
+  pricesmin: '',
+};
+
+let guestsToggle = false;
+
+watch(
+  () => mainContext.coordinates,
+  () => {
+    let source = axios.CancelToken.source();
+
+    // Loading state is set to true while data is being fetched from endpoint
+    mainContext.isLoading = true;
+
+    // Calling on the getPlacesByLatLng endpoint passing in the 'attraction' as place type, coordinates (longitude and latitude), a limit parameter and source for error handling
+    getPlacesByLatLng('hotels', mainContext.coordinates.lat, mainContext.coordinates.lng, { ...filterParams }, source).then((data) => {
+      // Data is received and set to 'attractions' state list filtering out items with zero reviews, items with id '0' and items with no 'name' property
+      console.log(data);
+      mainContext.hotels = data.filter((item) => item.num_reviews !== 0 && item.location_id !== 0 && item.name);
+
+      // Setting loading state back to false to stop loading
+      mainContext.isLoading = false;
+    });
+
+    // Effect Cleanup
+    return () => {
+      source.cancel();
+    };
+  }
+);
 </script>

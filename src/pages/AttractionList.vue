@@ -1,12 +1,11 @@
 <script setup>
-import AttractionLoader from '../components/Loader/AttractionLoader.vue';
+// import AttractionLoader from '../components/Loader/AttractionLoader.vue';
 import Navbar from '../components/NavBar.vue';
 import HomeFooter from '../components/HomeFooter.vue';
 import { useMainContextStore } from '../store/MainContext';
 import { watch } from 'vue';
 import axios from 'axios';
 import { getPlacesByLatLng } from '../api/tripadvisor';
-// import { RouterLink } from 'vue-router';
 
 const mainContext = useMainContextStore();
 watch(
@@ -19,7 +18,7 @@ watch(
 
     // Calling on the getPlacesByLatLng endpoint passing in the 'attraction' as place type, coordinates (longitude and latitude), a limit parameter and source for error handling
     // getPlacesByLatLng('attractions', mainContext.coordinates.lat, mainContext.coordinates.lng, { limit: 30 }, source).then((data) => {
-    getPlacesByLatLng('restaurants', mainContext.coordinates.lat, mainContext.coordinates.lng, { limit: 30 }, source).then((data) => {
+    getPlacesByLatLng('attractions', mainContext.coordinates.lat, mainContext.coordinates.lng, { limit: 30 }, source).then((data) => {
       // Data is received and set to 'attractions' state list filtering out items with zero reviews, items with id '0' and items with no 'name' property
       console.log(data);
       mainContext.attractions = data.filter((item) => item.num_reviews !== 0 && item.location_id !== 0 && item.name);
@@ -45,16 +44,16 @@ watch(
       <h1 className="font-semibold text-lg md:text-3xl">Attractions near you</h1>
     </div>
 
-    <AttractionLoader v-if="mainContext.attractions == [] || mainContext.isLoading" />
-    <div v-else>
+    <!-- <AttractionLoader v-if="mainContext.attractions == [] || mainContext.isLoading" /> -->
+    <!-- <div v-else> -->
+    <div>
       <!-- Renders Section If 'attractions' list is ready or data fetching is not in loading state -->
       <div class="block md:grid md:grid-cols-12 md:px-4 my-2 gap-3">
         <!-- Mapping through list of attractions object  -->
         <div v-for="(attraction, i) in mainContext.attractions" :key="i" class="md:col-span-6 lg:col-span-4 mb-4">
           <div class="w-full h-[250px] md:h-[400px] object-cover">
             <!-- Link that routes to the placeDetails route with the current attraction 'location_id' passed into the url parameter -->
-            <!-- <RouterLink to="`/attractions/${attraction.location_id}`"> -->
-            <div>
+            <router-link to="/">
               <!-- Attraction Image - display if Image is found in result object, else a default image is displayed as fallback -->
               <img
                 :src="
@@ -65,8 +64,7 @@ watch(
                 alt=""
                 class="w-full h-full object-cover cursor-pointer"
               />
-            </div>
-            <!-- </RouterLink> -->
+            </router-link>
           </div>
           <div class="px-4 md:px-0 py-2 space-y-1">
             <!-- Attraction Name -->

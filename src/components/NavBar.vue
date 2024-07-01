@@ -5,12 +5,12 @@
     <div class="container mx-auto w-full flex justify-between items-center px-4 py-3 shadow-md">
       <!-- LOGO -->
       <router-link to="/">
-        <img src="@/assets/logo.svg" class="logo w-[180px] sm:w-[200px] md:w-[250px]" alt="LeapTour logo" />
+        <img src="@/assets/logo.svg" class="logo w-[30px] sm:w-[60px] md:w-[80px]" alt="LeapTour logo" />
       </router-link>
 
       <ul class="hidden mmd:flex space-x-1">
         <!-- router to `Hotels` -->
-        <router-link to="/hotel">
+        <router-link to="/hotels">
           <li class="rounded-full hover:bg-gray-200 py-2 px-3 cursor-pointer">
             <p class="flex font-medium items-center">
               <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" class="w-6 h-6 mr-2">
@@ -29,7 +29,7 @@
         </router-link>
 
         <!-- router to `Restaurants` -->
-        <router-link to="/restaurant">
+        <router-link to="/restaurants">
           <li class="rounded-full hover:bg-gray-200 py-2 px-3 cursor-pointer">
             <p class="flex font-medium items-center">
               <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" class="w-6 h-6 mr-2">
@@ -43,7 +43,7 @@
         </router-link>
 
         <!-- router to `Attractions` -->
-        <router-link to="/attraction">
+        <router-link to="/attractions">
           <li class="rounded-full hover:bg-gray-200 py-2 px-3 cursor-pointer">
             <p class="flex font-medium items-center">
               <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" class="w-6 h-6 mr-2">

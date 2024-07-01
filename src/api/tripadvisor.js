@@ -43,10 +43,10 @@ export const getPlacesByLatLng = async (type, lat, lng, params, source) => {
       `https://travel-advisor.p.rapidapi.com/${type}/list-by-latlng`,
       {
         params: {
-          latitude: lat,
-          longitude: lng,
-          // latitude: '12.912862',
-          // longitude: '100.87808',
+          // latitude: lat,
+          // longitude: lng,
+          latitude: '35.676401',
+          longitude: '139.650008',
           lang: 'zh_CN',
           ...params,
         },
@@ -60,7 +60,6 @@ export const getPlacesByLatLng = async (type, lat, lng, params, source) => {
     );
 
     // Data is returned once resolved
-    console.log(data);
     return data;
   } catch (error) {
     if (axios.isCancel(error)) {
