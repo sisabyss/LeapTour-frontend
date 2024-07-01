@@ -1,17 +1,9 @@
 <script setup>
-import { onMounted } from 'vue';
-import { useMainContextStore } from './store/MainContext.js';
-const store = useMainContextStore();
-
-onMounted(() => {
-  store.init();
-});
-
-import { RouterView } from 'vue-router';
+import MapView from './pages/MapView.vue';
 </script>
 
 <template>
   <main>
-    <RouterView />
+    <MapView />
   </main>
 </template>
