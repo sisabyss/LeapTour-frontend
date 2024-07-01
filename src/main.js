@@ -9,6 +9,7 @@ import AIView from './pages/AITripPage.vue';
 import HotelList from './pages/HotelList.vue';
 import Restaurant from './pages/Restaurant.vue';
 import AttractionList from './pages/AttractionList.vue';
+import UserProfile from './pages/UserProfile.vue'
 
 const routes = [
   { path: '/', component: HomeView },
@@ -16,6 +17,7 @@ const routes = [
   { path: '/hotel', component: HotelList },
   { path: '/restaurant', component: Restaurant },
   { path: '/attraction', component: AttractionList },
+  { path: '/userprofile', component: UserProfile },
 ];
 
 const router = createRouter({
