@@ -1,22 +1,9 @@
 <script setup>
-// import { onMounted } from 'vue';
-// import { useMainContextStore } from './store/MainContext.js';
-
-// const store = useMainContextStore();
-
-// onMounted(() => {
-//   store.init();
-// });
-
-    // import { RouterView } from 'vue-router';
-
-  // import RestaurantInfo from '@/pages/RestaurantInfo.vue';
-//  import Edit from '@/components/EditProfile.vue';
-  //  import SignIn from '@/components/SignIn.vue';
-    import CityPage from '@/pages/CityPage.vue';
+import { RouterView } from 'vue-router';
 </script>
 
 <template>
-  <CityPage/>
+  <main>
+    <RouterView />
+  </main>
 </template>
-  

@@ -16,7 +16,7 @@ export const getPlacesByBounds = async (type, sw, ne, source) => {
         },
         headers: {
           'X-RapidAPI-Host': 'travel-advisor.p.rapidapi.com',
-          'X-RapidAPI-Key': 'd283acd8ebmsh86e67a15d2cd3dfp1ec54ajsn3ba92b3cff73',
+          'X-RapidAPI-Key': '936cb531bfmsh0a907999cf9cfb7p115648jsnc94a45ccd64f',
         },
       },
       { cancelToken: source.token }
@@ -53,7 +53,7 @@ export const getPlacesByLatLng = async (type, lat, lng, params, source) => {
         headers: {
           'X-RapidAPI-Host': 'travel-advisor.p.rapidapi.com',
           // 'X-RapidAPI-Key': import.meta.env.VITE_TRAVEL_API_KEY,
-          'X-RapidAPI-Key': 'd283acd8ebmsh86e67a15d2cd3dfp1ec54ajsn3ba92b3cff73',
+          'X-RapidAPI-Key': '936cb531bfmsh0a907999cf9cfb7p115648jsnc94a45ccd64f',
         },
       },
       { cancelToken: source.token }
