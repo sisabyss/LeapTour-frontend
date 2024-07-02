@@ -45,8 +45,8 @@ export const getPlacesByLatLng = async (type, lat, lng, params, source) => {
         params: {
           // latitude: lat,
           // longitude: lng,
-          latitude: '35.676401',
-          longitude: '139.650008',
+          latitude: '29.5647398',
+          longitude: '106.5478767',
           lang: 'zh_CN',
           ...params,
         },
