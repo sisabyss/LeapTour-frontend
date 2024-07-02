@@ -87,7 +87,7 @@
         </router-link>
 
         <!-- router to `MapView` -->
-        <router-link to="/">
+        <router-link to="/map_view">
           <li class="rounded-full bg-black text-white py-2 px-3 cursor-pointer">
             <p class="flex font-medium items-center">
               <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" class="w-6 h-6 mr-2">
