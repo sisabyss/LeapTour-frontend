@@ -3,8 +3,7 @@
     <div class="FindFlightsAll">
         <div class="FlightsMainCard">
             <n-card class="FindFlights" title="Find the best flight to Chongqing">
-                <n-tabs class="card-tabs" default-value="signin" size="small" animated
-                    pane-wrapper-style="margin: 0 -4px">
+                <n-tabs class="card-tabs" size="small" animated pane-wrapper-style="margin: 0 -4px">
                     <n-tab-pane name="Round Trip" tab="Round Trip">
                         <n-form size="small">
                             <n-form-item-row class="FlightsFormItemRow">
