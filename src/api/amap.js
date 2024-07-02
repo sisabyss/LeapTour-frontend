@@ -2,17 +2,15 @@ import axios from 'axios';
 
 export const getLatLngByIP = async () => {
   try {
-    const {
-      data: { data },
-    } = await axios.get('https://restapi.amap.com/v3/ip?', {
+    const response = await axios.get('https://restapi.amap.com/v3/ip', {
       params: {
-        key: '5a483e90f9ce265b1df601e9b8a4ea8c',
+        key: '0a2a27ba5e33705826293c630a22d445',
       },
     });
 
     // Data is returned once resolved
-    console.log(await data);
-    return data;
+    console.log(response.data);
+    return response.data;
   } catch (error) {
     // Error Handling
     if (axios.isCancel(error)) {

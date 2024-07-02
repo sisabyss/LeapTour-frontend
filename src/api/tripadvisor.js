@@ -69,3 +69,37 @@ export const getPlacesByLatLng = async (type, lat, lng, params, source) => {
     }
   }
 };
+
+export const getLatLngByIP = async () => {
+  try {
+    const response = await axios.get('https://restapi.amap.com/v3/ip', {
+      params: {
+        key: '0a2a27ba5e33705826293c630a22d445',
+      },
+    });
+
+    // Data is returned once resolved
+    if (response.data.status === '1') {
+      let location = response.data;
+      console.log('定位信息:', location);
+      const bounds = location.rectangle.split(';');
+      const [lng1, lat1] = bounds[0].split(',').map(Number);
+      const [lng2, lat2] = bounds[1].split(',').map(Number);
+
+      const centerLng = (lng1 + lng2) / 2;
+      const centerLat = (lat1 + lat2) / 2;
+
+      return { lng: centerLng, lat: centerLat };
+    } else {
+      let error = response.data.info;
+      console.error('定位失败:', error);
+    }
+  } catch (error) {
+    // Error Handling
+    if (axios.isCancel(error)) {
+      console.log('axios Call Cancelled!');
+    } else {
+      throw error;
+    }
+  }
+};
