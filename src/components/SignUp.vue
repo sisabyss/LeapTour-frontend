@@ -33,7 +33,7 @@
                 <div :class="{ 'requirement-met': isLongEnough, 'requirement-not-met': !isLongEnough }">
                     <span v-if="isLongEnough">&#10003;</span>
                     <span v-else>&#10005;</span>
-                    <span :style="{ color: isLongEnough ? 'green' : 'grey' }">至少十个字符</span>
+                    <span :style="{ color: isLongEnough ? 'green' : 'grey' }">至少为十个字符</span>
                 </div>
                 <div :class="{ 'requirement-met': hasSpecialChar, 'requirement-not-met': !hasSpecialChar }">
                     <span v-if="hasSpecialChar">&#10003;</span>
