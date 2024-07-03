@@ -1,26 +1,46 @@
+
 <script setup>
 import { ref } from 'vue';
 import axios from 'axios';
+import {useRouter} from 'vue-router';
 const user = {
     name: '',
-    password: ''
+    password: '',
+    email: ''
 }
-
+const router = useRouter();
 const user1 = ref(user);
 
 const login = async () => {
     try {
         const jsonstring = JSON.stringify(user1.value);
-        const response = await axios.post('http://192.168.1.145:8080/test/login', jsonstring, {
+        const response = await axios.post('http://192.168.1.145:8080/user/login', jsonstring, {
             headers: {
                 'Content-Type': 'application/json'
             }
         });
-        console.log('响应:', response.data);
+        const message = response.data;
+        console.log(message);
+        // 根据不同的消息，执行不同的操作
+        if (message === 'User Not Exist') {
+            alert('用户不存在');
+        } else if (message === 'Password Error') {
+            alert('密码错误');
+        } else if (message === 'Login Success') {
+            alert('登录成功');
+            // 跳转到首页
+            // window.location.href = '/home';
+            router.push('/');
+        } else {
+            // 如果有其他消息，可以在这里处理
+            alert('未知错误');
+        }
     } catch (error) {
         console.log('发送数据时出错', error);
+        alert('登录请求失败，请稍后再试');
     }
 };
+
 </script>
 
 
@@ -52,25 +72,19 @@ const login = async () => {
                 style="flex-direction: column; justify-content: center; align-items: flex-start; gap: 20px; display: flex">
                 <input type="text" class="Input" placeholder="Email:"
                     style="width: 399px; padding: 16px; border-radius: 10px; border: 1.50px #367AFF solid;"
-                    v-model="user1.name">
+                    v-model="user1.email">
 
                 <input type="password" class="Input" placeholder="Password:"
                     style="width: 399px; padding: 16px; border-radius: 10px; border: 1px #D9D9D9 solid;"
                     v-model="user1.password">
 
-                <!-- 保持登陆块 -->
-                <div class="Keep"
-                    style="justify-content: flex-start; align-items: center; gap: 10px; display: inline-flex">
-                    <div class="Square"
-                        style="width: 24px; height: 24px; padding: 3px; justify-content: center; align-items: center; display: flex">
-                        <div>
-                            <input type="checkbox" id="checkbox" v-model="isChecked">
-                        </div>
+                <!-- 忘记登陆块 -->
+                <a href="baidu.com" class="Keep">
+                    
+                    <div class="KeepMeLoggedIn">
+                        Forget your password?
                     </div>
-                    <div class="KeepMeLoggedIn"
-                        style="color: #232323; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 24px; word-wrap: break-word">
-                        Keep me logged in</div>
-                </div>
+                </a>
 
                 <!-- 提交按钮 -->
                 <button type="button" class="Button" @click="login"
@@ -126,4 +140,36 @@ const login = async () => {
     line-height: 27px;
     word-wrap: break-word;
 }
+.Keep {
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    display: inline-flex;
+}
+
+.KeepMeLoggedIn {
+    color: #232323;
+    font-size: 16px;
+    font-family: Inter;
+    font-weight: 500;
+    line-height: 24px;
+    word-wrap: break-word;
+    transition: all 0.3s ease; /* 动画效果，平滑过渡 */
+}
+
+.KeepMeLoggedIn:hover {
+    text-decoration: underline; /* 鼠标悬停时添加下划线 */
+}
+
+.signIn-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  /* 其他样式 */
+}
+
+
+
 </style>

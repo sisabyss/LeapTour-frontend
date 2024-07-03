@@ -22,6 +22,7 @@ const routes = [
   { path: '/hotels', component: HotelList },
   { path: '/restaurants', component: RestaurantList },
   { path: '/attractions', component: AttractionList },
+  { path: '/sign_in', component: Signi}
   { path: '/ai_itinerary', component: TripBuild },
   { path: '/aitrip', component: AITripPage },
   { path: '/ai_itinerary', component: AIView },
