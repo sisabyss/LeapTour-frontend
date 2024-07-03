@@ -15,7 +15,7 @@ import RestaurantList from './pages/RestaurantList.vue';
 import AttractionList from './pages/AttractionList.vue';
 import TripBuild from './pages/TripBuild.vue';
 import AITripPage from './pages/AITripPage.vue';
-
+import UserProfile from './pages/UserProfile.vue'
 
 const routes = [
   { path: '/', component: Home },
@@ -24,6 +24,7 @@ const routes = [
   { path: '/attractions', component: AttractionList },
   { path: '/ai_itinerary', component: TripBuild },
   { path: '/aitrip', component: AITripPage },
+  { path: '/ai_itinerary', component: AIView },
 ];
 
 const router = createRouter({
