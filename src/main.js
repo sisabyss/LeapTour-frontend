@@ -1,22 +1,25 @@
 import { createApp } from 'vue';
+import { createPinia } from 'pinia';
 import App from './App.vue';
 import './style.css';
 
+const app = createApp(App);
+const pinia = createPinia();
+
 import { createMemoryHistory, createRouter } from 'vue-router';
 
-import HomeView from './pages/Home.vue';
-import AIView from './pages/AITripPage.vue';
+import Home from './pages/Home.vue';
 import HotelList from './pages/HotelList.vue';
-import Restaurant from './pages/Restaurant.vue';
+import RestaurantList from './pages/RestaurantList.vue';
 import AttractionList from './pages/AttractionList.vue';
 import UserProfile from './pages/UserProfile.vue'
 
 const routes = [
-  { path: '/', component: HomeView },
+  { path: '/', component: Home },
+  { path: '/hotels', component: HotelList },
+  { path: '/restaurants', component: RestaurantList },
+  { path: '/attractions', component: AttractionList },
   { path: '/ai_itinerary', component: AIView },
-  { path: '/hotel', component: HotelList },
-  { path: '/restaurant', component: Restaurant },
-  { path: '/attraction', component: AttractionList },
   { path: '/userprofile', component: UserProfile },
 ];
 
@@ -25,5 +28,6 @@ const router = createRouter({
   routes,
 });
 
-const app = createApp(App);
-app.use(router).mount('#app');
+app.use(pinia);
+app.use(router);
+app.mount('#app');
