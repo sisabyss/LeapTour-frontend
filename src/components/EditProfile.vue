@@ -131,7 +131,7 @@
       class="ChangePicture"
       style="
         left: 135px;
-        top: 259px;
+        top: 256px;
         position: absolute;
         color: black;
         font-size: 12px;
@@ -202,20 +202,20 @@ const update = async () => {
         up1.value = null;
         const message = response.data;
         console.log(message);
-        // 根据不同的消息，执行不同的操作
-        // if (message === 'User Not Exist') {
-        //     alert('用户不存在');
-        // } else if (message === 'Password Error') {
-        //     alert('密码错误');
-        // } else if (message === 'Login Success') {
-        //     alert('登录成功');
-        //     // 跳转到首页
-        //     // window.location.href = '/home';
-        //     router.push('/');
-        // } else {
-        //     // 如果有其他消息，可以在这里处理
-        //     alert('未知错误');
-        // }
+         根据不同的消息，执行不同的操作
+         if (message === 'User Not Exist') {
+             alert('用户不存在');
+         } else if (message === 'Password Error') {
+             alert('密码错误');
+         } else if (message === 'Login Success') {
+             alert('登录成功');
+             // 跳转到首页
+             // window.location.href = '/home';
+            router.push('/');
+         } else {
+             // 如果有其他消息，可以在这里处理
+             alert('未知错误');
+         }
     } catch (error) {
         console.log('发送数据时出错', error);
         alert('登录成功失败，请稍后再试');
