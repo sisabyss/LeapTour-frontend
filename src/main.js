@@ -12,6 +12,7 @@ import Home from './pages/Home.vue';
 import HotelList from './pages/HotelList.vue';
 import RestaurantList from './pages/RestaurantList.vue';
 import AttractionList from './pages/AttractionList.vue';
+import Signi from './components/SignIn.vue';
 
 const routes = [
   { path: '/', component: Home },
@@ -19,6 +20,7 @@ const routes = [
   { path: '/restaurants', component: RestaurantList },
   { path: '/attractions', component: AttractionList },
   { path: '/ai_itinerary', component: Home },
+  { path: '/sign_in', component: Signi}
 ];
 
 const router = createRouter({

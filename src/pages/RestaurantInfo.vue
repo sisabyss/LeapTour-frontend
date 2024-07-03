@@ -36,53 +36,11 @@
             <span class="flex items-center mr-2">
                 <span
                     id="1719663376958" role="button" tabindex="-1" class="flex mr-2"
-                    style="border: none; outline: 0px;"><span class="star star-1" style="padding-right: 0px;">
-                        <svg
-                            width="20" viewBox="0 0 306 306" xmlns="http://www.w3.org/2000/svg"
-                            xmlns:xlink="http://www.w3.org/1999/xlink" data-stars="1">
-                            <defs>
-                                <linearGradient id="fullId-1719663376958">
-                                    <stop offset="100%" stop-color="#00afef"></stop>
-                                </linearGradient>
-                                <linearGradient id="noneId-1719663376958">
-                                    <stop offset="100%" stop-color="#e5e7eb"></stop>
-                                </linearGradient>
-                                <linearGradient id="halfId-1719663376958">
-                                    <stop offset="50%" stop-color="#00afef"></stop>
-                                    <stop offset="50%" stop-color="#e5e7eb"></stop>
-                                </linearGradient>
-                            </defs>
-                            <polygon fill="url(#fullId-1719663376958)"
-                                points="153,230.775 247.35,299.625 211.65,187.425 306,121.125 191.25,121.125 153,6.375 114.75,121.125 0,121.125  94.35,187.425 58.65,299.625"
-                                pointer-events="none"></polygon>
-                        </svg></span><span class="star star-2" style="padding-right: 0px;"><svg width="20"
-                            viewBox="0 0 306 306" xmlns="http://www.w3.org/2000/svg"
-                            xmlns:xlink="http://www.w3.org/1999/xlink" data-stars="2">
-                            <polygon fill="url(#fullId-1719663376958)"
-                                points="153,230.775 247.35,299.625 211.65,187.425 306,121.125 191.25,121.125 153,6.375 114.75,121.125 0,121.125  94.35,187.425 58.65,299.625"
-                                pointer-events="none"></polygon>
-                        </svg></span><span class="star star-3" style="padding-right: 0px;"><svg width="20"
-                            viewBox="0 0 306 306" xmlns="http://www.w3.org/2000/svg"
-                            xmlns:xlink="http://www.w3.org/1999/xlink" data-stars="3">
-                            <polygon fill="url(#fullId-1719663376958)"
-                                points="153,230.775 247.35,299.625 211.65,187.425 306,121.125 191.25,121.125 153,6.375 114.75,121.125 0,121.125  94.35,187.425 58.65,299.625"
-                                pointer-events="none"></polygon>
-                        </svg></span><span class="star star-4" style="padding-right: 0px;"><svg width="20"
-                            viewBox="0 0 306 306" xmlns="http://www.w3.org/2000/svg"
-                            xmlns:xlink="http://www.w3.org/1999/xlink" data-stars="4">
-                            <polygon fill="url(#fullId-1719663376958)"
-                                points="153,230.775 247.35,299.625 211.65,187.425 306,121.125 191.25,121.125 153,6.375 114.75,121.125 0,121.125  94.35,187.425 58.65,299.625"
-                                pointer-events="none"></polygon>
-                        </svg></span><span class="star star-5"><svg width="20" viewBox="0 0 306 306"
-                            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                            data-stars="5">
-                            <polygon fill="url(#halfId-1719663376958)"
-                                points="153,230.775 247.35,299.625 211.65,187.425 306,121.125 191.25,121.125 153,6.375 114.75,121.125 0,121.125  94.35,187.425 58.65,299.625"
-                                pointer-events="none"></polygon>
-                        
+                    style="border: none; outline: 0px;">
+                    <n-rate readonly :default-value="Number(3)" />  
 
                             <!-- 评论条数和排名 -->
-                        </svg></span></span>131 Reviews</span>~ #558 of 15,020 places to eat in Singapore ~ $$ - $$$</p>
+                        </span>131 Reviews</span>~ #558 of 15,020 places to eat in Singapore ~ $$ - $$$</p>
         <div class="text-sm flex flex-wrap items-center my-2 leading-relaxed">
             <p class="flex items-center mr-2"><svg class="h-5 w-5 mr-1" xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20" fill="currentColor">
@@ -359,4 +317,5 @@
 import NavBar from '../components/NavBar.vue';
 import FoodCommentCard from '../components/FoodCommentCard.vue';
 import { NCarousel } from 'naive-ui';
+import { NRate } from 'naive-ui';
 </script>

@@ -8,14 +8,15 @@
 //   store.init();
 // });
 
-// import { RouterView } from 'vue-router';
+    // import { RouterView } from 'vue-router';
 
-  import RestaurantInfo from '@/pages/RestaurantInfo.vue';
-// import Edit from '@/components/EditProfile.vue';
-// import SignIn from '@/components/SignIn.vue';
-// import Home from '@/pages/Home.vue';
+  // import RestaurantInfo from '@/pages/RestaurantInfo.vue';
+//  import Edit from '@/components/EditProfile.vue';
+  //  import SignIn from '@/components/SignIn.vue';
+    import CityPage from '@/pages/CityPage.vue';
 </script>
 
 <template>
-  <RestaurantInfo />
+  <CityPage/>
 </template>
+  

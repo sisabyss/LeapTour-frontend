@@ -4,7 +4,6 @@
   <ToVisit />
   <ToEat />
   <ToStay />
-
   <!-- Traveler Choice Section -->
   <div class="bg-[#004f32]">
     <div class="container mx-auto mmd:grid mmd:grid-cols-12 h-[400px] sm:h-[500px] mmd:h-[600px] overflow-hidden">
@@ -29,35 +28,17 @@
       <!-- Trending in Travel Toggles -->
       <div class="flex text-sm md:text-base space-x-4 md:space-x-8 whitespace-nowrap overflow-x-auto travel_toggle">
         <!-- Places to go toggle -->
-        <h3
-          :class="toggle.toGo ? 'border-black' : 'border-transparent'"
-          class="font-medium mb-3 border-b-2 pb-1 hover:border-black w-fit cursor-pointer"
-          @click="setToggle({ toGo: true, toDo: false, toStay: false })"
-        >
-          Places to Go
-        </h3>
+        <h3 class="border-black font-medium mb-3 border-b-2 pb-1 hover:border-black w-fit cursor-pointer">Places to Go</h3>
 
         <!-- Things to Do toggle -->
-        <h3
-          :class="toggle.toDo ? 'border-black' : 'border-transparent'"
-          class="font-medium mb-3 border-b-2 pb-1 hover:border-black w-fit cursor-pointer"
-          @click="setToggle({ toGo: false, toDo: true, toStay: false })"
-        >
-          Things to Do
-        </h3>
+        <h3 class="border-black font-medium mb-3 border-b-2 pb-1 hover:border-black w-fit cursor-pointer">Things to Do</h3>
 
         <!-- Places to Stay toggle -->
-        <h3
-          :class="toggle.toStay ? 'border-black' : 'border-transparent'"
-          class="font-medium mb-3 border-b-2 pb-1 hover:border-black w-fit cursor-pointer"
-          @click="setToggle({ toGo: false, toDo: false, toStay: true })"
-        >
-          Places to Stay
-        </h3>
+        <h3 class="border-black font-medium mb-3 border-b-2 pb-1 hover:border-black w-fit cursor-pointer">Places to Stay</h3>
       </div>
       <div>
         <!-- List of Places to Go - Display only if 'toGo'is true -->
-        <div v-if="toggle.toGo" class="grid grid-cols-12">
+        <div class="grid grid-cols-12">
           <!-- Mapping throughlist of items to render -->
           <a
             v-for="item in place_to_go"
@@ -70,7 +51,7 @@
         </div>
 
         <!-- List of Things to Do - Displays only if 'toDo' is true -->
-        <div v-if="toggle.toDo" class="grid grid-cols-12">
+        <div class="grid grid-cols-12">
           <!-- Mapping through List of Items to render -->
           <a
             v-for="item in things_to_do"
@@ -83,7 +64,7 @@
         </div>
 
         <!-- List of Places to Stay - Displays only if 'toStay' is true -->
-        <div v-if="toggle.toStay" class="grid grid-cols-12">
+        <div class="grid grid-cols-12">
           <!-- Mapping through list of Items to render -->
           <a
             v-for="item in place_to_stay"
@@ -108,69 +89,6 @@ import ToVisit from '../components/ToVisit.vue';
 import ToEat from '../components/ToEat.vue';
 import ToStay from '../components/ToStay.vue';
 import HomeFooter from '../components/HomeFooter.vue';
-
-const toggle = {
-  toGo: true, // Place to Go state, active by defaul
-  toDo: false, //Things to Do state
-  toStay: false, //Places to staty
-};
-
-function setToggle(v) {
-  this.toggle = v;
-}
-
-import { useMainContextStore } from '../store/MainContext';
-import { watch } from 'vue';
-import axios from 'axios';
-import { getPlacesByLatLng } from '../api/tripadvisor';
-
-const mainContext = useMainContextStore();
-
-watch(
-  () => mainContext.coordinates,
-  () => {
-    let source = axios.CancelToken.source();
-
-    // Loading state is set to true while data is being fetched from endpoint
-    mainContext.isLoading = true;
-    // if coordinates state value latitude 'lat' and longitude 'lng' is found, the try-catch block is fired
-    if (mainContext.coordinates.lat && mainContext.coordinates.lng) {
-      try {
-        // Calling on getPlacesByLatLng for 'restaurants' type, passing in parameter for 'limits' & 'min_rating'; and 'source' for error handling and effect cleanup
-        getPlacesByLatLng('restaurants', mainContext.coordinates.lat, mainContext.coordinates.lng, { limit: 20, min_rating: 3 }, source).then(
-          (data) => {
-            // Response 'data' received and set to restaurants state filtering out data without 'name' property, 'location_id' === 0
-            mainContext.restaurants = data?.filter((restaurant) => restaurant.name && restaurant.location_id != 0);
-            console.log('restaurants', data);
-          }
-        );
-
-        // Calling on getPlacesByLatLng for 'attractions' type, passing in parameter for 'limits' & 'min_rating'; and 'source' for error handling and effect cleanup
-        getPlacesByLatLng('attractions', mainContext.coordinates.lat, mainContext.coordinates.lng, { limit: 20, min_rating: 3 }, source).then(
-          (data) => {
-            // Response 'data' received and set to attractions state filtering out data without 'name' property, 'location_id' === 0
-            mainContext.attractions = data?.filter((attraction) => attraction.name && attraction.location_id != 0 && attraction.rating > 0);
-            console.log('attractions', data);
-          }
-        );
-
-        // Calling on getPlacesByLatLng for 'restaurants' type, passing in parameter for 'limits' & 'min_rating'; and 'source' for error handling and effect cleanup
-        getPlacesByLatLng('hotels', mainContext.coordinates.lat, mainContext.coordinates.lng, { limit: 20, min_rating: 3 }, source).then((data) => {
-          // Response 'data' received and set to hotels state filtering out data without 'name' property, 'location_id' === 0
-          mainContext.hotels = data?.filter((hotel) => hotel.name && hotel.location_id != 0 && hotel.rating > 0);
-          console.log('hotels:', data);
-        });
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    // Effect Cleanup
-    return () => {
-      source.cancel();
-    };
-  }
-);
 
 const place_to_go = [
   'Las Vegas Hotels',
