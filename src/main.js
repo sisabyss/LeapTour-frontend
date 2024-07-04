@@ -20,6 +20,7 @@ import AttractionList from './pages/AttractionList.vue';
 import MapView from './pages/MapView.vue';
 import TripBuild from './pages/TripBuild.vue';
 import UserProfile from './pages/UserProfile.vue';
+import { ref } from 'vue';
 
 const routes = [
   { path: '/', component: Home },
@@ -36,19 +37,21 @@ const router = createRouter({
   routes,
 });
 
+
+let open_sign = ref(false)
+app.provide('openSign', open_sign)
+
 router.beforeEach(async (to) => {
-  let flag = true
-  let response = await axios.post('http://192.168.1.145:8080/check/checkLogin')
-  if(response.data.msg == "是否登录:false")
-  {
-    if(to.path !== "/" && to.path !== "/sign_in")
-      {
-        console.log("请先登录")
-        alert("请先登录")
-        flag = false
+
+  if(to.path !== "/") {
+    let response = await axios.post('http://192.168.1.145:8080/check/checkLogin')
+    if(response.data.msg == "是否登录:false") {
+      //未登录，打开登录弹窗
+      open_sign.value = true
+      return false
       }
   }
-  return flag
+  return true
 })
 
 app.use(baiduMap, {

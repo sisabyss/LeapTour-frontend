@@ -10,7 +10,7 @@ const user = {
     password: '',
     email: ''
 }
-const emit = defineEmits(['closeModalSignIn']);
+const emit = defineEmits(['closeModalFromSignIn']);
 
 /* const router = useRouter(); */
 const user1 = ref(user);
