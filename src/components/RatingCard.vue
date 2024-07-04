@@ -2,6 +2,17 @@
 import { NCard } from 'naive-ui';
 import Carousel from './Carousel.vue';
 
+const props = defineProps({
+    PlaceName: {
+        type: String,
+        required: true,
+        default: '地名'
+    },
+    PlaceDescription: {
+        type: String,
+        default: '地点描述'
+    }
+});
 </script>
 
 <template>
@@ -9,8 +20,10 @@ import Carousel from './Carousel.vue';
         <n-card class="RatingCard">
             <Carousel />
             <div class="card-content">
-                <h5 class="title">Place Name</h5>
-                <div class="info">
+                <h5 class="title">{{ props.PlaceName }}</h5>
+                <div>{{ props.PlaceDescription }}</div>
+                <!-- Commented out the additional code that might not be needed -->
+                <!-- <div class="info">
                     <span class="label">Price</span>
                     <span class="value">Price Level</span>
                 </div>
@@ -51,7 +64,7 @@ import Carousel from './Carousel.vue';
                 <div class="actions">
                     <button class="btn">TripAdvisor</button>
                     <button class="btn">Website</button>
-                </div>
+                </div> -->
             </div>
         </n-card>
     </div>

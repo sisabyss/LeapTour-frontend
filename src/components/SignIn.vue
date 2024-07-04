@@ -2,38 +2,44 @@
 <script setup>
 import { ref } from 'vue';
 import axios from 'axios';
-import {useRouter} from 'vue-router';
+/* import { useRouter } from 'vue-router'; */
+import Modal from './Modal.vue';
+import SignUp from './SignUp.vue';
 const user = {
     name: '',
     password: '',
     email: ''
 }
-const router = useRouter();
+const emit = defineEmits(['closeModalSignIn']);
+
+/* const router = useRouter(); */
 const user1 = ref(user);
 
 const login = async () => {
     try {
-        const jsonstring = JSON.stringify(user1.value);
-        const response = await axios.post('http://192.168.1.145:8080/user/login', jsonstring, {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
+        // const jsonstring = JSON.stringify(user1.value);
+        const response = await axios.get(
+            `http://192.168.1.145:8080/user/login`,
+            {   
+                params: {
+                    name: user.name,
+                    email: user.email,
+                    password: user.password,
+                },
+            },
+            {}
+        );
         const message = response.data;
         console.log(message);
-        // 根据不同的消息，执行不同的操作
-        if (message === 'User Not Exist') {
-            alert('用户不存在');
-        } else if (message === 'Password Error') {
-            alert('密码错误');
-        } else if (message === 'Login Success') {
-            alert('登录成功');
-            // 跳转到首页
-            // window.location.href = '/home';
-            router.push('/');
-        } else {
-            // 如果有其他消息，可以在这里处理
-            alert('未知错误');
+        if(message.code==200)
+        {
+            console.log('登陆成功');
+            alert(message.msg);
+            emit('closeModalSignIn');
+        }
+        else if(message.code==500)
+        {
+            alert(message.msg);
         }
     } catch (error) {
         console.log('发送数据时出错', error);
@@ -45,6 +51,11 @@ const login = async () => {
 
 
 <template>
+    <modal ref="modal">
+        <div class>
+            <SignUp @closeModalSignUp="$refs.modal.openModal()" />
+        </div>
+    </modal>
     <div class="LeftColumn"
         style="width: 593px; height: 829px; padding: 32px; flex-direction: column; justify-content: flex-start; align-items: flex-start; display: inline-flex">
         <div class="Top"
@@ -80,7 +91,6 @@ const login = async () => {
 
                 <!-- 忘记登陆块 -->
                 <a href="baidu.com" class="Keep">
-                    
                     <div class="KeepMeLoggedIn">
                         Forget your password?
                     </div>
@@ -116,13 +126,13 @@ const login = async () => {
                     style="color: #6C6C6C; font-size: 18px; font-family: Inter; font-weight: 400; line-height: 27px; word-wrap: break-word;">
                     Need an account?
                 </span>
-                <a href="baidu.com"
-                    style="color: black; font-size: 18px; font-family: Inter; font-weight: 600; text-decoration: underline; line-height: 27px; word-wrap: break-word;">
-                    Create one
-                </a>
+                <span style="color: black; font-size: 18px; font-family: Inter; font-weight: 600; text-decoration:
+                    underline; line-height: 27px; word-wrap: break-word;" @click="$refs.modal.openModal()">
+                        Create one
+            </span>
             </div>
         </div>
-        </div>
+    </div>
 
 
 </template>
@@ -140,6 +150,7 @@ const login = async () => {
     line-height: 27px;
     word-wrap: break-word;
 }
+
 .Keep {
     justify-content: flex-start;
     align-items: center;
@@ -154,22 +165,22 @@ const login = async () => {
     font-weight: 500;
     line-height: 24px;
     word-wrap: break-word;
-    transition: all 0.3s ease; /* 动画效果，平滑过渡 */
+    transition: all 0.3s ease;
+    /* 动画效果，平滑过渡 */
 }
 
 .KeepMeLoggedIn:hover {
-    text-decoration: underline; /* 鼠标悬停时添加下划线 */
+    text-decoration: underline;
+    /* 鼠标悬停时添加下划线 */
 }
 
 .signIn-modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1000;
-  /* 其他样式 */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    /* 其他样式 */
 }
-
-
 
 </style>
