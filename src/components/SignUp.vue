@@ -25,6 +25,7 @@
                 style="width: 399px; padding: 16px; border-radius: 10px; border: 1.50px #367AFF solid;"
                 v-model="user1.name">
 
+
             <input type="text" class="Input" placeholder="邮箱:"
                 style="width: 399px; padding: 16px; border-radius: 10px; border: 1.50px #367AFF solid;"
                 v-model="user1.email">

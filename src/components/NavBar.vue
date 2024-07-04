@@ -68,6 +68,24 @@
           </li>
         </router-link>
 
+        <router-link to="/sign_in">
+          <li class="rounded-full hover:bg-gray-200 py-2 px-3 cursor-pointer">
+            <p class="flex font-medium items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" class="w-6 h-6 mr-2">
+                <path
+                  d="M30 30h-2a4.932 4.932 0 0 1-4-1.987a5.02 5.02 0 0 1-8 0a5.02 5.02 0 0 1-8 0A4.932 4.932 0 0 1 4 30H2v-2h2a3.44 3.44 0 0 0 3.053-2.321A.971.971 0 0 1 8 25a1.007 1.007 0 0 1 .949.684A3.438 3.438 0 0 0 12 28a3.44 3.44 0 0 0 3.053-2.321A.99.99 0 0 1 16 25a1.007 1.007 0 0 1 .949.684A3.438 3.438 0 0 0 20 28a3.44 3.44 0 0 0 3.053-2.321a1 1 0 0 1 1.896.005A3.438 3.438 0 0 0 28 28h2z"
+                  fill="currentColor"
+                ></path>
+                <path
+                  d="M28 6v4h-2.5l-2.1-2.8A3.013 3.013 0 0 0 21 6h-6a3.003 3.003 0 0 0-3 3v1H8.618l-.724-1.447l-1-2A1 1 0 0 0 6 6H3a1 1 0 0 0-1 1v6a3.003 3.003 0 0 0 3 3h6.82l-.667 4H7a1 1 0 0 0 0 2h20a1 1 0 0 0 0-2h-4.153l-.667-4h.163a4.966 4.966 0 0 0 3.535-1.465L28 12.415V16h2V6zM14 9a1 1 0 0 1 1-1h6a1.004 1.004 0 0 1 .8.4L23 10h-9zm6.82 11h-7.64l.667-4h6.306zm1.524-6H5a1 1 0 0 1-1-1V8h1.382l.724 1.447L7.381 12h18.204l-1.122 1.121a2.979 2.979 0 0 1-2.12.879z"
+                  fill="currentColor"
+                ></path>
+              </svg>
+              Sign In
+            </p>
+          </li>
+        </router-link>
+
         <!-- router to `AI Itinerary` -->
         <router-link to="/ai_itinerary">
           <li class="rounded-full hover:bg-gray-200 py-2 px-3 cursor-pointer">
@@ -134,7 +152,7 @@
         </li>
 
         <!-- router to `MapView` -->
-        <router-link to="/">
+        <router-link to="/map_view">
           <li class="rounded-full bg-black text-white py-2 px-3 cursor-pointer">
             <p class="flex font-medium items-center">
               <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32"
@@ -148,6 +166,16 @@
               </svg>
               Map View
             </p>
+          </li>
+        </router-link>
+
+        <router-link to="/user_profile">
+          <li class="rounded-full cursor-pointer">
+            <div class="flex font-medium items-center">
+              <span class="kjIqZ I ui_social_avatar large xtra-large-tablet">
+                <img src="https://media-cdn.tripadvisor.com/media/photo-l/1a/f6/f2/7a/default-avatar-2020-25.jpg" alt="avatar-image" />
+              </span>
+            </div>
           </li>
         </router-link>
       </ul>
@@ -203,4 +231,24 @@ export default {
   },
 };
 </script>
-<style scoped></style>
+
+<style scoped>
+.kjIqZ {
+  margin-left: 10px;
+  /* Increase spacing between avatar and text */
+}
+
+.large {
+  width: 40px;
+  /* Adjust size for better alignment */
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.large img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+</style>

@@ -30,59 +30,16 @@
     <!-- 餐馆简介 -->
     <div class="container mx-auto px-4 pt-4">
         <!-- 餐馆标题 -->
-        <h1 class="font-bold text-lg md:text-[35px] my-2 md:my-4">Elemen</h1>
+        <h1 class="font-bold text-lg md:text-[35px] my-2 md:my-4">{{Rest?.name}}</h1>
         <p class="my-2 text-sm flex flex-wrap leading-relaxed">
             <!-- 评分星星 -->
             <span class="flex items-center mr-2">
                 <span
                     id="1719663376958" role="button" tabindex="-1" class="flex mr-2"
-                    style="border: none; outline: 0px;"><span class="star star-1" style="padding-right: 0px;">
-                        <svg
-                            width="20" viewBox="0 0 306 306" xmlns="http://www.w3.org/2000/svg"
-                            xmlns:xlink="http://www.w3.org/1999/xlink" data-stars="1">
-                            <defs>
-                                <linearGradient id="fullId-1719663376958">
-                                    <stop offset="100%" stop-color="#00afef"></stop>
-                                </linearGradient>
-                                <linearGradient id="noneId-1719663376958">
-                                    <stop offset="100%" stop-color="#e5e7eb"></stop>
-                                </linearGradient>
-                                <linearGradient id="halfId-1719663376958">
-                                    <stop offset="50%" stop-color="#00afef"></stop>
-                                    <stop offset="50%" stop-color="#e5e7eb"></stop>
-                                </linearGradient>
-                            </defs>
-                            <polygon fill="url(#fullId-1719663376958)"
-                                points="153,230.775 247.35,299.625 211.65,187.425 306,121.125 191.25,121.125 153,6.375 114.75,121.125 0,121.125  94.35,187.425 58.65,299.625"
-                                pointer-events="none"></polygon>
-                        </svg></span><span class="star star-2" style="padding-right: 0px;"><svg width="20"
-                            viewBox="0 0 306 306" xmlns="http://www.w3.org/2000/svg"
-                            xmlns:xlink="http://www.w3.org/1999/xlink" data-stars="2">
-                            <polygon fill="url(#fullId-1719663376958)"
-                                points="153,230.775 247.35,299.625 211.65,187.425 306,121.125 191.25,121.125 153,6.375 114.75,121.125 0,121.125  94.35,187.425 58.65,299.625"
-                                pointer-events="none"></polygon>
-                        </svg></span><span class="star star-3" style="padding-right: 0px;"><svg width="20"
-                            viewBox="0 0 306 306" xmlns="http://www.w3.org/2000/svg"
-                            xmlns:xlink="http://www.w3.org/1999/xlink" data-stars="3">
-                            <polygon fill="url(#fullId-1719663376958)"
-                                points="153,230.775 247.35,299.625 211.65,187.425 306,121.125 191.25,121.125 153,6.375 114.75,121.125 0,121.125  94.35,187.425 58.65,299.625"
-                                pointer-events="none"></polygon>
-                        </svg></span><span class="star star-4" style="padding-right: 0px;"><svg width="20"
-                            viewBox="0 0 306 306" xmlns="http://www.w3.org/2000/svg"
-                            xmlns:xlink="http://www.w3.org/1999/xlink" data-stars="4">
-                            <polygon fill="url(#fullId-1719663376958)"
-                                points="153,230.775 247.35,299.625 211.65,187.425 306,121.125 191.25,121.125 153,6.375 114.75,121.125 0,121.125  94.35,187.425 58.65,299.625"
-                                pointer-events="none"></polygon>
-                        </svg></span><span class="star star-5"><svg width="20" viewBox="0 0 306 306"
-                            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                            data-stars="5">
-                            <polygon fill="url(#halfId-1719663376958)"
-                                points="153,230.775 247.35,299.625 211.65,187.425 306,121.125 191.25,121.125 153,6.375 114.75,121.125 0,121.125  94.35,187.425 58.65,299.625"
-                                pointer-events="none"></polygon>
-                        
-
+                    style="border: none; outline: 0px;">
+                    <n-rate readonly :default-value="Number(Rest?.rating)" />  
                             <!-- 评论条数和排名 -->
-                        </svg></span></span>131 Reviews</span>~ #558 of 15,020 places to eat in Singapore ~ $$ - $$$</p>
+                        </span>{{Rest?.review_num}} Reviews</span>~ #{{Rest?.rank}} ~ $$ - $$$</p>
         <div class="text-sm flex flex-wrap items-center my-2 leading-relaxed">
             <p class="flex items-center mr-2"><svg class="h-5 w-5 mr-1" xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20" fill="currentColor">
@@ -91,16 +48,14 @@
                         clip-rule="evenodd"></path>
                 </svg>
                 <!-- 地点 -->
-                <span class="underline decoration-dotted decoration-gray-400">301 Upper Thomson Road Thomson Plaza
-                    #01-113 Thomson Plaza, Singapore 574408 Singapore</span></p>
+                <span class="underline decoration-dotted decoration-gray-400">{{Rest?.location}}</span></p>
             <p class="hidden md:flex items-center mr-2"><svg class="h-5 w-5 mr-1" xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20" fill="currentColor">
                     <path
                         d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z">
                     </path>
                     <!-- 餐厅电话 -->
-                </svg><a href="tel:+65 6452 0351" class="underline decoration-dotted decoration-gray-400">+65 6452
-                    0351</a></p>
+                </svg><a href="tel:{{Rest?.phone}}" class="underline decoration-dotted decoration-gray-400">{{Rest?.phone}}</a></p>
             <p class="hidden md:flex items-center mr-2"><svg class="h-5 w-5 mr-1" xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd"
@@ -108,7 +63,7 @@
                         clip-rule="evenodd"></path>
                 </svg>
                 <!-- 餐厅网址 -->
-                <a href="http://www.elemen.com.sg" target="_blank"
+                <a href="{{Rest?.website}}" target="_blank"
                     class="underline decoration-dotted decoration-gray-400">Website<svg class="h-3 w-3 ml-1 inline"
                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                         <path
@@ -128,19 +83,19 @@
             <n-carousel autoplay>
                 <img
                 class="carousel-img"
-                src="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel1.jpeg"
+                src="{{ Rest?.img1 }}"
                 >
                 <img
                 class="carousel-img"
-                src="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel2.jpeg"
+                src="{{ Rest?.img2 }}""
                 >
                 <img
                 class="carousel-img"
-                src="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel3.jpeg"
+                src="{{ Rest?.img3 }}""
                 >
                 <img
                 class="carousel-img"
-                src="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel4.jpeg"
+                src="{{ Rest?.img4 }}"
                 >
             </n-carousel>
         </div>
@@ -155,14 +110,14 @@
                     <path
                         d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z">
                     </path>
-                </svg><a href="tel:+65 6452 0351" class="underline decoration-dotted decoration-gray-400">Call</a></p>
+                </svg><a href="{{ Rest?.phone }}" class="underline decoration-dotted decoration-gray-400">Call</a></p>
             <p class="flex flex-col items-center justify-center w-full"><svg class="h-7 w-7 mx-1"
                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd"
                         d="M4.083 9h1.946c.089-1.546.383-2.97.837-4.118A6.004 6.004 0 004.083 9zM10 2a8 8 0 100 16 8 8 0 000-16zm0 2c-.076 0-.232.032-.465.262-.238.234-.497.623-.737 1.182-.389.907-.673 2.142-.766 3.556h3.936c-.093-1.414-.377-2.649-.766-3.556-.24-.56-.5-.948-.737-1.182C10.232 4.032 10.076 4 10 4zm3.971 5c-.089-1.546-.383-2.97-.837-4.118A6.004 6.004 0 0115.917 9h-1.946zm-2.003 2H8.032c.093 1.414.377 2.649.766 3.556.24.56.5.948.737 1.182.233.23.389.262.465.262.076 0 .232-.032.465-.262.238-.234.498-.623.737-1.182.389-.907.673-2.142.766-3.556zm1.166 4.118c.454-1.147.748-2.572.837-4.118h1.946a6.004 6.004 0 01-2.783 4.118zm-6.268 0C6.412 13.97 6.118 12.546 6.03 11H4.083a6.004 6.004 0 002.783 4.118z"
                         clip-rule="evenodd"></path>
                 </svg>
-                <a href="http://www.elemen.com.sg" target="_blank"
+                <a href="{{ Rest?.website}}" target="_blank"
                     class="underline decoration-dotted decoration-gray-400">Website<svg class="h-3 w-3 ml-1 inline"
                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                         <path
@@ -180,52 +135,12 @@
             <div class="col-span-2 bg-white border border-gray-200 p-4 my-1 mx-0 shadow-sm space-y-3 md:space-y-4 rounded">
                 <h2 class="font-medium text-lg">Ratings &amp; Recognitions</h2>
                 <p class="my-2 flex flex-wrap items-center"><span
-                        class="font-semibold text-lg md:text-3xl">4.5</span><span id="1719663376958" role="button"
-                        tabindex="-1" class="flex mx-2" style="border: none; outline: 0px;"><span class="star star-1"
-                            style="padding-right: 0px;"><svg width="20" viewBox="0 0 306 306"
-                                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                data-stars="1">
-                                <defs>
-                                    <linearGradient id="fullId-1719663376958">
-                                        <stop offset="100%" stop-color="#00afef"></stop>
-                                    </linearGradient>
-                                    <linearGradient id="noneId-1719663376958">
-                                        <stop offset="100%" stop-color="#e5e7eb"></stop>
-                                    </linearGradient>
-                                    <linearGradient id="halfId-1719663376958">
-                                        <stop offset="50%" stop-color="#00afef"></stop>
-                                        <stop offset="50%" stop-color="#e5e7eb"></stop>
-                                    </linearGradient>
-                                </defs>
-                                <polygon fill="url(#fullId-1719663376958)"
-                                    points="153,230.775 247.35,299.625 211.65,187.425 306,121.125 191.25,121.125 153,6.375 114.75,121.125 0,121.125  94.35,187.425 58.65,299.625"
-                                    pointer-events="none"></polygon>
-                            </svg></span><span class="star star-2" style="padding-right: 0px;"><svg width="20"
-                                viewBox="0 0 306 306" xmlns="http://www.w3.org/2000/svg"
-                                xmlns:xlink="http://www.w3.org/1999/xlink" data-stars="2">
-                                <polygon fill="url(#fullId-1719663376958)"
-                                    points="153,230.775 247.35,299.625 211.65,187.425 306,121.125 191.25,121.125 153,6.375 114.75,121.125 0,121.125  94.35,187.425 58.65,299.625"
-                                    pointer-events="none"></polygon>
-                            </svg></span><span class="star star-3" style="padding-right: 0px;"><svg width="20"
-                                viewBox="0 0 306 306" xmlns="http://www.w3.org/2000/svg"
-                                xmlns:xlink="http://www.w3.org/1999/xlink" data-stars="3">
-                                <polygon fill="url(#fullId-1719663376958)"
-                                    points="153,230.775 247.35,299.625 211.65,187.425 306,121.125 191.25,121.125 153,6.375 114.75,121.125 0,121.125  94.35,187.425 58.65,299.625"
-                                    pointer-events="none"></polygon>
-                            </svg></span><span class="star star-4" style="padding-right: 0px;"><svg width="20"
-                                viewBox="0 0 306 306" xmlns="http://www.w3.org/2000/svg"
-                                xmlns:xlink="http://www.w3.org/1999/xlink" data-stars="4">
-                                <polygon fill="url(#fullId-1719663376958)"
-                                    points="153,230.775 247.35,299.625 211.65,187.425 306,121.125 191.25,121.125 153,6.375 114.75,121.125 0,121.125  94.35,187.425 58.65,299.625"
-                                    pointer-events="none"></polygon>
-                            </svg></span><span class="star star-5"><svg width="20" viewBox="0 0 306 306"
-                                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                data-stars="5">
-                                <polygon fill="url(#halfId-1719663376958)"
-                                    points="153,230.775 247.35,299.625 211.65,187.425 306,121.125 191.25,121.125 153,6.375 114.75,121.125 0,121.125  94.35,187.425 58.65,299.625"
-                                    pointer-events="none"></polygon>
-                            </svg></span></span><span class="text-sm font-medium">131 Reviews </span></p>
-                <p class="my-2 text-sm">#558 of 15,020 places to eat in Singapore</p>
+                        class="font-semibold text-lg md:text-3xl">{{ Rest?.rating }}</span>
+                        <span id="1719663376958" role="button"
+                        tabindex="-1" class="flex mx-2" style="border: none; outline: 0px;">
+                        <n-rate readonly :default-value="Number(Rest?.rating)" /></span>
+                            <span class="text-sm font-medium">{{Rest?.review_num}} Reviews </span></p>
+                <p class="my-2 text-sm">#{{ Rest?.rank }}</p>
             </div>
 
             <!-- 第二个简介小卡,包括一些tag -->
@@ -233,17 +148,12 @@
                 <h2 class="font-medium text-lg">Details</h2>
                 <div class="text-xs space-y-2">
                     <h3 class="font-medium uppercase">Cuisine</h3>
-                    <p><span class="bg-gray-200 rounded-full py-1 px-2 mb-2 mr-2 inline-block">Vegetarian
-                            Friendly</span><span class="bg-gray-200 rounded-full py-1 px-2 mb-2 mr-2 inline-block">Vegan
-                            Options</span><span class="bg-gray-200 rounded-full py-1 px-2 mb-2 mr-2 inline-block">Gluten
-                            Free Options</span></p>
+                    <p><span class="bg-gray-200 rounded-full py-1 px-2 mb-2 mr-2 inline-block">{{ Rest?.Ctag1 }}</span><span class="bg-gray-200 rounded-full py-1 px-2 mb-2 mr-2 inline-block">{{ Rest?.Ctag2 }}</span><span class="bg-gray-200 rounded-full py-1 px-2 mb-2 mr-2 inline-block">{{ Rest?.Ctag3 }}</span></p>
                 </div>
                 <div class="text-xs space-y-2">
                     <h3 class="font-medium uppercase">Special Diet</h3>
-                    <p><span class="bg-gray-200 rounded-full py-1 px-2 mb-2 mr-2 inline-block">Vegetarian
-                            Friendly</span><span class="bg-gray-200 rounded-full py-1 px-2 mb-2 mr-2 inline-block">Vegan
-                            Options</span><span class="bg-gray-200 rounded-full py-1 px-2 mb-2 mr-2 inline-block">Gluten
-                            Free Options</span></p>
+                    <p><span class="bg-gray-200 rounded-full py-1 px-2 mb-2 mr-2 inline-block">{{ Rest?.Dtag1 }}</span><span class="bg-gray-200 rounded-full py-1 px-2 mb-2 mr-2 inline-block">{{ Rest?.Dtag2 }}</span><span class="bg-gray-200 rounded-full py-1 px-2 mb-2 mr-2 inline-block">Gluten
+                            {{ Rest?.Dtag3 }}</span></p>
                 </div>
             </div>
 
@@ -256,8 +166,7 @@
                             <path fill-rule="evenodd"
                                 d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
                                 clip-rule="evenodd"></path>
-                        </svg></div><span class="underline decoration-dotted decoration-gray-400">301 Upper Thomson Road
-                        Thomson Plaza #01-113 Thomson Plaza, Singapore 574408 Singapore</span>
+                        </svg></div><span class="underline decoration-dotted decoration-gray-400">{{Rest?.location}}</span>
                 </div>
                 <div class="flex items-center mr-2 text-sm">
                     <div class="w-1/12"><svg class="h-5 w-5 mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
@@ -265,8 +174,8 @@
                             <path
                                 d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z">
                             </path>
-                        </svg></div><a href="tel:+65 6452 0351"
-                        class="underline decoration-dotted decoration-gray-400">+65 6452 0351</a>
+                        </svg></div><a href="tel:{{Rest?.phone}}"
+                        class="underline decoration-dotted decoration-gray-400">{{Rest?.phone}}</a>
                 </div>
                 <div class="flex items-center mr-2 text-sm">
                     <div class="w-1/12"><svg class="h-5 w-5 mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
@@ -274,7 +183,7 @@
                             <path fill-rule="evenodd"
                                 d="M4.083 9h1.946c.089-1.546.383-2.97.837-4.118A6.004 6.004 0 004.083 9zM10 2a8 8 0 100 16 8 8 0 000-16zm0 2c-.076 0-.232.032-.465.262-.238.234-.497.623-.737 1.182-.389.907-.673 2.142-.766 3.556h3.936c-.093-1.414-.377-2.649-.766-3.556-.24-.56-.5-.948-.737-1.182C10.232 4.032 10.076 4 10 4zm3.971 5c-.089-1.546-.383-2.97-.837-4.118A6.004 6.004 0 0115.917 9h-1.946zm-2.003 2H8.032c.093 1.414.377 2.649.766 3.556.24.56.5.948.737 1.182.233.23.389.262.465.262.076 0 .232-.032.465-.262.238-.234.498-.623.737-1.182.389-.907.673-2.142.766-3.556zm1.166 4.118c.454-1.147.748-2.572.837-4.118h1.946a6.004 6.004 0 01-2.783 4.118zm-6.268 0C6.412 13.97 6.118 12.546 6.03 11H4.083a6.004 6.004 0 002.783 4.118z"
                                 clip-rule="evenodd"></path>
-                        </svg></div><a href="http://www.elemen.com.sg" target="_blank"
+                        </svg></div><a href="{{Rest?.website}}" target="_blank"
                         class="underline decoration-dotted decoration-gray-400">Website<svg class="h-3 w-3 ml-1 inline"
                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                             <path
@@ -307,48 +216,7 @@
 
                 <FoodCommentCard/>
 
-                <div class="h-[1px] col-span-12 bg-gray-200 my-10"></div>
-
-                <FoodCommentCard/>
-
-                <div class="h-[1px] col-span-12 bg-gray-200 my-10"></div>
-
-                <FoodCommentCard/>
-
-                <div class="h-[1px] col-span-12 bg-gray-200 my-10"></div>
-
-                <FoodCommentCard/>
-
-                <div class="h-[1px] col-span-12 bg-gray-200 my-10"></div>
-
-                <FoodCommentCard/>
-
-                <div class="h-[1px] col-span-12 bg-gray-200 my-10"></div>
-
-                <FoodCommentCard/>
-
-                <div class="h-[1px] col-span-12 bg-gray-200 my-10">
-
-                </div>
-                <FoodCommentCard/>
-
-                <div class="h-[1px] col-span-12 bg-gray-200 my-10"></div>
-
-                <FoodCommentCard/>
-
-                <div class="h-[1px] col-span-12 bg-gray-200 my-10"></div>
-
-                <FoodCommentCard/>
-
-                <div class="h-[1px] col-span-12 bg-gray-200 my-10"></div>
-
-                <FoodCommentCard/>
-
-                <div class="h-[1px] col-span-12 bg-gray-200 my-10"></div>
-
-                <FoodCommentCard/>
                 
-                <div class="h-[1px] col-span-12 bg-gray-200 my-10"></div>
             </div>
         </div>
     </div>
@@ -359,4 +227,6 @@
 import NavBar from '../components/NavBar.vue';
 import FoodCommentCard from '../components/FoodCommentCard.vue';
 import { NCarousel } from 'naive-ui';
+import { NRate } from 'naive-ui';
+import { Restart } from '@vicons/carbon';
 </script>
