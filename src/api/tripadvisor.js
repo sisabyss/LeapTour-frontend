@@ -36,6 +36,7 @@ export const getPlacesByBounds = async (type, sw, ne, source) => {
 
 // Get Places by Latitude and longitude, receives 'type', 'lat', 'lng', some 'params' and source for effect cleanup and error handling as parameter to endpoint call
 export const getPlacesByLatLng = async (type, lat, lng, params, source) => {
+  console.log(lat, lng, type);
   try {
     const {
       data: { data },
@@ -43,10 +44,10 @@ export const getPlacesByLatLng = async (type, lat, lng, params, source) => {
       `https://travel-advisor.p.rapidapi.com/${type}/list-by-latlng`,
       {
         params: {
-          // latitude: lat,
-          // longitude: lng,
-          latitude: '29.5647398',
-          longitude: '106.5478767',
+          latitude: lat,
+          longitude: lng,
+          // latitude: '29.5647398',
+          // longitude: '106.5478767',
           lang: 'zh_CN',
           ...params,
         },

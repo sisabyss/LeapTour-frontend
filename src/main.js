@@ -1,10 +1,8 @@
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import App from './App.vue';
-
 import baiduMap from 'vue3-baidu-map-gl';
 
-import { createPinia } from 'pinia';
 const pinia = createPinia();
 
 import './style.css';
@@ -38,19 +36,9 @@ const router = createRouter({
   routes,
 });
 
-import { createMemoryHistory, createRouter } from 'vue-router';
-
-import baiduMap from 'vue3-baidu-map-gl';
 app.use(baiduMap, {
   ak: '40rN64E5W1CA7HiAYXSrxWFF2MHNa5eg',
 });
-
-import Home from './pages/Home.vue';
-import HotelList from './pages/HotelList.vue';
-import RestaurantList from './pages/RestaurantList.vue';
-import AttractionList from './pages/AttractionList.vue';
-import MapView from './pages/MapView.vue';
-
 
 app.use(router);
 app.mount('#app');
