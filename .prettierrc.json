@@ -1,17 +1,8 @@
 {
-	"printWidth": 150,
-	"tabWidth": 2,
-	"useTabs": false,
-	"singleQuote": true,
-	"quoteProps": "as-needed",
-	"jsxSingleQuote": false,
-	"trailingComma": "es5",
-	"bracketSpacing": true,
-	"arrowParens": "always",
-	"requirePragma": false,
-	"insertPragma": false,
-	"proseWrap": "preserve",
-	"htmlWhitespaceSensitivity": "css",
-	"vueIndentScriptAndStyle": false,
-	"endOfLine": "auto"
+  "$schema": "https://json.schemastore.org/prettierrc",
+  "semi": false,
+  "tabWidth": 2,
+  "singleQuote": true,
+  "printWidth": 100,
+  "trailingComma": "none"
 }
