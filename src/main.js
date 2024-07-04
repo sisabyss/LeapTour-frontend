@@ -47,6 +47,7 @@ router.beforeEach(async (to) => {
     let response = await axios.post('http://192.168.1.145:8080/check/checkLogin')
     if(response.data.msg == "是否登录:false") {
       //未登录，打开登录弹窗
+      console.log("未登录")
       open_sign.value = true
       return false
       }

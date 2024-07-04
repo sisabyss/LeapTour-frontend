@@ -2,15 +2,17 @@
 <script setup>
 import { ref } from 'vue';
 import axios from 'axios';
-/* import { useRouter } from 'vue-router'; */
-import Modal from './Modal.vue';
-import SignUp from './SignUp.vue';
+
 const user = {
     name: '',
     password: '',
     email: ''
 }
-const emit = defineEmits(['closeModalFromSignIn']);
+const emit = defineEmits(['closeModalFromSignIn','openSignUp']);
+
+function signUp() {
+    emit("openSignUp")
+}
 
 /* const router = useRouter(); */
 const user1 = ref(user);
@@ -35,7 +37,7 @@ const login = async () => {
         {
             console.log('登陆成功');
             alert(message.msg);
-            emit('closeModalSignIn');
+            emit('closeModalFromSignIn');
         }
         else if(message.code==500)
         {
@@ -51,11 +53,11 @@ const login = async () => {
 
 
 <template>
-    <modal ref="modal">
+    <!-- <modal ref="modal">
         <div class>
             <SignUp @closeModalSignUp="$refs.modal.openModal()" />
         </div>
-    </modal>
+    </modal> -->
     <div class="LeftColumn"
         style="width: 593px; height: 829px; padding: 32px; flex-direction: column; justify-content: flex-start; align-items: flex-start; display: inline-flex">
         <div class="Top"
@@ -127,7 +129,7 @@ const login = async () => {
                     Need an account?
                 </span>
                 <span style="color: black; font-size: 18px; font-family: Inter; font-weight: 600; text-decoration:
-                    underline; line-height: 27px; word-wrap: break-word;" @click="$refs.modal.openModal()">
+                    underline; line-height: 27px; word-wrap: break-word;" @click="signUp">
                         Create one
             </span>
             </div>

@@ -1,7 +1,10 @@
 <template>
   <modal :open="open_sign_in" @closeSignFromModal="closeSign">
-    <div class="NavBarSignIn" >
-      <SignIn @closeModalFromSignIn="closeSign" />
+    <div class="NavBarSignIn" v-if="sign_in_or_up">
+      <SignIn @closeModalFromSignIn="closeSign" @openSignUp="toSignUp"/>
+    </div>
+    <div v-else>
+      <SignUp @closeModalFromSignUp="closeSign" @openSignIn="toSignIn"></SignUp>
     </div>
   </modal>
   <!-- NavBar adds scrolled class to nav element when window's scroll down is greater than 20 -->
@@ -115,7 +118,7 @@
           </li>
         </router-link>
 
-        <li class="rounded-full hover:bg-gray-200 py-2 px-3 cursor-pointer" @click="openSign">
+        <!-- <li class="rounded-full hover:bg-gray-200 py-2 px-3 cursor-pointer" @click="openSign">
           <p class="flex font-medium items-center">
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32"
               class="w-6 h-6 mr-2">
@@ -133,7 +136,7 @@
             </svg>
             SignIn
           </p>
-        </li>
+        </li> -->
 
         <!-- router to `MapView` -->
         <router-link to="/map_view">
@@ -162,6 +165,13 @@
             </div>
           </li>
         </router-link>
+        <!-- <li class="rounded-full cursor-pointer" @click="clickProfile">
+            <div class="flex font-medium items-center">
+              <span class="kjIqZ I ui_social_avatar large xtra-large-tablet">
+                <img src="https://media-cdn.tripadvisor.com/media/photo-l/1a/f6/f2/7a/default-avatar-2020-25.jpg" alt="avatar-image" />
+              </span>
+            </div>
+        </li> -->
       </ul>
 
       <!-- Menu toggle button -->
@@ -179,6 +189,7 @@
 <script setup>
 import Modal from './Modal.vue';
 import SignIn from './SignIn.vue';
+import SignUp from './SignUp.vue';
 import { ref, onMounted, onUnmounted } from 'vue';
 import { inject } from 'vue'
 
@@ -191,13 +202,29 @@ const limitPosition = ref(500);
 const scrolled = ref(true);
 const lastPosition = ref(0);
 
+/* function clickProfile() {
+
+} */
+
+// 默认 true 为登录
+const sign_in_or_up = ref(true)
+
 //打开登录弹窗
 function closeSign(){
   open_sign_in.value = false
 }
 //关闭登录弹窗
-function openSign() {
+/* function openSign() {
   open_sign_in.value = true
+} */
+
+// 弹出注册页
+function toSignUp() {
+  sign_in_or_up.value = false
+}
+// 弹出登录页
+function toSignIn() {
+  sign_in_or_up.value = true
 }
 
 function handleScroll() {
