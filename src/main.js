@@ -32,6 +32,22 @@ const router = createRouter({
   routes,
 });
 
+router.beforeEach(async (to) => {
+  let flag = true
+  let response = await axios.post('http://192.168.1.145:8080/check/checkLogin')
+  if(response.data.msg == "是否登录:false")
+  {
+    if(to.path !== "/" && to.path !== "/sign_in")
+      {
+        console.log("请先登录")
+        alert("请先登录")
+        flag = false
+      }
+  }
+  return flag
+})
+
+
 app.use(pinia);
 app.use(router);
 app.mount('#app');
