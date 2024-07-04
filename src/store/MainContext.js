@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { getLatLngByIP } from '../api/tripadvisor';
+import { getLatLngByIP } from '../api/amap';
 
 export const useMainContextStore = defineStore('mainContext', {
   state: () => {
