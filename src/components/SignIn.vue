@@ -1,30 +1,61 @@
+
 <script setup>
 import { ref } from 'vue';
 import axios from 'axios';
+/* import { useRouter } from 'vue-router'; */
+import Modal from './Modal.vue';
+import SignUp from './SignUp.vue';
 const user = {
     name: '',
-    password: ''
+    password: '',
+    email: ''
 }
+const emit = defineEmits(['closeModalSignIn']);
 
+/* const router = useRouter(); */
 const user1 = ref(user);
 
 const login = async () => {
     try {
-        const jsonstring = JSON.stringify(user1.value);
-        const response = await axios.post('http://192.168.1.145:8080/test/login', jsonstring, {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        console.log('响应:', response.data);
+        // const jsonstring = JSON.stringify(user1.value);
+        const response = await axios.get(
+            `http://192.168.1.145:8080/user/login`,
+            {   
+                params: {
+                    name: user.name,
+                    email: user.email,
+                    password: user.password,
+                },
+            },
+            {}
+        );
+        const message = response.data;
+        console.log(message);
+        if(message.code==200)
+        {
+            console.log('登陆成功');
+            alert(message.msg);
+            emit('closeModalSignIn');
+        }
+        else if(message.code==500)
+        {
+            alert(message.msg);
+        }
     } catch (error) {
         console.log('发送数据时出错', error);
+        alert('登录请求失败，请稍后再试');
     }
 };
+
 </script>
 
 
 <template>
+    <modal ref="modal">
+        <div class>
+            <SignUp @closeModalSignUp="$refs.modal.openModal()" />
+        </div>
+    </modal>
     <div class="LeftColumn"
         style="width: 593px; height: 829px; padding: 32px; flex-direction: column; justify-content: flex-start; align-items: flex-start; display: inline-flex">
         <div class="Top"
@@ -52,25 +83,18 @@ const login = async () => {
                 style="flex-direction: column; justify-content: center; align-items: flex-start; gap: 20px; display: flex">
                 <input type="text" class="Input" placeholder="Email:"
                     style="width: 399px; padding: 16px; border-radius: 10px; border: 1.50px #367AFF solid;"
-                    v-model="user1.name">
+                    v-model="user1.email">
 
                 <input type="password" class="Input" placeholder="Password:"
                     style="width: 399px; padding: 16px; border-radius: 10px; border: 1px #D9D9D9 solid;"
                     v-model="user1.password">
 
-                <!-- 保持登陆块 -->
-                <div class="Keep"
-                    style="justify-content: flex-start; align-items: center; gap: 10px; display: inline-flex">
-                    <div class="Square"
-                        style="width: 24px; height: 24px; padding: 3px; justify-content: center; align-items: center; display: flex">
-                        <div>
-                            <input type="checkbox" id="checkbox" v-model="isChecked">
-                        </div>
+                <!-- 忘记登陆块 -->
+                <a href="baidu.com" class="Keep">
+                    <div class="KeepMeLoggedIn">
+                        Forget your password?
                     </div>
-                    <div class="KeepMeLoggedIn"
-                        style="color: #232323; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 24px; word-wrap: break-word">
-                        Keep me logged in</div>
-                </div>
+                </a>
 
                 <!-- 提交按钮 -->
                 <button type="button" class="Button" @click="login"
@@ -102,13 +126,13 @@ const login = async () => {
                     style="color: #6C6C6C; font-size: 18px; font-family: Inter; font-weight: 400; line-height: 27px; word-wrap: break-word;">
                     Need an account?
                 </span>
-                <a href="baidu.com"
-                    style="color: black; font-size: 18px; font-family: Inter; font-weight: 600; text-decoration: underline; line-height: 27px; word-wrap: break-word;">
-                    Create one
-                </a>
+                <span style="color: black; font-size: 18px; font-family: Inter; font-weight: 600; text-decoration:
+                    underline; line-height: 27px; word-wrap: break-word;" @click="$refs.modal.openModal()">
+                        Create one
+            </span>
             </div>
         </div>
-        </div>
+    </div>
 
 
 </template>
@@ -126,4 +150,37 @@ const login = async () => {
     line-height: 27px;
     word-wrap: break-word;
 }
+
+.Keep {
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    display: inline-flex;
+}
+
+.KeepMeLoggedIn {
+    color: #232323;
+    font-size: 16px;
+    font-family: Inter;
+    font-weight: 500;
+    line-height: 24px;
+    word-wrap: break-word;
+    transition: all 0.3s ease;
+    /* 动画效果，平滑过渡 */
+}
+
+.KeepMeLoggedIn:hover {
+    text-decoration: underline;
+    /* 鼠标悬停时添加下划线 */
+}
+
+.signIn-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    /* 其他样式 */
+}
+
 </style>

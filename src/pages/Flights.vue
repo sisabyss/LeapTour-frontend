@@ -163,9 +163,7 @@ import { Location, Group } from '@vicons/carbon';
     border-radius: 20px;
     max-width: 600px;
     transform: scale(0.8);
-    /* 进行缩放，0.8 表示缩小到 80% */
     transform-origin: top left;
-    /* 缩放的起点位置 */
     margin: 0 auto;
     float: center;
 }

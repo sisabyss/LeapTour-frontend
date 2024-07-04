@@ -1,6 +1,74 @@
+
+
 <template>
+  <div >
   <NavBar />
-  <WhereTo />
+
+
+  <div class="container mx-auto grid grid-cols-4" style="height: 500px">
+      <div class="col-span-4" style="padding:2%;">
+          <n-carousel show-arrow>
+              
+              <img
+              class="carousel-img"
+              src="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel2.jpeg"
+              >
+              <img
+              class="carousel-img"
+              src="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel3.jpeg"
+              >
+              <img
+              class="carousel-img"
+              src="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel4.jpeg"
+              >
+          </n-carousel>
+      </div>
+  </div>
+  <div class="container mx-auto p-4" style="margin-top: 50px; display: flex; justify-content: center; align-items: center;">
+      <span class="font-semibold text-2xl md:text-4xl" style="font-weight: 700;">Chongqing, China</span>
+  </div>
+
+
+  <div class="container mx-auto p-4" style="margin-top: 30px;">
+      <h1 class="font-semibold text-lg md:text-2xl text-center">Plan your trip</h1>
+  </div>
+
+
+  <div class="container mx-auto p-4">
+  <div class="absolute inset-x-0 w-[60%] md:w-3/12 mx-auto">
+    <form class="flex items-center relative" @submit.prevent="handleSubmit">
+      <svg class="h-6 w-6 absolute left-3 top-1/2 transform -translate-y-1/2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+      </svg>
+      <n-auto-complete v-model="search" :options="options" placeholder="重庆" clearable @select="handleSelect">
+        <template #default="{ handleInput, handleBlur, handleFocus }">
+          <input
+            type="text"
+            placeholder="重庆"
+            class="bg-white rounded-full w-full pl-12 py-3 shadow-xl focus:outline-none border border-black"
+            @input="handleInput"
+            @blur="handleBlur"
+            @focus="handleFocus"
+            v-model="search"
+          />
+        </template>
+      </n-auto-complete>
+      <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded-full h-10 w-10 absolute right-0 mr-1 flex items-center justify-center">
+        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+    </form>
+  </div>
+</div>
+
+
+  <div class="container mx-auto p-4" style="margin-top: 50px; display: flex; justify-content: center; align-items: center;">
+      <span>Get a personalized itinerary just for you, guided by traveler tips and reviews.</span>
+  </div>
+      
+
+
   <ToVisit />
   <ToEat />
   <ToStay />
@@ -17,7 +85,7 @@
         </button>
       </div>
       <!-- Section Background Image - Displays only on Large devices, Like Desktop -->
-      <div class="hidden mmd:block h-full col-span-9 bg-cover bg-[url('/src/assets/tc_cards_desktop.jpeg')]"></div>
+      <div class="hidden mmd:block h-full col-span-9 bg-cover" :style="{ backgroundImage: '@/assets/tc_cards_desktop.jpeg' }" />
     </div>
   </div>
 
@@ -78,18 +146,50 @@
       </div>
     </div>
   </div>
-
   <HomeFooter />
+</div>
 </template>
 
 <script setup>
 import NavBar from '../components/NavBar.vue';
-import WhereTo from '../components/WhereTo.vue';
 import ToVisit from '../components/ToVisit.vue';
 import ToEat from '../components/ToEat.vue';
 import ToStay from '../components/ToStay.vue';
 import HomeFooter from '../components/HomeFooter.vue';
+import{ NCarousel } from 'naive-ui';
+import { ref, computed } from 'vue';
+import { NAutoComplete } from 'naive-ui';
 
+const search = ref('');
+
+const options = computed(() => {
+return [
+  "香港",
+"湄洲岛",
+"邵阳",
+"玛多",
+"桑植",
+"林州",
+"盱眙",
+"沙县"
+
+].filter((city) =>
+  city.toLowerCase().includes(search.value.toLowerCase())
+).map((city) => {
+  return {
+    label: city,
+    value: city
+  };
+});
+});
+
+const handleSelect = (value) => {
+search.value = value;
+};
+function handleSubmit() {
+// 处理提交逻辑
+console.log("Search submitted:", search.value);
+}
 const place_to_go = [
   'Las Vegas Hotels',
   'Destin Hotels',
@@ -179,3 +279,28 @@ const place_to_stay = [
   'Hilton Hawaiian Village Waikiki Beach Resort',
 ];
 </script>
+
+<style>
+
+.home {
+  transition: background-color 0.3s ease;
+}
+.home.darken {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.rounded {
+  border-radius: 15px; 
+}
+
+.carousel-img {
+width: 100%;
+height: 490px;
+object-fit: cover;
+border-radius: 15px;
+
+}
+</style>
+
+
+

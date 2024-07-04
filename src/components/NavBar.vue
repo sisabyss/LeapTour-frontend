@@ -1,4 +1,9 @@
 <template>
+  <modal ref="modal">
+    <div class="NavBarSignIn" >
+      <SignIn @closeModalSignIn="$refs.modal.closeModal()" />
+    </div>
+  </modal>
   <!-- NavBar adds scrolled class to nav element when window's scroll down is greater than 20 -->
   <nav v-show="handleScroll" :class="{ 'border-b-2 sticky top-0': scrolled }"
     class="relative z-50 transition duration-700 bg-white">
@@ -63,6 +68,24 @@
           </li>
         </router-link>
 
+        <router-link to="/sign_in">
+          <li class="rounded-full hover:bg-gray-200 py-2 px-3 cursor-pointer">
+            <p class="flex font-medium items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" class="w-6 h-6 mr-2">
+                <path
+                  d="M30 30h-2a4.932 4.932 0 0 1-4-1.987a5.02 5.02 0 0 1-8 0a5.02 5.02 0 0 1-8 0A4.932 4.932 0 0 1 4 30H2v-2h2a3.44 3.44 0 0 0 3.053-2.321A.971.971 0 0 1 8 25a1.007 1.007 0 0 1 .949.684A3.438 3.438 0 0 0 12 28a3.44 3.44 0 0 0 3.053-2.321A.99.99 0 0 1 16 25a1.007 1.007 0 0 1 .949.684A3.438 3.438 0 0 0 20 28a3.44 3.44 0 0 0 3.053-2.321a1 1 0 0 1 1.896.005A3.438 3.438 0 0 0 28 28h2z"
+                  fill="currentColor"
+                ></path>
+                <path
+                  d="M28 6v4h-2.5l-2.1-2.8A3.013 3.013 0 0 0 21 6h-6a3.003 3.003 0 0 0-3 3v1H8.618l-.724-1.447l-1-2A1 1 0 0 0 6 6H3a1 1 0 0 0-1 1v6a3.003 3.003 0 0 0 3 3h6.82l-.667 4H7a1 1 0 0 0 0 2h20a1 1 0 0 0 0-2h-4.153l-.667-4h.163a4.966 4.966 0 0 0 3.535-1.465L28 12.415V16h2V6zM14 9a1 1 0 0 1 1-1h6a1.004 1.004 0 0 1 .8.4L23 10h-9zm6.82 11h-7.64l.667-4h6.306zm1.524-6H5a1 1 0 0 1-1-1V8h1.382l.724 1.447L7.381 12h18.204l-1.122 1.121a2.979 2.979 0 0 1-2.12.879z"
+                  fill="currentColor"
+                ></path>
+              </svg>
+              Sign In
+            </p>
+          </li>
+        </router-link>
+
         <!-- router to `AI Itinerary` -->
         <router-link to="/ai_itinerary">
           <li class="rounded-full hover:bg-gray-200 py-2 px-3 cursor-pointer">
@@ -85,9 +108,51 @@
             </p>
           </li>
         </router-link>
+        <!-- router to `Flights` -->
+        <router-link to="/flights">
+          <li class="rounded-full hover:bg-gray-200 py-2 px-3 cursor-pointer">
+            <p class="flex font-medium items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32"
+                class="w-6 h-6 mr-2">
+                <path
+                  d="M16 8a5.99 5.99 0 0 0 9.471 4.885L28.586 16L30 14.586l-3.115-3.115A5.997 5.997 0 1 0 16 8zm2 0a4 4 0 1 1 4 4a4.005 4.005 0 0 1-4-4z"
+                  fill="currentColor"></path>
+                <path d="M11 24h10v2H11z" fill="currentColor"></path>
+                <path d="M13 28h6v2h-6z" fill="currentColor"></path>
+                <path
+                  d="M10.815 18.14A7.185 7.185 0 0 1 8 12a8.005 8.005 0 0 1 6-7.737L13.614 2.3A10.009 10.009 0 0 0 6 12a9.18 9.18 0 0 0 3.46 7.616C10.472 20.551 11 21.081 11 22h2c0-1.84-1.11-2.866-2.185-3.86z"
+                  fill="currentColor"></path>
+                <path
+                  d="M23.05 16a9.6 9.6 0 0 1-1.872 2.143C20.107 19.135 19 20.16 19 22h2c0-.92.526-1.45 1.535-2.386a10.966 10.966 0 0 0 2.369-2.833z"
+                  fill="currentColor"></path>
+              </svg>
+              Flights
+            </p>
+          </li>
+        </router-link>
+
+        <li class="rounded-full hover:bg-gray-200 py-2 px-3 cursor-pointer" @click="$refs.modal.openModal()">
+          <p class="flex font-medium items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32"
+              class="w-6 h-6 mr-2">
+              <path
+                d="M16 8a5.99 5.99 0 0 0 9.471 4.885L28.586 16L30 14.586l-3.115-3.115A5.997 5.997 0 1 0 16 8zm2 0a4 4 0 1 1 4 4a4.005 4.005 0 0 1-4-4z"
+                fill="currentColor"></path>
+              <path d="M11 24h10v2H11z" fill="currentColor"></path>
+              <path d="M13 28h6v2h-6z" fill="currentColor"></path>
+              <path
+                d="M10.815 18.14A7.185 7.185 0 0 1 8 12a8.005 8.005 0 0 1 6-7.737L13.614 2.3A10.009 10.009 0 0 0 6 12a9.18 9.18 0 0 0 3.46 7.616C10.472 20.551 11 21.081 11 22h2c0-1.84-1.11-2.866-2.185-3.86z"
+                fill="currentColor"></path>
+              <path
+                d="M23.05 16a9.6 9.6 0 0 1-1.872 2.143C20.107 19.135 19 20.16 19 22h2c0-.92.526-1.45 1.535-2.386a10.966 10.966 0 0 0 2.369-2.833z"
+                fill="currentColor"></path>
+            </svg>
+            SignIn
+          </p>
+        </li>
 
         <!-- router to `MapView` -->
-        <router-link to="/">
+        <router-link to="/map_view">
           <li class="rounded-full bg-black text-white py-2 px-3 cursor-pointer">
             <p class="flex font-medium items-center">
               <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32"
@@ -104,12 +169,11 @@
           </li>
         </router-link>
 
-        <router-link to="/userprofile">
+        <router-link to="/user_profile">
           <li class="rounded-full cursor-pointer">
             <div class="flex font-medium items-center">
               <span class="kjIqZ I ui_social_avatar large xtra-large-tablet">
-                <img src="https://media-cdn.tripadvisor.com/media/photo-l/1a/f6/f2/7a/default-avatar-2020-25.jpg"
-                  alt="avatar-image">
+                <img src="https://media-cdn.tripadvisor.com/media/photo-l/1a/f6/f2/7a/default-avatar-2020-25.jpg" alt="avatar-image" />
               </span>
             </div>
           </li>
@@ -128,8 +192,16 @@
 </template>
 
 <script>
+import Modal from './Modal.vue';
+import SignIn from './SignIn.vue';
+
+
 export default {
   name: 'NavBar',
+  components: {
+    Modal,
+    SignIn,
+  },
   data() {
     return {
       limitPosition: 500,
@@ -159,6 +231,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 .kjIqZ {
   margin-left: 10px;

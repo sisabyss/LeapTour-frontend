@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import { getLatLngByIP } from '../api/amap';
 
 export const useMainContextStore = defineStore('mainContext', {
   state: () => {
@@ -25,8 +26,8 @@ export const useMainContextStore = defineStore('mainContext', {
   actions: {
     async init() {
       console.log('Hello, mainContext Mounted');
-      await navigator.geolocation.getCurrentPosition(({ coords: { latitude, longitude } }) => {
-        this.coordinates = { lat: latitude, lng: longitude };
+      await getLatLngByIP().then((coordinates) => {
+        this.coordinates = coordinates;
         console.log('Ur location init: ', this.coordinates.lat, this.coordinates.lng);
       });
     },
