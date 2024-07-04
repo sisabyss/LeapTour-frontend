@@ -2,7 +2,7 @@ import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import App from './App.vue';
 import baiduMap from 'vue3-baidu-map-gl';
-
+import axios from 'axios';
 const pinia = createPinia();
 
 import './style.css';
