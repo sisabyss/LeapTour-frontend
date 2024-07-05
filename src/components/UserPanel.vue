@@ -414,7 +414,7 @@ function touchEnd() {
   height: 100%;
   width: 100%;
   overflow: auto;
-  font-size: 14rem;
+  font-size: 1.4rem;
 
   .preview-img {
     z-index: 3;
@@ -433,11 +433,11 @@ function touchEnd() {
 
     .download {
       position: absolute;
-      bottom: 20rem;
-      right: 20rem;
-      padding: 3rem;
+      bottom: 2rem;
+      right: 2rem;
+      padding: 0.3rem;
       background: var(--second-btn-color-tran);
-      width: 20rem;
+      width: 2rem;
     }
   }
 
@@ -453,33 +453,33 @@ function touchEnd() {
 
   .main {
     .notice {
-      font-size: 12rem;
-      height: 40rem;
+      font-size: 1.2rem;
+      height: 4rem;
       color: var(--second-text-color);
       display: flex;
       justify-content: center;
       align-items: center;
 
       img {
-        height: 12rem;
-        margin-right: 5rem;
+        height: 1.2rem;
+        margin-right: 0.5rem;
       }
     }
 
     .collect {
-      padding: 7rem;
+      padding: 0.7rem;
 
       .video {
         background: var(--active-main-bg);
-        border-radius: 5rem;
-        padding: 10rem;
-        margin-bottom: 7rem;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        margin-bottom: 0.7rem;
 
         .top {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          margin-bottom: 10rem;
+          margin-bottom: 1rem;
 
           .left {
             display: flex;
@@ -487,8 +487,8 @@ function touchEnd() {
             color: gainsboro;
 
             img {
-              height: 20rem;
-              margin-right: 5rem;
+              height: 2rem;
+              margin-right: 0.5rem;
             }
           }
 
@@ -505,12 +505,12 @@ function touchEnd() {
 
           .item {
             height: calc(33.33% * 1.3);
-            padding: 2rem;
+            padding: 0.2rem;
             overflow: hidden;
             position: relative;
 
             .poster {
-              border-radius: 4rem;
+              border-radius: 0.4rem;
               width: 100%;
               height: 100%;
               display: block;
@@ -519,16 +519,16 @@ function touchEnd() {
             .num {
               color: white;
               position: absolute;
-              bottom: 5rem;
-              left: 5rem;
+              bottom: 0.5rem;
+              left: 0.5rem;
               display: flex;
               align-items: center;
-              font-size: 14rem;
+              font-size: 1.4rem;
 
               .love {
-                width: 14rem;
-                height: 14rem;
-                margin-right: 5rem;
+                width: 1.4rem;
+                height: 1.4rem;
+                margin-right: 0.5rem;
               }
             }
           }
@@ -537,14 +537,14 @@ function touchEnd() {
 
       .audio {
         background: var(--active-main-bg);
-        border-radius: 5rem;
-        padding: 10rem;
+        border-radius: 0.5rem;
+        padding: 1rem;
 
         .top {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          margin-bottom: 10rem;
+          margin-bottom: 1rem;
 
           .left {
             display: flex;
@@ -552,8 +552,8 @@ function touchEnd() {
             color: gainsboro;
 
             img {
-              height: 15rem;
-              margin-right: 5rem;
+              height: 1.5rem;
+              margin-right: 0.5rem;
             }
           }
 
@@ -569,19 +569,19 @@ function touchEnd() {
           grid-template-columns: 33.33% 33.33% 33.33%;
 
           .item {
-            padding: 2rem;
+            padding: 0.2rem;
             overflow: hidden;
             position: relative;
 
             .poster {
-              border-radius: 4rem;
+              border-radius: 0.4rem;
               width: 100%;
               height: calc((100% - 34rem) / 3);
               display: block;
             }
 
             .title {
-              margin-top: 5rem;
+              margin-top: 0.5rem;
               color: var(--second-text-color);
             }
           }
@@ -594,7 +594,7 @@ function touchEnd() {
       color: white;
 
       .cover {
-        height: 220rem;
+        height: 22rem;
         object-fit: cover;
         width: 100%;
         //transition: height .3s;
@@ -605,8 +605,8 @@ function touchEnd() {
         align-items: center;
         box-sizing: border-box;
         position: absolute;
-        bottom: 35rem;
-        left: 20rem;
+        bottom: 3.5rem;
+        left: 2.0rem;
         //margin-top: -20rem;
         //transform: translateY(-20rem);
 
@@ -614,15 +614,15 @@ function touchEnd() {
           background: white;
           padding: 2.5px;
           border-radius: 50%;
-          @w: 100rem;
+          @w: 10rem;
           width: @w;
           height: @w;
         }
 
         .description {
-          font-size: 12rem;
+          font-size: 1.2rem;
           color: white;
-          margin-left: 15rem;
+          margin-left: 1.5rem;
 
           .number,
           .certification {
@@ -630,8 +630,8 @@ function touchEnd() {
             align-items: center;
 
             img {
-              width: 12rem;
-              margin-left: 5rem;
+              width: 1.2rem;
+              margin-left: 0.5rem;
             }
           }
 
@@ -639,14 +639,14 @@ function touchEnd() {
             color: var(--second-text-color);
 
             img {
-              margin-left: 5rem;
+              margin-left: 0.5rem;
             }
           }
 
           .certification {
             img {
-              width: 14rem;
-              margin-right: 5rem;
+              width: 1.4rem;
+              margin-right: 0.5rem;
             }
           }
         }
@@ -668,16 +668,16 @@ function touchEnd() {
         align-items: center;
 
         .text {
-          font-size: 12rem;
-          margin-right: 18rem;
+          font-size: 1.2rem;
+          margin-right: 1.8rem;
           display: flex;
           align-items: center;
 
           .num {
             color: white;
-            font-size: 16rem;
+            font-size: 1.6rem;
             font-weight: bold;
-            margin-right: 5rem;
+            margin-right: 0.5rem;
           }
         }
       }
@@ -686,11 +686,11 @@ function touchEnd() {
         color: white;
         display: flex;
         align-items: center;
-        margin-bottom: 5rem;
+        margin-bottom: 0.5rem;
 
         img {
-          height: 12rem;
-          margin-left: 6rem;
+          height: 1.2rem;
+          margin-left: 0.6rem;
         }
 
         .text {
@@ -699,22 +699,22 @@ function touchEnd() {
       }
 
       .more {
-        margin-top: 10rem;
-        margin-bottom: 20rem;
+        margin-top: 1rem;
+        margin-bottom: 2rem;
         color: var(--second-text-color);
         display: flex;
 
         .item {
-          padding: 2rem 5rem;
-          border-radius: 2rem;
+          padding: 0.2rem 0.5rem;
+          border-radius: 0.2rem;
           background: var(--second-btn-color-tran);
-          font-size: 10rem;
+          font-size: 1rem;
           display: flex;
           align-items: center;
-          margin-right: 5rem;
+          margin-right: 0.5rem;
 
           img {
-            height: 10rem;
+            height: 1rem;
             margin-right: 2rem;
           }
         }
@@ -723,23 +723,23 @@ function touchEnd() {
 
     .other {
       display: flex;
-      margin-bottom: 20rem;
+      margin-bottom: 2rem;
       overflow: hidden;
 
       .scroll-x {
-        padding-left: 20rem;
+        padding-left: 2rem;
         display: flex;
         overflow-x: scroll;
       }
 
       .item {
-        margin-right: 25rem;
+        margin-right: 2.5rem;
         display: flex;
         flex-shrink: 0;
 
         img {
-          margin-right: 8rem;
-          border-radius: 4rem;
+          margin-right: 0.8rem;
+          border-radius: 0.4rem;
           height: 40rem;
         }
 
@@ -750,25 +750,25 @@ function touchEnd() {
 
           .top {
             color: white;
-            font-size: 14rem;
+            font-size: 1.4rem;
           }
 
           .bottom {
             color: var(--second-text-color);
-            font-size: 12rem;
+            font-size: 1.2rem;
           }
         }
       }
     }
 
     .my-buttons {
-      margin: 20rem;
+      margin: 2.0rem;
       overflow: hidden;
       display: flex;
       justify-content: flex-end;
       align-items: center;
-      @width: 36rem;
-      @gap: 6rem;
+      @width: 3.6rem;
+      @gap: 0.6rem;
       gap: @gap;
 
       .follow-display {
@@ -824,7 +824,7 @@ function touchEnd() {
         }
 
         img {
-          @width: 14rem;
+          @width: 1.4rem;
           width: @width;
           height: @width;
         }
@@ -834,7 +834,7 @@ function touchEnd() {
         position: relative;
         width: @width;
         height: @width;
-        font-size: 12rem;
+        font-size: 1.2rem;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -850,7 +850,7 @@ function touchEnd() {
       }
 
       .loading {
-        @width: 12rem;
+        @width: 1.2rem;
         width: @width;
         height: @width;
         animation: rotate 0.6s linear infinite;
@@ -873,7 +873,7 @@ function touchEnd() {
 
     .recommend {
       transition: all 0.3s ease;
-      height: 250rem;
+      height: 2.5rem;
       overflow: hidden;
 
       &.hidden {
@@ -881,60 +881,60 @@ function touchEnd() {
       }
 
       .title {
-        padding-left: 20rem;
-        font-size: 12rem;
+        padding-left: 2rem;
+        font-size: 1.2rem;
         color: var(--second-text-color);
         display: flex;
         align-items: center;
 
         img {
           margin-left: 3rem;
-          width: 13rem;
-          height: 13rem;
+          width: 1.3rem;
+          height: 1.3rem;
         }
       }
 
       .friends {
-        padding-left: 20rem;
-        margin-top: 10rem;
+        padding-left: 2.0rem;
+        margin-top: 1rem;
         display: flex;
         overflow-x: scroll;
-        margin-bottom: 20rem;
+        margin-bottom: 2rem;
 
         .friend {
           position: relative;
           background: var(--second-btn-color-tran);
-          margin-right: 10rem;
-          padding: 10rem;
+          margin-right: 1rem;
+          padding: 1rem;
           display: flex;
           flex-direction: column;
           align-items: center;
-          border-radius: 10rem;
+          border-radius: 1rem;
 
           .avatar {
-            @width: 100rem;
+            @width: 10rem;
             border-radius: 50%;
             width: @width;
             height: @width;
           }
 
           .name {
-            margin-top: 10rem;
-            font-size: 12rem;
+            margin-top: 1rem;
+            font-size: 1.2rem;
             color: white;
           }
 
           .tips {
-            margin-top: 5rem;
-            font-size: 12rem;
+            margin-top: 0.5rem;
+            font-size: 1.2rem;
             color: var(--second-text-color);
           }
 
           .button {
-            margin-top: 10rem;
-            width: 150rem;
-            height: 26rem;
-            font-size: 12rem;
+            margin-top: 1rem;
+            width: 15rem;
+            height: 2.6rem;
+            font-size: 1.2rem;
           }
 
           .close {
@@ -946,7 +946,7 @@ function touchEnd() {
 
         .more {
           .notice {
-            width: 100rem;
+            width: 10rem;
             height: 100%;
             display: flex;
             flex-direction: column;

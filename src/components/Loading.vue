@@ -26,7 +26,7 @@ export default {
 .Loading {
   &.inline {
     width: 100%;
-    height: 40rem;
+    height: 4rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -34,8 +34,8 @@ export default {
 
   &.small {
     .circle {
-      width: 8rem;
-      height: 8rem;
+      width: 0.8rem;
+      height: 0.8rem;
     }
   }
 
@@ -47,12 +47,12 @@ export default {
     transform: translate(-50%, -50%);
     display: flex;
     justify-content: space-between;
-    width: 22rem;
+    width: 2.2rem;
   }
 
   .circle {
-    width: 10rem;
-    height: 10rem;
+    width: 1.0rem;
+    height: 1.0rem;
     border-radius: 50%;
   }
 

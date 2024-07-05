@@ -90,17 +90,17 @@ export default {
 
 .button {
   color: white;
-  height: 40rem;
-  line-height: 40rem;
+  height: 4rem;
+  line-height: 4rem;
   //width: 100%;
-  font-size: 14rem;
+  font-size: 1.4rem;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
 
   .progress {
-    border-radius: 3rem;
+    border-radius: 0.3rem;
     position: absolute;
     left: 0;
     top: 0;

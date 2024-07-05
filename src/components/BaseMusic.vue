@@ -51,7 +51,7 @@ onMounted(() => {
 .music-wrapper {
   display: flex;
   justify-content: center;
-  @w: 45rem;
+  @w: 0.45rem;
   width: @w;
   height: @w;
   position: relative;
@@ -69,7 +69,7 @@ onMounted(() => {
   }
 
   @keyframes animations {
-    0% {
+   0% {
       transform: rotate(0deg);
     }
     100% {
@@ -90,7 +90,7 @@ onMounted(() => {
     overflow: hidden;
 
     .wrap {
-      width: 100rem;
+      width: 1.0rem;
       position: absolute;
       left: 0;
       display: flex;
@@ -99,17 +99,17 @@ onMounted(() => {
     }
 
     &.notice {
-      border-radius: 50rem;
-      width: 100rem;
+      border-radius: 0.5rem;
+      width: 1rem;
     }
 
     svg {
-      font-size: 22rem;
+      font-size: 2.2rem;
     }
 
     span {
-      margin-left: 5rem;
-      font-size: 13rem;
+      margin-left: 0.5rem;
+      font-size: 1.3rem;
       word-break: keep-all;
       transition: all 0.5s;
     }

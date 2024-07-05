@@ -398,7 +398,7 @@ function touchend(e) {
 <style scoped lang="less">
 .video-wrapper {
   position: relative;
-  font-size: 14rem;
+  font-size: 1rem;
   width: 100%;
   height: 100%;
   text-align: center;
@@ -406,6 +406,7 @@ function touchend(e) {
   video {
     max-width: 100%;
     height: 100%;
+	margin: auto;
     transition:
       height,
       margin-top 0.3s;
@@ -506,13 +507,13 @@ function touchend(e) {
       z-index: 10;
       @w: 90%;
       position: absolute;
-      bottom: -1rem;
-      height: 10rem;
+      bottom: -0.5rem;
+      height: 1rem;
       left: calc((100% - @w) / 2);
       width: @w;
       display: flex;
       align-items: flex-end;
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
 
       .time {
         position: absolute;
@@ -531,7 +532,7 @@ function touchend(e) {
 
       @radius: 10rem;
 
-      @h: 2rem;
+      @h: 0.5rem;
       @tr: height 0.3s;
 
       .bg {
@@ -556,8 +557,8 @@ function touchend(e) {
 
       .point {
         transition: all 0.2s;
-        width: @h+2;
-        height: @h+2;
+        width: @h+0.5;
+        height: @h+0.5;
         border-radius: 50%;
         background: gray;
         z-index: 2;
@@ -566,7 +567,7 @@ function touchend(e) {
     }
 
     & .move {
-      @h: 10rem;
+      @h: 1rem;
 
       .bg {
         height: @h;
@@ -579,14 +580,14 @@ function touchend(e) {
       }
 
       .point {
-        width: @h+2;
-        height: @h+2;
+        width: @h+0.5;
+        height: @h+0.5;
         background: white;
       }
     }
 
     & .stop {
-      @h: 4rem;
+      @h: 0.2rem;
 
       .bg {
         height: @h;
@@ -598,8 +599,8 @@ function touchend(e) {
       }
 
       .point {
-        width: @h+2;
-        height: @h+2;
+        width: @h+0.5;
+        height: @h+0.5;
         background: white;
       }
     }

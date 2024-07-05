@@ -196,18 +196,6 @@
     </ConfirmDialog>
 
     <ShareToFriend v-model="state.shareToFriend" />
-
-    <BaseMask v-if="!isMobile" @click="isMobile = true" />
-    <div v-if="!isMobile" class="guide tiktok">
-      <Icon class="danger" icon="mynaui:danger-triangle" />
-      <Icon class="close" icon="simple-line-icons:close" @click="isMobile = true" />
-      <div class="txt">
-        <h2>切换至手机模式获取最佳体验</h2>
-        <h3>1. 按 F12 调出控制台</h3>
-        <h3>2. 按 Ctrl+Shift+M，或点击下面图标</h3>
-      </div>
-      <img src="@/assets/img/guide.png" alt="" />
-    </div>
   </div>
 </template>
 
@@ -355,7 +343,7 @@ function dislike() {
 
 <style scoped lang="less">
 .test-slide-wrapper {
-  font-size: 14rem;
+  font-size: 0.875rem;
   width: 100%;
   height: 100%;
   background: black;
@@ -469,7 +457,7 @@ function dislike() {
   width: 100%;
   height: calc(var(--vh, 1vh) * 100 - var(--footer-height)) !important;
   overflow: hidden;
-  border-radius: 10rem;
+  border-radius: 0.5rem;
 }
 
 .guide {
@@ -480,23 +468,23 @@ function dislike() {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  border-radius: 16rem;
+  border-radius: 1.5rem;
   overflow: hidden;
   text-align: center;
 
   .danger {
-    margin-top: 10rem;
-    font-size: 40rem;
+    margin-top: 70rem;
+    font-size: 3rem;
     color: red;
   }
 
   .close {
     cursor: pointer;
-    font-size: 18rem;
+    font-size: 1.5rem;
     color: white;
     position: absolute;
-    right: 15rem;
-    top: 15rem;
+    right: 40%;
+    top: 40%;
   }
 
   .txt {

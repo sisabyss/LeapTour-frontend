@@ -87,7 +87,7 @@ export default {
 @import '../assets/less/index';
 
 .footer {
-  font-size: 14rem;
+  font-size: 0.9rem;
   position: fixed;
   width: 100%;
   height: var(--footer-height);
@@ -113,7 +113,7 @@ export default {
     justify-content: center;
     align-items: center;
     position: relative;
-    font-size: 16rem;
+    font-size: 0.9rem;
 
     .refresh {
       width: 25%;
@@ -132,21 +132,21 @@ export default {
 
     .add-ctn {
       cursor: pointer;
-      @height: 27rem;
-      @width: 36rem;
+      @height: 2.1rem;
+      @width: 2.7rem;
       height: @height;
       width: @width;
-      border-radius: 6rem;
+      border-radius: 0.6rem;
       box-sizing: border-box;
-      padding: 0 2rem;
-      border: 3rem solid white;
+      padding: 0 0.3rem;
+      border: 0.2rem solid white;
       background: black;
       display: flex;
       align-items: center;
       justify-content: center;
 
       img {
-        width: 20rem;
+        width: 50rem;
       }
     }
 
@@ -162,8 +162,8 @@ export default {
     }
 
     .badge {
-      right: 14rem;
-      top: 12rem;
+      right: 23rem;
+      top: 17rem;
       position: absolute;
     }
   }

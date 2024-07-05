@@ -36,7 +36,7 @@
         @click="$router.push('/home/search')"
       />
     </div>
-    <Loading :style="loadingStyle" class="loading" style="width: 40rem" :is-full-screen="false" />
+    <Loading :style="loadingStyle" class="loading" style="width: 1rem" :is-full-screen="false" />
   </div>
 </template>
 <script>
@@ -196,7 +196,7 @@ export default {
 <style scoped lang="less">
 .indicator-home {
   position: absolute;
-  font-size: 16rem;
+  font-size: 1.6rem;
   top: 0;
   left: 0;
   z-index: 2;
@@ -231,7 +231,7 @@ export default {
     width: 100%;
     height: 100%;
     box-sizing: border-box;
-    padding: 0 15rem;
+    padding: 0 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -248,7 +248,7 @@ export default {
           transition: color 0.3s;
           color: rgba(white, 0.7);
           position: relative;
-          font-size: 17rem;
+          font-size: 1rem;
           cursor: pointer;
 
           .tab1-img {
@@ -256,16 +256,16 @@ export default {
             @width: 12rem;
             width: @width;
             height: @width;
-            margin-left: 4rem;
+            margin-left: 0.4rem;
             transition: all 0.3s;
             // margin-top: 7rem;
           }
 
           .tab2-img {
             position: absolute;
-            height: 15rem;
-            left: 24rem;
-            top: -5rem;
+            height: 1rem;
+            left: 0.5rem;
+            top: -0.5rem;
           }
 
           &.active {
@@ -277,10 +277,10 @@ export default {
       .indicator {
         //transition: left .3s;
         position: absolute;
-        bottom: -6rem;
-        height: 2.6rem;
-        width: 26rem;
-        //width: calc(100% / 5);
+        bottom: -0.4rem;
+        height: 0.15rem;
+        // width: 0.5rem;
+        width: calc(100% / 5);
         background: #fff;
         border-radius: 5rem;
       }
@@ -288,7 +288,7 @@ export default {
 
     .search {
       color: white;
-      font-size: 24rem;
+      font-size: 1.4rem;
     }
   }
 

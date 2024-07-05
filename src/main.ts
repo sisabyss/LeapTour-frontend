@@ -5,6 +5,7 @@ import { startMock } from '@/mock'
 import router from './router'
 import mixin from './utils/mixin'
 import VueLazyload from '@jambonn/vue-lazyload'
+import baiduMap from 'vue3-baidu-map-gl';
 import { createPinia } from 'pinia'
 import { useClick } from '@/utils/hooks/useClick'
 import bus, { EVENT_KEY } from '@/utils/bus'
@@ -46,6 +47,9 @@ app.use(VueLazyload, {
   attempt: 1
 })
 app.use(pinia)
+app.use(baiduMap, {
+  ak: '40rN64E5W1CA7HiAYXSrxWFF2MHNa5eg',
+});
 app.use(router)
 app.mount('#app')
 // app.directive('click', vClick)
