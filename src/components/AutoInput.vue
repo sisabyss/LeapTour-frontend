@@ -2,7 +2,7 @@
   <div
     ref="input"
     :placeholder="placeholder"
-    class="auto-input"
+    class="auto-input tiktok"
     contenteditable
     @input="changeText"
   >

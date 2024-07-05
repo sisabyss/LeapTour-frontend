@@ -6,6 +6,7 @@
     maskMode="light"
     height="50vh"
     mode="white"
+	class="tiktok"
   >
     <div class="option-dialog">
       <div class="buttons">

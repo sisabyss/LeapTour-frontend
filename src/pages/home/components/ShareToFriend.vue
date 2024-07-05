@@ -6,6 +6,7 @@
     @cancel="cancel"
     maskMode="light"
     :height="height"
+	class="tiktok"
   >
     <div class="content" :style="{ minHeight: height }">
       <div class="create-chat" v-show="!showJoinedChat">

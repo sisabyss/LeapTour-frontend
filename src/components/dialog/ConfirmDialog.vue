@@ -1,5 +1,5 @@
 <template>
-  <div class="ConfirmDialog" @click="onDismiss" v-if="visible">
+  <div class="ConfirmDialog tiktok" @click="onDismiss" v-if="visible">
     <div class="content">
       <slot name="header"></slot>
       <div class="body">

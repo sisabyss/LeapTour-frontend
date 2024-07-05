@@ -20,7 +20,6 @@ const emit = defineEmits(['closeSignFromModal']);
 function closeModal() {
     emit("closeSignFromModal")
 }
-
 </script>
 
 <style scoped>

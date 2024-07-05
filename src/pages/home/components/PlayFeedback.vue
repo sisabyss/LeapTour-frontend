@@ -1,5 +1,5 @@
 <template>
-  <transition name="fade">
+  <transition name="fade" class="tiktok">
     <div class="play-feedback" v-if="modelValue">
       <div class="feedback-header">
         <span>&nbsp;</span>

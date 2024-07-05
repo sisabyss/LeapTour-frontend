@@ -1,5 +1,5 @@
 <template>
-  <div class="slide-item">
+  <div class="slide-item tiktok">
     <slot></slot>
   </div>
 </template>

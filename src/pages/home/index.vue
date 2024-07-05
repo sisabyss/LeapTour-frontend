@@ -1,5 +1,5 @@
 <template>
-  <div class="test-slide-wrapper" id="home-index">
+  <div class="test-slide-wrapper tiktok" id="home-index">
     <SlideHorizontal name="first" v-model:index="state.baseIndex">
       <SlideItem class="sidebar">
         <div class="header">
@@ -198,7 +198,7 @@
     <ShareToFriend v-model="state.shareToFriend" />
 
     <BaseMask v-if="!isMobile" @click="isMobile = true" />
-    <div v-if="!isMobile" class="guide">
+    <div v-if="!isMobile" class="guide tiktok">
       <Icon class="danger" icon="mynaui:danger-triangle" />
       <Icon class="close" icon="simple-line-icons:close" @click="isMobile = true" />
       <div class="txt">
@@ -214,22 +214,22 @@
 <script setup lang="tsx">
 import SlideHorizontal from '@/components/slide/SlideHorizontal.vue'
 import SlideItem from '@/components/slide/SlideItem.vue'
-import Comment from '../../components/Comment.vue'
-import Share from '../../components/Share.vue'
+import Comment from '@/components/Comment.vue'
+import Share from '@/components/Share.vue'
+import DouyinCode from '@/components/DouyinCode.vue'
 import IndicatorHome from './components/IndicatorHome.vue'
+import Search from '@/components/Search.vue'
+import ConfirmDialog from '@/components/dialog/ConfirmDialog.vue'
+import UserPanel from '@/components/UserPanel.vue'
 import { onActivated, onDeactivated, onMounted, onUnmounted, reactive, ref } from 'vue'
 import bus, { EVENT_KEY } from '../../utils/bus'
 import { useNav } from '@/utils/hooks/useNav'
 import PlayFeedback from '@/pages/home/components/PlayFeedback.vue'
 import ShareTo from '@/pages/home/components/ShareTo.vue'
-import DouyinCode from '../../components/DouyinCode.vue'
 import FollowSetting from '@/pages/home/components/FollowSetting.vue'
 import BlockDialog from '../message/components/BlockDialog.vue'
-import Search from '../../components/Search.vue'
-import ConfirmDialog from '../../components/dialog/ConfirmDialog.vue'
 import FollowSetting2 from '@/pages/home/components/FollowSetting2.vue'
 import ShareToFriend from '@/pages/home/components/ShareToFriend.vue'
-import UserPanel from '@/components/UserPanel.vue'
 import Community from '@/pages/home/slide/Community.vue'
 import Slide0 from '@/pages/home/slide/Slide0.vue'
 import Slide2 from '@/pages/home/slide/Slide2.vue'

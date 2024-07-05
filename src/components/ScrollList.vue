@@ -4,6 +4,7 @@
     :loading="state.loading"
     :full-loading="!state.list.length"
     @pulldown="loadData"
+	class="tiktok"
   >
     <slot :list="state.list"></slot>
     <NoMore v-if="state.total !== 0 && state.total === state.list.length" />

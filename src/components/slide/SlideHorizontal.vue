@@ -118,7 +118,7 @@ function touchEnd(e) {
 </script>
 
 <template>
-  <div class="slide horizontal">
+  <div class="slide horizontal tiktok">
     <div class="indicator-bullets" v-if="indicator && state.wrapper.childrenLength">
       <div
         class="bullet"

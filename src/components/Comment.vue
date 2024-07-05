@@ -1,5 +1,6 @@
 <template>
   <from-bottom-dialog
+    class="tiktok"
     :page-id="pageId"
     :modelValue="modelValue"
     @update:modelValue="(e) => $emit('update:modelValue', e)"
@@ -326,7 +327,6 @@ export default {
 
 <style lang="less" scoped>
 @import '../assets/less/index';
-
 .title {
   box-sizing: border-box;
   width: 100%;

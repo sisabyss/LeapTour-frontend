@@ -1,5 +1,5 @@
 <template>
-  <div class="Loading" :class="[isFullScreen ? 'full' : 'inline', type]">
+  <div class="Loading tiktok" :class="[isFullScreen ? 'full' : 'inline', type]">
     <div class="circle blue"></div>
     <div class="circle red"></div>
   </div>

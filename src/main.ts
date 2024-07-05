@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import './assets/less/index.less'
+ import './assets/less/index.less'
 import { startMock } from '@/mock'
 import router from './router'
 import mixin from './utils/mixin'
@@ -8,6 +8,7 @@ import VueLazyload from '@jambonn/vue-lazyload'
 import { createPinia } from 'pinia'
 import { useClick } from '@/utils/hooks/useClick'
 import bus, { EVENT_KEY } from '@/utils/bus'
+import './style.css';
 
 window.isMoved = false
 window.isMuted = true
@@ -47,7 +48,7 @@ app.use(VueLazyload, {
 app.use(pinia)
 app.use(router)
 app.mount('#app')
-app.directive('click', vClick)
+// app.directive('click', vClick)
 
 //放到最后才可以使用pinia
 startMock()

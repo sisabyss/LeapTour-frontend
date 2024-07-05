@@ -8,6 +8,7 @@
     @cancel="cancel()"
     height="480rem"
     mode="light"
+	class="tiktok"
   >
     <div class="follow-setting-dialog">
       <div class="dialog-header">

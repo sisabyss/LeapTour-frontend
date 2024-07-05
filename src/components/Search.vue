@@ -1,6 +1,6 @@
 <template>
   <!--  TODO 背景色不对-->
-  <div class="search-ctn" :class="mode">
+  <div class="search-ctn tiktok" :class="mode">
     <div class="search">
       <img
         v-if="isShowSearchIcon"

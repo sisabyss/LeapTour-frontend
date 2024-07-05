@@ -70,6 +70,7 @@ onMounted(() => {
 })
 </script>
 
+<!--
 <style lang="less">
 @import './assets/less/index';
 
@@ -134,3 +135,4 @@ onMounted(() => {
   opacity: 0;
 }
 </style>
+-->

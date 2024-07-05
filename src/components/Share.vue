@@ -9,6 +9,7 @@
     maskMode="light"
     height="320rem"
     mode="dark"
+	class="tiktok"
   >
     <div class="share">
       <div class="title">

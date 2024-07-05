@@ -133,7 +133,6 @@ import NavBar from '../components/NavBar.vue';
 import { NCard, NTabPane, NTabs, NForm, NButton, NFormItemRow, NInput, NIcon, NFormItem, NCheckbox, NDatePicker } from 'naive-ui';
 import { Location, Group } from '@vicons/carbon';
 
-
 </script>
 
 <style scoped>

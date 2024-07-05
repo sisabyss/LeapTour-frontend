@@ -1,5 +1,5 @@
 <template>
-  <label :class="classObject">
+  <label :class="classObject" class="tiktok">
     <span class="vue-switcher__label" v-if="shouldShowLabel">
       <span v-if="label" v-text="label"></span>
       <span v-if="!label && modelValue" v-text="textEnabled"></span>

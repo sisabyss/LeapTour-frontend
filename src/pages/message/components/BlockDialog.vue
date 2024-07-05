@@ -7,6 +7,7 @@
     height="20rem"
     @cancel="cancel"
     mode="white"
+	class="tiktok"
   >
     <div class="block-dialog">
       <div class="notice">拉黑后，对方将无法搜索到你，也不能再给你发私信</div>

@@ -19,7 +19,7 @@ const rightList = computed(() => {
 </script>
 
 <template>
-  <div class="waterfall">
+  <div class="waterfall tiktok">
     <div class="waterfall-row">
       <slot :item="item" v-for="item in leftList"></slot>
     </div>

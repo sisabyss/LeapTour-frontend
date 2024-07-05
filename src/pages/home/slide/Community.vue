@@ -1,5 +1,5 @@
 <template>
-  <div id="Community" @dragstart="(e) => _stopPropagation(e)">
+  <div id="Community" @dragstart="(e) => _stopPropagation(e)" class="tiktok">
     <ScrollList class="Scroll" v-if="state.show" :api="recommendedPost">
       <template v-slot="{ list }">
         <div class="search" @click="nav('/home/search')">

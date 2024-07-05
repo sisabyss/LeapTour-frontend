@@ -1,5 +1,5 @@
 <template>
-  <Transition name="test">
+  <Transition name="test" class="tiktok">
     <div
       ref="dialog"
       v-if="modelValue"

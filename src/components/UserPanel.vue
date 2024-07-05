@@ -1,5 +1,5 @@
 <template>
-  <div id="UserPanel" @scroll="scroll" @dragstart="(e) => _stopPropagation(e)" ref="page">
+  <div id="UserPanel" class="tiktok" @scroll="scroll" @dragstart="(e) => _stopPropagation(e)" ref="page">
     <div ref="float" class="float" :class="state.floatFixed ? 'fixed' : ''">
       <div class="left">
         <Icon @click="emit('back')" class="icon" icon="eva:arrow-ios-back-fill" />
