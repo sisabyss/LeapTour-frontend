@@ -6,29 +6,45 @@
                 <div class="VrhFU _T ui_card section">
                     <div class="ckWkP">
                         <div class="eYtRY">
-                            <div class="uLeBs f K MD"><span
-                                    class="kjIqZ I ui_social_avatar large xtra-large-tablet"><img
-                                        src="https://media-cdn.tripadvisor.com/media/photo-l/1a/f6/f2/7a/default-avatar-2020-25.jpg"
-                                        alt="avatar-image"></span><span class="ecLBS _R shSnD"><span class="JWmxy">
-                                        <h1><span class="OUDwj b brsfY">USERNAME</span></h1>
-                                    </span><span class="Dsdjn _R">@Email.com</span></span>
-                                <div class="BNUSk Md ">
+                            <div class="uLeBs f K MD">
+                                <span class="kjIqZ I ui_social_avatar large xtra-large-tablet">
+                                    <img :src="userInfo.avatar ? userInfo.avatar : 'https://media-cdn.tripadvisor.com/media/photo-l/1a/f6/f2/7a/default-avatar-2020-25.jpg'"
+                                        alt="avatar-image">
+                                </span>
+                                <span class="ecLBS _R shSnD">
+                                    <span class="JWmxy">
+                                        <h1><span class="OUDwj b brsfY">{{ userInfo.username ? userInfo.username :
+                                            '未知用户名'
+                                                }}</span></h1>
+                                    </span>
+                                    <span class="Dsdjn _R">{{ store.email }}</span>
+                                </span>
+                                <div class="BNUSk Md">
                                     <div class="ObCEB">
-                                        <div class="Skngi _R _c _n z"><span class="BFbMC">Contributions<!-- -->
-                                            </span><span class="rNZKv">0</span></div>
-                                        <div class="Skngi _R _c _n z"><span class="BFbMC">Followers<!-- --> </span><span
+                                        <div class="Skngi _R _c _n z"><span class="BFbMC">Contributions</span><span
                                                 class="rNZKv">0</span></div>
-                                        <div class="Skngi _R _c _n z"><span class="BFbMC">Following<!-- --> </span><span
+                                        <div class="Skngi _R _c _n z"><span class="BFbMC">Followers</span><span
+                                                class="rNZKv">0</span></div>
+                                        <div class="Skngi _R _c _n z"><span class="BFbMC">Following</span><span
                                                 class="rNZKv">0</span></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="KydPf">
-                            <div class="CpMuc"><span class="group_button_wrapper"><a href="/Profile/396ggggg?edit=">
-                                        <button class="ui_button EnLFm">Edit profile</button></a></span><span
-                                    class="group_button_wrapper"><span></span></span></div>
+                            <div class="CpMuc">
+                                <span class="group_button_wrapper">
+                                    <button class="ui_button EnLFm" @click="showModal = true">Edit profile</button>
+                                </span>
+                                <span class="group_button_wrapper"><span></span></span>
+                            </div>
                         </div>
+                        <n-modal v-model:show="showModal">
+                            <n-card style="width: 480px; height:700px;" :bordered="false" size="huge" role="dialog"
+                                aria-modal="true">
+                                <EditProfile @UpdateInfoFromEdit="fetchUserInfo()" style="transform: scale(0.9);" />
+                            </n-card>
+                        </n-modal>
                     </div>
                 </div>
             </div>
@@ -80,7 +96,7 @@
                         Unlock photo milestones
                     </n-card>
                     <n-card title="Upload your first photos">
-                        Unlock review milstones
+                        Unlock review milestones
                     </n-card>
                     <button class="ProfileButton">View all</button>
                 </n-card>
@@ -91,8 +107,8 @@
                                 <Add />
                             </n-icons>
                         </div>
-                        <div class="ProfileAdd">
-                            Add your current city
+                        <div class="ProfileAdd" @click="showModal = true">
+                            {{ userInfo.city ? userInfo.city : 'Add your current city' }}
                         </div>
                     </div>
                     <div>
@@ -101,7 +117,7 @@
                                 <Calendar />
                             </n-icons>
                         </div>
-                        <div class="ProfileAdd">
+                        <div class="ProfileAdd" @click="showModal = true">
                             Joined in June 2024
                         </div>
                     </div>
@@ -111,8 +127,8 @@
                                 <IbmCloudInternetServices />
                             </n-icons>
                         </div>
-                        <div class="ProfileAdd">
-                            Add a website
+                        <div class="ProfileAdd" @click="showModal = true">
+                            {{ userInfo.phone ? userInfo.phone : 'Add a website' }}
                         </div>
                     </div>
                     <div>
@@ -121,8 +137,8 @@
                                 <OrderDetails />
                             </n-icons>
                         </div>
-                        <div class="ProfileAdd">
-                            Write some details about you
+                        <div class="ProfileAdd" @click="showModal = true">
+                            {{ userInfo.details ? userInfo.details : 'Write some details about you' }}
                         </div>
                     </div>
                 </n-card>
@@ -135,7 +151,7 @@
                         </div>
                         <router-link to="/">
                             <div class="ProfileAdd">
-                                Phost Photos
+                                Post Photos
                             </div>
                         </router-link>
                     </div>
@@ -156,11 +172,53 @@
         </div>
     </div>
 </template>
+
 <script setup>
+import { ref, onMounted } from 'vue'
+import EditProfile from '../components/EditProfile.vue'
 import { Add, Calendar, IbmCloudInternetServices, OrderDetails, Camera, Pen } from '@vicons/carbon'
-import { NCard, NTabPane, NTabs } from 'naive-ui';
+import { NCard, NTabPane, NTabs, NModal } from 'naive-ui'
 import NavBar from '../components/NavBar.vue'
+import axios from 'axios'
+import { useMainContextStore } from '../store/MainContext'
+
+const store = useMainContextStore()
+const userInfo = ref({
+    username: '',
+    city: '',
+    phone: '',
+    details: '',
+    avatar: '',
+    email: store.email
+})
+const showModal = ref(false)
+
+async function fetchUserInfo() {
+    try {
+        const response = await axios.get('http://192.168.1.145:8080/user/getUserInfo', {
+            params: { email: store.email }
+        })
+        userInfo.value = {
+            username: response.data.data.name,
+            city: response.data.data.ipcity,
+            phone: response.data.data.phone,
+            avatar: response.data.data.avatar,
+            details: response.data.data.aboutme,
+            email: response.data.data.email
+        }
+        console.log('获取成功');
+        console.log(userInfo.value.avatar);
+        console.log(response.data);
+        console.log(userInfo);
+    } catch (error) {
+        console.error('获取失败', error)
+    }
+}
+onMounted(() => {
+    fetchUserInfo();
+});
 </script>
+
 <style scoped>
 .ProfileAdd {
     padding: 5px;
@@ -193,13 +251,9 @@ import NavBar from '../components/NavBar.vue'
     border-radius: 20px;
 }
 
-.ProfileButton.hover {
-    margin-top: 30px;
-    background-color: white;
+.ProfileButton:hover {
+    background-color: rgb(242, 242, 242);
     color: black;
-    width: 100%;
-    height: 40px;
-    border-radius: 20px;
 }
 
 .ProfileAll {
@@ -229,11 +283,8 @@ import NavBar from '../components/NavBar.vue'
 
 .ProfileTabs {
     margin: 5px;
-    /* Adjusted margin */
     width: 750px;
-    /* Adjusted width */
     padding: 5px;
-    /* Adjusted padding */
     text-align: center;
     float: right;
 }
@@ -254,7 +305,6 @@ import NavBar from '../components/NavBar.vue'
     width: 100%;
 }
 
-/* Card layout */
 .VrhFU {
     width: 100%;
     background: #f8f9fa;
@@ -287,12 +337,10 @@ import NavBar from '../components/NavBar.vue'
 
 .kjIqZ {
     margin-right: 20px;
-    /* Increase spacing between avatar and text */
 }
 
 .large {
     width: 80px;
-    /* Adjust size for better alignment */
     height: 80px;
     border-radius: 50%;
     overflow: hidden;
@@ -329,7 +377,6 @@ import NavBar from '../components/NavBar.vue'
     margin: 30px;
     display: flex;
     gap: 20px;
-    /* Increase spacing between contributions, followers, and following */
 }
 
 .Skngi {
@@ -347,7 +394,6 @@ import NavBar from '../components/NavBar.vue'
     color: #333;
 }
 
-/* Profile buttons */
 .KydPf {
     display: flex;
     align-items: center;
@@ -382,10 +428,8 @@ import NavBar from '../components/NavBar.vue'
     background: url('path/to/settings-icon.png') no-repeat center center;
     width: 20px;
     height: 20px;
-    display: inline-block;
 }
 
-/* Center card content */
 .ProfileTabsCard {
     display: flex;
     flex-direction: column;

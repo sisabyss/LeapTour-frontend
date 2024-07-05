@@ -1,10 +1,9 @@
 <template>
-  <div class="ProfileEdit" style="width: 390px; height: 844px; position: relative; background: white">
-    <div class="Rectangle45" style="width: 390px; height: 188px; left: 0px; top: 0px; position: absolute; background: black"></div>
-    
-    <img
-      class="UnsplashJmurdhtm7ng"
-      style="
+  <div class="ProfileEdit" style="width: 390px; height: 600px; position: relative; background: white">
+    <div class="Rectangle45"
+      style="width: 390px; height: 188px; left: 0px; top: 0px; position: absolute; background: black"></div>
+
+    <img class="UnsplashJmurdhtm7ng" style="
         width: 142px;
         height: 142px;
         left: 124px;
@@ -14,16 +13,12 @@
         border-radius: 9999px;
         border: 5px white solid;
       "
-      src="https://via.placeholder.com/142x142"
-    />
-    
+      :src="up1.picture ? up1.picture : 'https://media-cdn.tripadvisor.com/media/photo-l/1a/f6/f2/7a/default-avatar-2020-25.jpg'" />
+
     <!-- Input fields with labels outside -->
-    <label for="username" class="Username" style="left: 36px; top: 298px; position: absolute; color: black; font-size: 14px; font-family: Poppins; font-weight: 500; word-wrap: break-word">Username</label>
-    <input
-      id="username"
-      type="text"
-      class="Rectangle38"
-      style="
+    <label for="username" class="Username"
+      style="left: 36px; top: 298px; position: absolute; color: black; font-size: 14px; font-family: Poppins; font-weight: 500; word-wrap: break-word">用户昵称</label>
+    <input id="username" type="text" :placeholder="up1.username" class="Rectangle38" style="
         width: 318px;
         height: 40px;
         left: 36px;
@@ -33,16 +28,11 @@
         border-radius: 8px;
         border: 1px #a9a9a9 solid;
         padding-left: 10px; /* Add padding to the left side of the input */
-      "
-      v-model="up1.username"
-    />
+      " v-model="up1.username" />
 
-<label for="email" class="EmailID" style="left: 36px; top: 380px; position: absolute; color: black; font-size: 14px; font-family: Poppins; font-weight: 500; word-wrap: break-word">Email Id</label>
-<input
-  id="email"
-  type="email"
-  class="Rectangle39"
-  style="
+    <label for="city" class="city"
+      style="left: 36px; top: 380px; position: absolute; color: black; font-size: 14px; font-family: Poppins; font-weight: 500; word-wrap: break-word">IP城市</label>
+    <input id="city" type="text" :placeholder="up1.city" class="Rectangle39" style="
     width: 318px;
     height: 40px;
     left: 36px;
@@ -52,15 +42,11 @@
     border-radius: 8px;
     border: 1px #a9a9a9 solid;
     padding-left: 10px; /* Add padding to the left side of the input */
-  "
-/>
+  " v-model="up1.city" />
 
-<label for="phone" class="PhoneNumber" style="left: 36px; top: 459px; position: absolute; color: black; font-size: 14px; font-family: Poppins; font-weight: 500; word-wrap: break-word">Phone Number</label>
-<input
-  id="phone"
-  type="tel"
-  class="Rectangle40"
-  style="
+    <label for="phone" class="PhoneNumber"
+      style="left: 36px; top: 459px; position: absolute; color: black; font-size: 14px; font-family: Poppins; font-weight: 500; word-wrap: break-word">电话号码</label>
+    <input id="phone" type="tel" :placeholder="up1.phone" class="Rectangle40" style="
     width: 318px;
     height: 40px;
     left: 36px;
@@ -70,18 +56,13 @@
     border-radius: 8px;
     border: 1px #a9a9a9 solid;
     padding-left: 10px; /* Add padding to the left side of the input */
-  "
-  v-model="up1.phone"
-/>
+  " v-model="up1.phone" />
 
-<label for="password" class="Password" style="left: 36px; top: 544px; position: absolute; color: black; font-size: 14px; font-family: Poppins; font-weight: 500; word-wrap: break-word">Password</label>
-<input
-  id="password"
-  type="password"
-  class="Rectangle41"
-  style="
+    <label for="details" class="details"
+      style="left: 36px; top: 544px; position: absolute; color: black; font-size: 14px; font-family: Poppins; font-weight: 500; word-wrap: break-word">关于我</label>
+    <textarea id="details" :placeholder="up1.details" class="Rectangle41" style="
     width: 318px;
-    height: 40px;
+    height: 80px;
     left: 36px;
     top: 567px;
     position: absolute;
@@ -89,48 +70,30 @@
     border-radius: 8px;
     border: 1px #a9a9a9 solid;
     padding-left: 10px; /* Add padding to the left side of the input */
-  "
-  v-model="up1.password"
-/>
-    
+    padding-top: 10px; /* Add padding to the top side of the textarea */
+    resize: none; /* Disable resizing of the textarea */
+  " v-model="up1.details"></textarea>
+
     <!-- Update button -->
-    <button
-      class="Rectangle31"
-      style="width: 283px; height: 40px; left: 54px; top: 672px; position: absolute; background: #171f1d; border-radius: 10px" @click="update"
-    >
-      <div class="Update" style="color: white; font-size: 15px; font-family: Poppins; font-weight: 700; word-wrap: break-word; text-align: center; line-height: 40px">Update</div>
+    <button class="Rectangle31"
+      style="width: 283px; height: 40px; left: 54px; top: 672px; position: absolute; background: #171f1d; border-radius: 10px"
+      @click="update">
+      <div class="Update"
+        style="color: white; font-size: 15px; font-family: Poppins; font-weight: 700; word-wrap: break-word; text-align: center; line-height: 40px">
+        更新主页</div>
     </button>
-    
-    <div
-      class="EditProfile"
-      style="left: 155px; top: 54px; position: absolute; color: white; font-size: 15px; font-family: Poppins; font-weight: 600; word-wrap: break-word"
-    >
-      Edit Profile
+
+
+    <div class="EditProfile"
+      style="left: 165px; top: 54px; position: absolute; color: white; font-size: 15px; font-family: Poppins; font-weight: 600; word-wrap: break-word">
+      编辑主页
     </div>
-    
-    <div class="ArrowLeft" style="width: 26px; height: 30px; left: 17px; top: 50px; position: absolute">
-      <div class="Vector" style="width: 26px; height: 30px; left: 0px; top: 0px; position: absolute"></div>
-      <div class="Vector" style="width: 19.5px; height: 0px; left: 3.14px; top: 15px; position: absolute; border: 2px white solid"></div>
-      <div class="Vector" style="width: 6.5px; height: 15px; left: 3.14px; top: 7.5px; position: absolute; border: 2px white solid"></div>
-    </div>
-    
-    <div
-      class="EditProfile"
-      style="left: 155px; top: 54px; position: absolute; color: white; font-size: 15px; font-family: Poppins; font-weight: 600; word-wrap: break-word"
-    >
-      Edit Profile
-    </div>
-    
+
     <!-- Change Picture button -->
-    <n-upload
-      action="https://ww.mocky.io/v2/5e4bafc63100007100d8b70f"
-      :headers="{ 'naive-info': 'hello!'}"
-      :data="{ 'naive-data': 'cool! naive' }"
-      @change="handleUploadChange">
-    <n-button
-      class="ChangePicture"
-      style="
-        left: 135px;
+    <n-upload action="https://ww.mocky.io/v2/5e4bafc63100007100d8b70f" :headers="{ 'naive-info': 'hello!' }"
+      :data="{ 'naive-data': 'cool! naive' }" @change="handleUploadChange" show-file-list="false">
+      <n-button class="ChangePicture" style="
+        left: 150px;
         top: 256px;
         position: absolute;
         color: black;
@@ -138,92 +101,114 @@
         font-family: Poppins;
         font-weight: 400;
         word-wrap: break-word;
-      "
-    >Change Picture
-    </n-button>
-  </n-upload>
-    
-      
-    
-    <!-- Back arrow button -->
-    <button
-      class="ArrowLeft"
-      style="
-        width: 26px;
-        height: 30px;
-        left: 17px;
-        top: 50px;
-        position: absolute;
-        background-color: transparent;
-        border: none;
-        cursor: pointer;
-        padding: 0;"
-      >
-      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512"><path d="M256 504C119 504 8 393 8 256S119 8 256 8s248 111 248 248s-111 248-248 248zm28.9-143.6L209.4 288H392c13.3 0 24-10.7 24-24v-16c0-13.3-10.7-24-24-24H209.4l75.5-72.4c9.7-9.3 9.9-24.8.4-34.3l-11-10.9c-9.4-9.4-24.6-9.4-33.9 0L107.7 239c-9.4 9.4-9.4 24.6 0 33.9l132.7 132.7c9.4 9.4 24.6 9.4 33.9 0l11-10.9c9.5-9.5 9.3-25-.4-34.3z" fill="currentColor"></path></svg>
-    </button>
+      ">上传新头像
+      </n-button>
+    </n-upload>
 
-  
-   
+
   </div>
 </template>
 
-
 <script setup>
-  import { ref } from 'vue';
-  import axios from 'axios';
-  import { NUpload, NButton } from 'naive-ui'
-  const upuser = {
-    username: '',
-    email: '',
-    phone: '',
-    password: '',
-    picture:null
-  }
-  
-  const up1 = ref(upuser);
+import { ref } from 'vue';
+import axios from 'axios';
+import { NUpload, NButton } from 'naive-ui';
+import { useMainContextStore } from '../store/MainContext'
 
-  function handleUploadChange(event) {
+const store = useMainContextStore();
+const upuser = {
+  username: '',
+  city: '',
+  phone: '',
+  details: '',
+  picture: '',
+  email: store.email
+};
+const up1 = ref(upuser);
+console.log(upuser);
+const emit = defineEmits('UpdateInfoFromEdit');
+
+function handleUploadChange(event) {
   const uploadedFile = event.file; // Get the uploaded file from the event
-  if (uploadedFile) {
+  if (uploadedFile && uploadedFile.status == 'error') {
     // Assign the uploaded file to the picture property
     up1.value.picture = uploadedFile;
     console.log('上传的文件:', up1.value.picture);
+    updateimg();
+  }
+}
+/* const formData = new FormData(); */
+/* formData.append('file', up1.value.picture); */
+async function updateimg() {
+  try {
+    console.log('向后端发送头像');
+    console.log(up1.value.picture);
+    /*     console.log(formData); */
+    const response = await axios.post(
+      'http://192.168.1.145:8080/image/upload',
+      up1.value.picture,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data' // 设置正确的Content-Type
+        }
+      }
+    );
+    const message = response.data;
+    console.log(message);
+    if (message.code == 200) {
+      /*       emit(response.data.imgUrl); */
+      console.log('Url是');
+      console.log(message.data.imageUrl);
+      console.log(message);
+      up1.value.picture = "http://" + message.data.imageUrl[0];
+      alert('头像上传成功');
+    } else if (message.code == 500) {
+      console.log('更新头像失败');
+      alert(message.msg);
+    }
+  } catch (error) {
+    console.log('发送数据时出错', error);
+    alert('更新头像请求失败，请稍后再试');
+  }
+}
+async function update() {
+  try {
+    const response = await axios.get(
+      'http://192.168.1.145:8080/user/updateInfo',
+      {
+        params: { // 使用 params 属性来传递查询参数
+          name: up1.value.username,
+          ip_city: up1.value.city,
+          phone: up1.value.phone,
+          about_me: up1.value.details,
+          email: store.email, // 使用 store.email
+          avatar: up1.value.picture
+        }
+      }
+    );
+    const message = response.data;
+    console.log(message);
+    if (message.code == 200) {
+      emit('UpdateInfoFromEdit');
+      console.log('更新成功');
+      alert(message.msg);
+    } else if (message.code == 500) {
+      console.log('更新成功');
+      alert(message.msg);
+    }
+  } catch (error) {
+    console.log('发送数据时出错', error);
+    alert('更新请求失败，请稍后再试');
   }
 }
 
-const update = async () => {
-    try {
-        const jsonstring = JSON.stringify(up1.value);
-        const response = await axios.post('http://192.168.1.145:8080/user/login', jsonstring, {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        up1.value = null;
-        const message = response.data;
-        console.log(message);
-         根据不同的消息，执行不同的操作
-         if (message === 'User Not Exist') {
-             alert('用户不存在');
-         } else if (message === 'Password Error') {
-             alert('密码错误');
-         } else if (message === 'Login Success') {
-             alert('登录成功');
-             // 跳转到首页
-             // window.location.href = '/home';
-            router.push('/');
-         } else {
-             // 如果有其他消息，可以在这里处理
-             alert('未知错误');
-         }
-    } catch (error) {
-        console.log('发送数据时出错', error);
-        alert('登录成功失败，请稍后再试');
-    }
-};
+
 </script>
 
-
 <style scoped>
-
+input::placeholder,
+textarea::placeholder {
+  color: rgba(169, 169, 169, 1);
+  /* Set the placeholder color to gray */
+}
 </style>
