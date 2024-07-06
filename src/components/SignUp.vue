@@ -1,9 +1,9 @@
 <template>
-    <modal ref="modal">
+    <!-- <modal ref="modal">
         <div class="NavBarSignIn">
             <SignIn />
         </div>
-    </modal>
+    </modal> -->
     <div class="Content"
         style="width: 527px; height: 725px; padding-left: 64px; padding-right: 64px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 32px; display: flex">
         <div class="Text"
@@ -63,7 +63,7 @@
                 </span>
                 <span
                     style="color: black; font-size: 18px; font-family: Inter; font-weight: 600; text-decoration: underline; line-height: 27px; word-wrap: break-word;"
-                    @click="$refs.modal.openModal()">
+                    @click="backToSignIn">
                     返回登录
                 </span>
             </div>
@@ -72,8 +72,9 @@
 </template>
 
 <script setup>
-import Modal from './Modal.vue';
-import SignIn from './SignIn.vue';
+/* import Modal from './Modal.vue';
+import SignIn from './SignIn.vue'; */
+
 import { ref, computed } from 'vue';
 import axios from 'axios';
 const user = ref({
@@ -87,7 +88,12 @@ const isLongEnough = computed(() => user1.value.password.length >= 10);
 const hasSpecialChar = computed(() => /[!@#$%^&*(),.?":{}|<>]/.test(user1.value.password));
 
 
-const emit = defineEmits(['closeModalSignIn']);
+const emit = defineEmits(['closeModalFromSignUp','openSignIn']);
+
+// 返回登录
+function backToSignIn() {
+    emit('openSignIn')
+}
 
 const user1 = ref(user);
 
@@ -105,16 +111,15 @@ const register = async () => {
             },
             {}
         );
-        const message = response.data;
-        console.log(message);
-        if(message.code==200)
+        if(response.data.code==200)
         {
-            alert(message.msg);
-            emit('closeModalSignUp');
+            alert(response.data.msg);
+
+            emit('closeModalFromSignUp');
         }
-        else if(message.code==500)
+        else if(response.data.code==500)
         {
-            alert(message.msg);
+            alert(response.data.msg);
         }
     } catch (error) {
         console.log('发送数据时出错', error);

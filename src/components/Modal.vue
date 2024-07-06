@@ -1,6 +1,6 @@
 <template>
     <teleport to="body">
-        <div v-if="isOpen" class="modal-overlay">
+        <div v-if="props.open" class="modal-overlay">
             <div class="modal-content">
                 <button class="CloseModal" @click="closeModal">X</button>
                 <slot></slot>
@@ -9,34 +9,18 @@
     </teleport>
 </template>
 
-<script>
-import { ref } from 'vue';
+<script setup>
 
-export default {
-    name: 'Modal',
-    props: { openif: { default: false, type: Boolean } },
-    setup() {
-        const isOpen = ref(false);
+const props = defineProps({
+    open: {default: false, type: Boolean}
+})
 
-        function openModal() {
-            isOpen.value = true;
+const emit = defineEmits(['closeSignFromModal']);
 
-            console.log('openmodal');
-        }
+function closeModal() {
+    emit("closeSignFromModal")
+}
 
-        function closeModal() {
-            isOpen.value = false;
-            console.log(isOpen);
-            console.log('closemodal');
-        }
-
-        return {
-            isOpen,
-            openModal,
-            closeModal,
-        };
-    },
-};
 </script>
 
 <style scoped>

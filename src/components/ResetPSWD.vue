@@ -1,63 +1,62 @@
-
 <script setup>
 import { ref } from 'vue';
 import axios from 'axios';
 
-const user = {
-    name: '',
-    password: '',
-    email: ''
-}
-const emit = defineEmits(['closeModalFromSignIn','openSignUp']);
 
-function signUp() {
-    emit("openSignUp")
-}
+let user = ref({
+    email: "",
+    password: "",
+    verifycode: ""
+})
 
-/* const router = useRouter(); */
-const user1 = ref(user);
+let countdown = ref(60);
+let countdown_flag = ref(true)
 
-const login = async () => {
-    try {
-        // const jsonstring = JSON.stringify(user1.value);
-        const response = await axios.get(
-            `http://192.168.1.145:8080/user/login`,
-            {   
-                params: {
-                    name: user.name,
-                    email: user.email,
-                    password: user.password,
-                },
-            },
-            {}
-        );
-        const message = response.data;
-        console.log(message);
-        if(message.code==200)
-        {
-            console.log('登陆成功');
-            alert(message.msg);
-            emit('closeModalFromSignIn');
+const emit = defineEmits(['openSignIn', 'openSignUp', 'closeModalFromReset'])
+
+async function verify() {
+    const response = await axios.get('http://192.168.1.145:8080/mail/checkMail',{
+        params: {
+            email: user.value.email,
+            number: user.value.verifycode,
+            newPassword: user.value.password
         }
-        else if(message.code==500)
-        {
-            alert(message.msg);
-        }
-    } catch (error) {
-        console.log('发送数据时出错', error);
-        alert('登录请求失败，请稍后再试');
+    })
+    console.log(response)
+    if(response.data.code == 200) {
+        alert("修改成功")
+        emit('closeModalFromReset')
     }
-};
+}
+
+async function getVerifyCode() {
+    await axios.get('http://192.168.1.145:8080/mail/sendMail',{
+        params: {
+            email: user.value.email
+        }
+    })
+    countdown.value = 60
+    countdown_flag.value = false
+    let timer = setInterval(() =>{
+        countdown.value = countdown.value -1
+        if(countdown.value == 0) {
+            clearInterval(timer)
+            countdown_flag.value = true
+        }
+    },1000)
+}
+
+function toSignUp() {
+    emit('openSignUp')
+}
+
+function toSignIn() {
+    emit('openSignIn')
+}
 
 </script>
 
-
 <template>
-    <!-- <modal ref="modal">
-        <div class>
-            <SignUp @closeModalSignUp="$refs.modal.openModal()" />
-        </div>
-    </modal> -->
     <div class="LeftColumn"
         style="width: 593px; height: 829px; padding: 32px; flex-direction: column; justify-content: flex-start; align-items: flex-start; display: inline-flex">
         <div class="Top"
@@ -76,50 +75,46 @@ const login = async () => {
                 style="align-self: stretch; height: 83px; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 12px; display: flex">
                 <div class="SignIn"
                     style="text-align: center; color: #232323; font-size: 40px; font-family: Inter; font-weight: 700; line-height: 44px; word-wrap: break-word">
-                    欢迎回来</div>
+                    重设密码</div>
                 <div class="PleaseLoginToContinueToYourAccount"
                     style="align-self: stretch; color: #969696; font-size: 18px; font-family: Inter; font-weight: 400; line-height: 27px; word-wrap: break-word">
-                    Please login to continue to your account.</div>
+                    请输入原账号邮箱和新密码</div>
             </div>
             <div class="Form"
                 style="flex-direction: column; justify-content: center; align-items: flex-start; gap: 20px; display: flex">
-                <input type="text" class="Input" placeholder="Email:"
-                    style="width: 399px; padding: 16px; border-radius: 10px; border: 1.50px #367AFF solid;"
-                    v-model="user1.email">
-
-                <input type="password" class="Input" placeholder="Password:"
+                <input type="text" class="Input" placeholder="Email:" v-model="user.email"
                     style="width: 399px; padding: 16px; border-radius: 10px; border: 1px #D9D9D9 solid;"
-                    v-model="user1.password">
+                    >
 
-                <!-- 忘记登陆块 -->
-                <a href="baidu.com" class="Keep">
-                    <div class="KeepMeLoggedIn">
-                        Forget your password?
-                    </div>
-                </a>
-
+                <input type="password" class="Input" placeholder="Password:" 
+                    style="width: 399px; padding: 16px; border-radius: 10px; border: 1px #D9D9D9 solid;"
+                    v-model="user.password">
+                <div>
+                    <input type="text" class="Input" placeholder="验证码:" v-model="user.verifycode"
+                    style="width: 399px; padding: 16px; border-radius: 10px; border: 1px #D9D9D9 solid;"
+                    >
+                    
+                </div>
+                <div v-if="countdown_flag" @click="getVerifyCode">
+                    获取验证码
+                </div>
+                <div v-else>
+                    {{ countdown }}
+                </div>
+                
                 <!-- 提交按钮 -->
-                <button type="button" class="Button" @click="login"
+                <button type="button" class="Button" @click="verify"
                     style="align-self: stretch; padding-left: 8px; padding-right: 8px; padding-top: 16px; padding-bottom: 16px; background: black; border-radius: 10px; border: 1px solid;">
                     <div class="SignIn"
                         style="color: white; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 21.60px; word-wrap: break-word">
-                        Sign in</div>
+                        验证</div>
                 </button>
-
-                <div class="Or"
-                    style="align-self: stretch; justify-content: flex-start; align-items: center; gap: 10px; display: inline-flex">
-                    <div class="Vector1" style="flex: 1 1 0; height: 0px; border: 1px #D9D9D9 solid"></div>
-                    <div class="Or"
-                        style="color: #6E6E6E; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 24px; word-wrap: break-word">
-                        非会员？</div>
-                    <div class="Vector2" style="flex: 1 1 0; height: 0px; border: 1px #D9D9D9 solid"></div>
-                </div>
 
                 <button type="button" class="Button"
                     style="align-self: stretch; height: 54px; padding-left: 8px; padding-right: 8px; padding-top: 16px; padding-bottom: 16px; background: white; box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.03); border-radius: 10px; border: 1px #E6E8E7 solid;">
-                    <div class="SignInWithGoogle"
+                    <div class="SignInWithGoogle" @click="toSignIn"
                         style="color: #232323; font-size: 18px; font-family: Inter; font-weight: 600; line-height: 21.60px; word-wrap: break-word">
-                        Sign in with Google</div>
+                        回到登录</div>
 
                 </button>
             </div>
@@ -129,7 +124,7 @@ const login = async () => {
                     Need an account?
                 </span>
                 <span style="color: black; font-size: 18px; font-family: Inter; font-weight: 600; text-decoration:
-                    underline; line-height: 27px; word-wrap: break-word;" @click="signUp">
+                    underline; line-height: 27px; word-wrap: break-word;" @click="toSignUp">
                         Create one
             </span>
             </div>

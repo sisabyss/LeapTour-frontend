@@ -1,7 +1,10 @@
 <template>
-  <modal ref="modal">
-    <div class="NavBarSignIn" >
-      <SignIn @closeModalSignIn="$refs.modal.closeModal()" />
+  <modal :open="open_sign_in" @closeSignFromModal="closeSign">
+    <div class="NavBarSignIn" v-if="sign_in_or_up">
+      <SignIn @closeModalFromSignIn="closeSign" @openSignUp="toSignUp"/>
+    </div>
+    <div v-else>
+      <SignUp @closeModalFromSignUp="closeSign" @openSignIn="toSignIn"></SignUp>
     </div>
   </modal>
   <!-- NavBar adds scrolled class to nav element when window's scroll down is greater than 20 -->
@@ -68,23 +71,7 @@
           </li>
         </router-link>
 
-        <router-link to="/sign_in">
-          <li class="rounded-full hover:bg-gray-200 py-2 px-3 cursor-pointer">
-            <p class="flex font-medium items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" class="w-6 h-6 mr-2">
-                <path
-                  d="M30 30h-2a4.932 4.932 0 0 1-4-1.987a5.02 5.02 0 0 1-8 0a5.02 5.02 0 0 1-8 0A4.932 4.932 0 0 1 4 30H2v-2h2a3.44 3.44 0 0 0 3.053-2.321A.971.971 0 0 1 8 25a1.007 1.007 0 0 1 .949.684A3.438 3.438 0 0 0 12 28a3.44 3.44 0 0 0 3.053-2.321A.99.99 0 0 1 16 25a1.007 1.007 0 0 1 .949.684A3.438 3.438 0 0 0 20 28a3.44 3.44 0 0 0 3.053-2.321a1 1 0 0 1 1.896.005A3.438 3.438 0 0 0 28 28h2z"
-                  fill="currentColor"
-                ></path>
-                <path
-                  d="M28 6v4h-2.5l-2.1-2.8A3.013 3.013 0 0 0 21 6h-6a3.003 3.003 0 0 0-3 3v1H8.618l-.724-1.447l-1-2A1 1 0 0 0 6 6H3a1 1 0 0 0-1 1v6a3.003 3.003 0 0 0 3 3h6.82l-.667 4H7a1 1 0 0 0 0 2h20a1 1 0 0 0 0-2h-4.153l-.667-4h.163a4.966 4.966 0 0 0 3.535-1.465L28 12.415V16h2V6zM14 9a1 1 0 0 1 1-1h6a1.004 1.004 0 0 1 .8.4L23 10h-9zm6.82 11h-7.64l.667-4h6.306zm1.524-6H5a1 1 0 0 1-1-1V8h1.382l.724 1.447L7.381 12h18.204l-1.122 1.121a2.979 2.979 0 0 1-2.12.879z"
-                  fill="currentColor"
-                ></path>
-              </svg>
-              Sign In
-            </p>
-          </li>
-        </router-link>
+
 
         <!-- router to `AI Itinerary` -->
         <router-link to="/ai_itinerary">
@@ -131,7 +118,7 @@
           </li>
         </router-link>
 
-        <li class="rounded-full hover:bg-gray-200 py-2 px-3 cursor-pointer" @click="$refs.modal.openModal()">
+        <!-- <li class="rounded-full hover:bg-gray-200 py-2 px-3 cursor-pointer" @click="openSign">
           <p class="flex font-medium items-center">
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32"
               class="w-6 h-6 mr-2">
@@ -149,7 +136,7 @@
             </svg>
             SignIn
           </p>
-        </li>
+        </li> -->
 
         <!-- router to `MapView` -->
         <router-link to="/map_view">
@@ -178,6 +165,13 @@
             </div>
           </li>
         </router-link>
+        <!-- <li class="rounded-full cursor-pointer" @click="clickProfile">
+            <div class="flex font-medium items-center">
+              <span class="kjIqZ I ui_social_avatar large xtra-large-tablet">
+                <img src="https://media-cdn.tripadvisor.com/media/photo-l/1a/f6/f2/7a/default-avatar-2020-25.jpg" alt="avatar-image" />
+              </span>
+            </div>
+        </li> -->
       </ul>
 
       <!-- Menu toggle button -->
@@ -191,45 +185,68 @@
   </nav>
 </template>
 
-<script>
+
+<script setup>
 import Modal from './Modal.vue';
 import SignIn from './SignIn.vue';
+import SignUp from './SignUp.vue';
+import { ref, onMounted, onUnmounted } from 'vue';
+import { inject } from 'vue'
 
 
-export default {
-  name: 'NavBar',
-  components: {
-    Modal,
-    SignIn,
-  },
-  data() {
-    return {
-      limitPosition: 500,
-      scrolled: true,
-      lastPosition: 0,
-    };
-  },
-  methods: {
-    handleScroll() {
-      if (this.lastPosition < window.scrollY && this.limitPosition < window.scrollY) {
-        this.scrolled = true;
-      }
+const open_sign_in = inject('openSign')
 
-      if (this.lastPosition > window.scrollY) {
-        this.scrolled = false;
-        // move down
-      }
+console.log("dgyfud" + open_sign_in)
 
-      this.lastPosition = window.scrollY;
-    },
-  },
-  beforeMount() {
-    window.addEventListener('scroll', this.handleScroll);
-  },
-  beforeUnmount() {
-    window.removeEventListener('scroll', this.handleScroll);
-  },
-};
+const limitPosition = ref(500);
+const scrolled = ref(true);
+const lastPosition = ref(0);
+
+/* function clickProfile() {
+
+} */
+
+// 默认 true 为登录
+const sign_in_or_up = ref(true)
+
+//打开登录弹窗
+function closeSign(){
+  open_sign_in.value = false
+}
+//关闭登录弹窗
+/* function openSign() {
+  open_sign_in.value = true
+} */
+
+// 弹出注册页
+function toSignUp() {
+  sign_in_or_up.value = false
+}
+// 弹出登录页
+function toSignIn() {
+  sign_in_or_up.value = true
+}
+
+function handleScroll() {
+  if (lastPosition.value < window.scrollY && limitPosition.value < window.scrollY) {
+    scrolled.value = true;
+  }
+
+  if (lastPosition.value > window.scrollY) {
+    scrolled.value = false;
+    // move down
+  }
+
+  lastPosition.value = window.scrollY;
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll);
+});
 </script>
 
 <style scoped>
