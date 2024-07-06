@@ -9,7 +9,9 @@
 
     <!-- Check In/Out and Guests Filter -->
     <div class="border-b mb-10 z-30 md:sticky-top bg-white -mt-4">
-      <div class="container mx-auto block space-y-4 md:space-y-0 md:grid md:grid-cols-3 gap-2 px-4 py-5">
+      <div
+        class="container mx-auto block space-y-4 md:space-y-0 md:grid md:grid-cols-3 gap-2 px-4 py-5"
+      >
         <!-- Check In -->
         <div class="w-full relative">
           <span class="absolute text-xs bg-white font-semibold px-2 -top-2 left-2"> Check In </span>
@@ -24,7 +26,9 @@
 
         <!-- Check Out -->
         <div class="w-full relative">
-          <span class="absolute text-xs bg-white font-semibold px-2 -top-2 left-2"> Check Out </span>
+          <span class="absolute text-xs bg-white font-semibold px-2 -top-2 left-2">
+            Check Out
+          </span>
 
           <!-- Input field for 'checkout' date -->
           <input
@@ -36,13 +40,15 @@
         </div>
 
         <!-- Guests -->
-        <div class="w-full rounded border-y border-r shadow px-4 py-2 border-l-8 border-l-gray-500 relative">
+        <div
+          class="w-full rounded border-y border-r shadow px-4 py-2 border-l-8 border-l-gray-500 relative"
+        >
           <!-- Click-enbaled Overlay, that toggles Guests Field -->
           <div
             class="absolute w-full h-full top-0 left-0 cursor-pointer bg-transparent z-10"
             @click="
               () => {
-                guestsToggle = true;
+                guestsToggle = true
               }
             "
           />
@@ -53,7 +59,14 @@
           <p class="w-full">{{ filterParams.rooms }} room, {{ filterParams.adults }} adults</p>
 
           <span class="absolute top-3 right-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -64,18 +77,25 @@
 
           <!-- Dropdown is displayed If Guests Toggle is Clicked, hence 'guestsToggle' set to true -->
           <div v-if="guestsToggle" class="absolute z-20 w-full left-0 top-12">
-            <div class="h-4 w-4 bg-white shadow transform rotate-45 mx-auto -mb-2 border border-gray-200" />
+            <div
+              class="h-4 w-4 bg-white shadow transform rotate-45 mx-auto -mb-2 border border-gray-200"
+            />
             <div class="bg-white shadow-md w-full p-4 space-y-2 relative">
               <!-- Close Button -->
               <p
                 class="flex justify-end pb-2 relative"
                 @click="
                   () => {
-                    guestsToggle = false;
+                    guestsToggle = false
                   }
                 "
               >
-                <svg class="h-4 w-4 block cursor-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <svg
+                  class="h-4 w-4 block cursor-pointer"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
                   <path
                     fillRule="evenodd"
                     d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
@@ -121,9 +141,17 @@
           <div class="relative">
             <img src="../assets/map.png" alt="Map" class="w-full h-20 lg:h-full object-cover" />
             <div class="absolute w-full h-full top-0 flex items-center justify-center">
-              <button class="bg-white rounded-sm border border-black py-2 px-4 hover:bg-black hover:text-white" onClick="">
+              <button
+                class="bg-white rounded-sm border border-black py-2 px-4 hover:bg-black hover:text-white"
+                onClick=""
+              >
                 <p class="font-semibold flex items-center text-sm">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
                     <path
                       fillRule="evenodd"
                       d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
@@ -142,8 +170,8 @@
       <!-- Hotels Listing -->
       <div class="lg:col-span-9">
         <!-- Displays a loading if 'hotels' has no data in state or data fetching is in loading state -->
-        <PlaceListLoader v-if="mainContext.hotels == [] || mainContext.isLoading" />
-        <HotelCard v-for="(hotel, i) in mainContext.hotels" :key="i" :hotel="hotel"> </HotelCard>
+        <!-- <PlaceListLoader v-if="store.hotels == [] || store.isLoading" /> -->
+        <HotelCard v-for="(hotel, i) in store.hotels" :key="i" :hotel="hotel"> </HotelCard>
         <!-- Maps through 'hotels' list when it is ready or data fetching is not in loading state -->
       </div>
     </div>
@@ -156,17 +184,17 @@
 <style></style>
 
 <script setup>
-import NavBar from '../components/NavBar.vue';
-import HomeFooter from '../components/HomeFooter.vue';
-import HotelCard from '../components/HotelCard.vue';
+import NavBar from '../components/NavBar.vue'
+import HomeFooter from '../components/HomeFooter.vue'
+import HotelCard from '../components/HotelCard.vue'
 // import PlaceListLoader from '../components/Loader/PlaceCardLoader.vue';
-import { useMainContextStore } from '../store/MainContext';
-import { watch } from 'vue';
-import axios from 'axios';
-import moment from 'moment/moment';
-import { getPlacesByLatLng } from '../api/tripadvisor';
+import { useBaseStore } from '../store/pinia'
+import { watch } from 'vue'
+import axios from 'axios'
+import moment from 'moment/moment'
+import { getPlacesByCity } from '../api/tripadvisor'
 
-const mainContext = useMainContextStore();
+const store = useBaseStore()
 const filterParams = {
   limit: 30,
   rooms: 1,
@@ -176,33 +204,33 @@ const filterParams = {
   checkout: '',
   nights: 1,
   pricesmax: '',
-  pricesmin: '',
-};
+  pricesmin: ''
+}
 
-let guestsToggle = false;
+let guestsToggle = false
 
 watch(
-  () => mainContext.coordinates,
+  () => store.coordinates,
   () => {
-    let source = axios.CancelToken.source();
+    let source = axios.CancelToken.source()
 
     // Loading state is set to true while data is being fetched from endpoint
-    mainContext.isLoading = true;
+    store.isLoading = true
 
     // Calling on the getPlacesByLatLng endpoint passing in the 'attraction' as place type, coordinates (longitude and latitude), a limit parameter and source for error handling
-    getPlacesByLatLng('hotels', mainContext.coordinates.lat, mainContext.coordinates.lng, { ...filterParams }, source).then((data) => {
-      // Data is received and set to 'attractions' state list filtering out items with zero reviews, items with id '0' and items with no 'name' property
-      console.log(data);
-      mainContext.hotels = data.filter((item) => item.num_reviews !== 0 && item.location_id !== 0 && item.name);
+    getPlacesByCity('hotels', store.coordinates.city, source).then((data) => {
+      // Data is received and setstore to 'attractions' state list filtering out items with zero reviews, items with id '0' and items with no 'name' property
+      console.log(data)
+      store.hotels = data
 
       // Setting loading state back to false to stop loading
-      mainContext.isLoading = false;
-    });
+      store.isLoading = false
+    })
 
     // Effect Cleanup
     return () => {
-      source.cancel();
-    };
+      source.cancel()
+    }
   }
-);
+)
 </script>

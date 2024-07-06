@@ -1,8 +1,14 @@
 <script setup>
-import { NRate } from 'naive-ui';
-const props = defineProps(['hotel']);
-
-console.log(props.hotel);
+import { NRate } from 'naive-ui'
+const props = defineProps(['hotel'])
+const processedPhotoUrl = (url) => {
+  if (url) {
+    // 去掉最后的尺寸参数
+    return url.slice(0, url.lastIndexOf('/'))
+  } else {
+    return 'https://media-cdn.tripadvisor.com/media/photo-s/22/d9/7b/42/this-image-has-been-removed.jpg'
+  }
+}
 </script>
 
 <template>
@@ -11,11 +17,7 @@ console.log(props.hotel);
     <div class="col-span-12 mmd:col-span-4 min-h-[180px] max-h-[230px]">
       <a to="/hotels/">
         <img
-          :src="
-            hotel?.photo
-              ? hotel?.photo?.images?.large?.url
-              : 'https://media-cdn.tripadvisor.com/media/photo-s/22/d9/7b/42/this-image-has-been-removed.jpg'
-          "
+          :src="processedPhotoUrl(hotel?.img)"
           alt=""
           class="w-full h-full object-cover cursor-pointer"
         />
@@ -27,7 +29,7 @@ console.log(props.hotel);
       <!-- Name -->
       <a to="hotels/">
         <h2 class="font-semibold md:text-lg">
-          {{ hotel?.name }}
+          {{ hotel?.cnname }}
         </h2>
       </a>
 
@@ -40,7 +42,8 @@ console.log(props.hotel);
           <img
             :src="
               hotel?.hac_offers?.all_booking_offers?.length > 0
-                ? hotel?.hac_offers?.all_booking_offers[0]?.logo || 'hotel.hac_offers.offers[0].provider_display_name'
+                ? hotel?.hac_offers?.all_booking_offers[0]?.logo ||
+                  'hotel.hac_offers.offers[0].provider_display_name'
                 : hotel?.hac_offers?.offers[0]?.logo || ''
             "
             alt=""
@@ -64,9 +67,18 @@ console.log(props.hotel);
                   ? hotel?.hac_offers?.all_booking_offers[0]?.provider_display_name
                   : hotel?.hac_offers?.offers[0]?.provider_display_name
               }}
-              <svg class="h-3 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
-                <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
+              <svg
+                class="h-3 w-3"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"
+                />
+                <path
+                  d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"
+                />
               </svg>
             </span>
           </p>
@@ -76,30 +88,49 @@ console.log(props.hotel);
             target="_blank"
             class="block"
             :href="
-              hotel?.hac_offers?.all_booking_offers?.length > 0 ? hotel?.hac_offers?.all_booking_offers[0]?.link : hotel?.hac_offers?.offers[0]?.link
+              hotel?.hac_offers?.all_booking_offers?.length > 0
+                ? hotel?.hac_offers?.all_booking_offers[0]?.link
+                : hotel?.hac_offers?.offers[0]?.link
             "
           >
-            <button class="bg-yellow-500 hover:bg-yellow-400 text-sm mmd:text-base w-full px-3 mmd:px-4 py-2 rounded-full font-semibold">
+            <button
+              class="bg-yellow-500 hover:bg-yellow-400 text-sm mmd:text-base w-full px-3 mmd:px-4 py-2 rounded-full font-semibold"
+            >
               <p>View deal</p>
             </button>
           </a>
 
           <div class="border-b border-gray-300 w-full mmd:hidden" />
-
-          <p class="w-full text-center text-xs mmd:hidden">We compared the lowest prices from {hotel?.hac_offers?.offers?.length} websites</p>
         </div>
 
         <!-- Other Booking Offers -->
-        <div class="col-span-3 text-center space-y-2 mmd:border-r mmd:border-dotted px-3 relative hidden mmd:block">
+        <div
+          class="col-span-3 text-center space-y-2 mmd:border-r mmd:border-dotted px-3 relative hidden mmd:block"
+        >
           <!-- Maps through a List of Offers but Onlt redners 4 total with the rest hidden behind a show more state -->
 
-          <a v-for="(offer, i) in hotel?.hac_offers?.offers?.slice(0, 3)" :key="i" target="_blank" :href="offer.link" class="text-[11px] block group">
+          <a
+            v-for="(offer, i) in hotel?.hac_offers?.offers?.slice(0, 3)"
+            :key="i"
+            target="_blank"
+            :href="offer.link"
+            class="text-[11px] block group"
+          >
             <!-- Offer Provider Diplaname Name -->
             <p class="flex items-center justify-center">
               {{ offer?.provider_display_name }}
-              <svg class="h-3 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
-                <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
+              <svg
+                class="h-3 w-3"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"
+                />
+                <path
+                  d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"
+                />
               </svg>
             </p>
 
@@ -122,11 +153,20 @@ console.log(props.hotel);
           </a>
 
           <!-- Show more offer button renders only if there's more offer after the 5th items -->
-          <div v-if="hotel?.hac_offers?.offers?.slice(4, hotel?.hac_offers?.offers?.length).length > 1">
+          <div
+            v-if="hotel?.hac_offers?.offers?.slice(4, hotel?.hac_offers?.offers?.length).length > 1"
+          >
             <div class="border-b" />
             <p class="text-[11px] font-bold cursor-pointer">
-              View all other {{ hotel?.hac_offers?.offers?.slice(3, hotel?.hac_offers?.offers?.length).length }} deals
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline" viewBox="0 0 20 20" fill="currentColor">
+              View all other
+              {{ hotel?.hac_offers?.offers?.slice(3, hotel?.hac_offers?.offers?.length).length }}
+              deals
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-4 w-4 inline"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
                 <path
                   fillRule="evenodd"
                   d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
@@ -139,11 +179,16 @@ console.log(props.hotel);
           <div class="absolute -bottom-4/5 -left-2 z-20 hidden mmd:block">
             <!-- Rendering all other offers in the a Show more component - if there's more offer after the 5th items -->
             <div v-if="false">
-              <div class="w-6 h-6 bg-white m-auto shadow border border-gray-200 origin-center rotate-45 -mb-5" />
+              <div
+                class="w-6 h-6 bg-white m-auto shadow border border-gray-200 origin-center rotate-45 -mb-5"
+              />
               <div class="bg-white w-fit p-5 shadow relative space-y-2">
                 <!-- Maps through a List of Offers but Onlt redners 4 total with the rest hidden behind a show more state -->
                 <a
-                  v-for="(offer, i) in hotel?.hac_offers?.offers?.slice(4, hotel?.hac_offers?.offers?.length)"
+                  v-for="(offer, i) in hotel?.hac_offers?.offers?.slice(
+                    4,
+                    hotel?.hac_offers?.offers?.length
+                  )"
                   :key="i"
                   target="_blank"
                   :href="offer.link"
@@ -155,14 +200,25 @@ console.log(props.hotel);
                     <!-- Offer Provider Diplaname Name -->
                     <span class="flex items-center bg-white relative">
                       {{ offer?.provider_display_name }}
-                      <svg class="h-3 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
-                        <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
+                      <svg
+                        class="h-3 w-3"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"
+                        />
+                        <path
+                          d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"
+                        />
                       </svg>
                     </span>
 
                     <!-- Offer Price -->
-                    <span class="flex items-center bg-white relative font-semibold group-hover:underline">
+                    <span
+                      class="flex items-center bg-white relative font-semibold group-hover:underline"
+                    >
                       <svg
                         v-if="offer?.display_price"
                         xmlns="http://www.w3.org/2000/svg"
@@ -189,9 +245,9 @@ console.log(props.hotel);
           <!-- Ratings Star Area -->
           <p class="flex items-center text-xs">
             <span class="flex items-center mr-1">
-              <n-rate readonly :default-value="Number(hotel?.rating)" />
+              <n-rate readonly :default-value="Number(hotel?.grade) / 2" />
             </span>
-            {{ hotel?.num_reviews }} Reviews
+            {{ hotel?.review_num }} Reviews
           </p>
 
           <!-- Hotel Ranking -->
@@ -200,7 +256,12 @@ console.log(props.hotel);
           </p>
 
           <p class="hidden mmd:flex items-center text-xs">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4 mr-2"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
               <path
                 fillRule="evenodd"
                 d="M17.778 8.222c-4.296-4.296-11.26-4.296-15.556 0A1 1 0 01.808 6.808c5.076-5.077 13.308-5.077 18.384 0a1 1 0 01-1.414 1.414zM14.95 11.05a7 7 0 00-9.9 0 1 1 0 01-1.414-1.414 9 9 0 0112.728 0 1 1 0 01-1.414 1.414zM12.12 13.88a3 3 0 00-4.242 0 1 1 0 01-1.415-1.415 5 5 0 017.072 0 1 1 0 01-1.415 1.415zM9 16a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z"

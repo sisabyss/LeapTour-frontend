@@ -1,8 +1,9 @@
 <script setup>
-import Header from '../components/Map/Header.vue';
-import Map from '../components/Map/Map.vue';
-import Sidebar from '../components/Map/SideBar.vue';
-import Filter from '../components/Map/Filter.vue';
+import Header from '../components/Map/Header.vue'
+import Map from '../components/Map/Map.vue'
+import Sidebar from '../components/Map/SideBar.vue'
+import Filter from '../components/Map/Filter.vue'
+import { useBaseStore } from '../store/pinia'
 </script>
 
 <template>
@@ -10,7 +11,9 @@ import Filter from '../components/Map/Filter.vue';
     <div class="h-auto md:h-full w-full md:w-[35%] lg:w-[23%] md:overflow-y-scroll">
       <div class="w-full text-center">
         <!-- Close Map View Button -->
-        <button class="bg-black text-white py-2 px-8 rounded my-2 hover:bg-gray-600 transition ease-in duration-100">
+        <button
+          class="bg-black text-white py-2 px-8 rounded my-2 hover:bg-gray-600 transition ease-in duration-100"
+        >
           <p>Close Map View</p>
         </button>
       </div>

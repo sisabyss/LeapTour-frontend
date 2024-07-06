@@ -1,25 +1,47 @@
 <script setup>
-import PlaceCardLoader from './Loader/PlaceCardLoader.vue';
-import { useMainContextStore } from '../store/MainContext';
-import PlaceCard from './PlaceCard.vue';
-const mainContext = useMainContextStore();
-import { NCarousel } from 'naive-ui';
+import PlaceCardLoader from './Loader/PlaceCardLoader.vue'
+import { useBaseStore } from '@/store/pinia'
+import PlaceCard from './PlaceCard.vue'
+const store = useBaseStore()
+import { NCarousel, NRate } from 'naive-ui'
 </script>
 
 <template>
   <!-- if places list is empty, render a Loader -->
-  <PlaceCardLoader v-if="mainContext.hotels == [] || mainContext.hotels.length < 1" />
+  <PlaceCardLoader v-if="store.hotels == [] || store.hotels.length < 1" />
   <!-- Places are ready, hence the element below is render -->
   <div v-else class="container mx-auto p-4">
     <h2 class="font-semibold text-lg md:text-2xl">Place to Stay</h2>
     <p class="text-sm text-dark mb-2">These are some places you might want to visit</p>
 
-    <div class="relative -left-[20px]">
+    <div class="relative">
       <!-- OwlCarousel to Render Places in Carousel -->
-      <div className="relative -left-[20px]">
-        <n-carousel :slides-per-view="4" :space-between="10" :loop="false" draggable>
-          <div v-for="(hotel, i) in mainContext.hotels" :key="i">
-            <PlaceCard :place="hotel" />
+      <div class="relative">
+        <n-carousel draggable>
+          <div v-for="(place, i) in store.hotels" :key="i">
+            <div v-if="place" class="group cursor-pointer">
+              <!-- Place location_id is passed as parameter to place_type (hotels || restaurants || attractions) route for full place details -->
+              <a href="/">
+                <!-- Place Photo is render if found or a default image is renderedas fallback -->
+                <img
+                  :src="
+                    place?.img
+                      ? place?.img
+                      : 'https://media-cdn.tripadvisor.com/media/photo-s/22/d9/7b/42/this-image-has-been-removed.jpg'
+                  "
+                  :alt="place?.cnname"
+                  class="w-full h-[250px] object-cover group-hover:brightness-125"
+                />
+                <!-- Place name -->
+                <h2 class="font-semibold text-lg group-hover:underline">{{ place?.cnname }}</h2>
+
+                <!-- Place Rating with place.rating value passed into component to render star rating -->
+                <span class="flex items-center mb-2">
+                  <n-rate readonly :default-value="Number(place?.grade) / 2" />
+                  ~ {{ place?.commentCount }} Reviews
+                </span>
+              </a>
+            </div>
           </div>
         </n-carousel>
       </div>
