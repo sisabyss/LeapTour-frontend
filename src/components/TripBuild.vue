@@ -9,10 +9,10 @@
                         <path strokeLinecap="round" strokeLinejoin="round"
                             d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
-                    <n-auto-complete v-model="search" :options="options" placeholder="重庆" clearable
+                    <n-auto-complete v-model="search" :options="options" placeholder="输入旅游地" clearable
                         @select="handleSelect">
                         <template #default="{ handleInput, handleBlur, handleFocus }">
-                            <input type="text" placeholder="重庆"
+                            <input type="text" placeholder="输入旅游地"
                                 class="bg-white rounded-full w-full pl-12 py-3 shadow-xl focus:outline-none border border-black"
                                 @input="handleInput" @blur="handleBlur" @focus="handleFocus" v-model="search" />
                         </template>
@@ -28,10 +28,7 @@
             </div>
         </div>
     </div>
-    <div>
-    </div>
 </template>
-
 <script setup>
 import { ref, computed } from 'vue';
 import { NAutoComplete } from 'naive-ui';
@@ -921,6 +918,7 @@ const handleSelect = (value) => {
 };
 function handleSubmit() {
     // 处理提交逻辑
+    router.push('/AIloading');
     console.log("Search submitted:", search.value);
     searchAI(search.value);
 }
@@ -943,7 +941,7 @@ async function searchAI(search) {
     console.log("before:")
     console.log(router)
     router.push({
-        path: "/aitrip",
+        path: "/ai_itinerary",
         query: {
             AIGC: AIGC,
             addr: Data.searchContent
