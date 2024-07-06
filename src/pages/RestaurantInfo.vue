@@ -201,7 +201,7 @@
             <div class="md:col-span-6 xl:col-span-6 bg-white border border-gray-200 p-4 my-1 mx-0 shadow-sm rounded">
                 <h2 class="font-semibold text-lg md:text-2xl">Reviews <span class="text-gray-400">(131)</span></h2>
                 <div class="h-[1px] bg-gray-300 my-3 md:my-4"></div>
-                <!-- 调入评论区,两个评论卡片间插入一个间隔块 -->
+                <!-- 调入评论区,两个评论卡片一个块 -->
                 <FoodCommentCard/>
 
                 <div class="h-[1px] col-span-12 bg-gray-200 my-10"></div>
@@ -228,5 +228,16 @@ import NavBar from '../components/NavBar.vue';
 import FoodCommentCard from '../components/FoodCommentCard.vue';
 import { NCarousel } from 'naive-ui';
 import { NRate } from 'naive-ui';
-import { Restart } from '@vicons/carbon';
+
+
+const props = defineProps({
+  Rest: {
+    type: Object,
+    required: true
+  }
+});
+
+
+
+
 </script>
