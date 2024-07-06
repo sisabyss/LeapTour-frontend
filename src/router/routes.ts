@@ -6,12 +6,11 @@ import type { RouteRecordRaw } from 'vue-router'
 
 const routes: RouteRecordRaw[] = [
   { path: '/', redirect: '/home' },
-  { path: '/test', component: Test},
-  { path: '/test4', component: Test4,
-  },
+  { path: '/test', component: Test },
+  { path: '/test4', component: Test4 },
 
   { path: '/publish', component: () => import('@/pages/home/Publish.vue') },
-  { path: '/tiktok', component: TikTok  },
+  { path: '/tiktok', component: TikTok },
 
   { path: '/home', component: Home },
   { path: '/home/music', component: () => import('@/pages/home/Music.vue')},

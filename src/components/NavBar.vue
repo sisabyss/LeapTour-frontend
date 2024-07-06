@@ -1,15 +1,18 @@
 <template>
   <modal :open="open_sign_in" @closeSignFromModal="closeSign">
     <div class="NavBarSignIn" v-if="sign_in_or_up">
-      <SignIn @closeModalFromSignIn="closeSign" @openSignUp="toSignUp"/>
+      <SignIn @closeModalFromSignIn="closeSign" @openSignUp="toSignUp" />
     </div>
     <div v-else>
       <SignUp @closeModalFromSignUp="closeSign" @openSignIn="toSignIn"></SignUp>
     </div>
   </modal>
   <!-- NavBar adds scrolled class to nav element when window's scroll down is greater than 20 -->
-  <nav v-show="handleScroll" :class="{ 'border-b-2 sticky top-0': scrolled }"
-    class="relative z-50 transition duration-700 bg-white">
+  <nav
+    v-show="handleScroll"
+    :class="{ 'border-b-2 sticky top-0': scrolled }"
+    class="relative z-50 transition duration-700 bg-white"
+  >
     <!-- TODO: element gets a shadow when menu is toggled -->
     <div class="container mx-auto w-full flex justify-between items-center px-4 py-3 shadow-md">
       <!-- LOGO -->
@@ -21,7 +24,7 @@
         />
       </router-link>
 
-      <ul class="hidden mmd:flex space-x-1">
+      <ul class="hidden md:flex space-x-1">
         <!-- router to `Hotels` -->
         <router-link to="/hotels">
           <li class="rounded-full hover:bg-gray-200 py-2 px-3 cursor-pointer">
@@ -254,7 +257,7 @@
       </ul>
 
       <!-- Menu toggle button -->
-      <div class="mmd:hidden rounded-full hover:bg-gray-200 p-2 cursor-pointer" @click="toggle">
+      <div class="md:hidden rounded-full hover:bg-gray-200 p-2 cursor-pointer" @click="toggle">
         <svg
           v-if="!isMenuToggled"
           class="h-6 w-6"
@@ -365,32 +368,27 @@
   </nav>
 </template>
 
-
 <script setup>
-import Modal from './Modal.vue';
-import SignIn from './SignIn.vue';
-import SignUp from './SignUp.vue';
-import { ref, onMounted, onUnmounted } from 'vue';
+import Modal from './Modal.vue'
+import SignIn from './SignIn.vue'
+import SignUp from './SignUp.vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { inject } from 'vue'
-
 
 const open_sign_in = inject('openSign')
 
-console.log("dgyfud" + open_sign_in)
+console.log('dgyfud' + open_sign_in)
 
-const limitPosition = ref(500);
-const scrolled = ref(true);
-const lastPosition = ref(0);
-
-/* function clickProfile() {
-
-} */
+const limitPosition = ref(500)
+const scrolled = ref(true)
+const lastPosition = ref(0)
 
 // 默认 true 为登录
 const sign_in_or_up = ref(true)
+const isMenuToggled = ref(false)
 
 //打开登录弹窗
-function closeSign(){
+function closeSign() {
   open_sign_in.value = false
 }
 //关闭登录弹窗
@@ -409,28 +407,31 @@ function toSignIn() {
 
 function handleScroll() {
   if (lastPosition.value < window.scrollY && limitPosition.value < window.scrollY) {
-    scrolled.value = true;
+    scrolled.value = true
   }
 
   if (lastPosition.value > window.scrollY) {
-    scrolled.value = false;
+    scrolled.value = false
     // move down
   }
 
-  lastPosition.value = window.scrollY;
+  lastPosition.value = window.scrollY
 }
 
 onMounted(() => {
-  window.addEventListener('scroll', handleScroll);
-});
+  window.addEventListener('scroll', handleScroll)
+})
 
 onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll);
-});
+  window.removeEventListener('scroll', handleScroll)
+})
+
+const toggle = () => {
+  isMenuToggled.value = !isMenuToggled.value
+  console.log(this.isMenuToggled)
+}
+
 /*
-=======
-
-
 export default {
   name: 'NavBar',
   components: {
@@ -471,7 +472,6 @@ export default {
     window.removeEventListener('scroll', this.handleScroll)
   }
 }
->>>>>>> 1cad6a4 (migrate to android, merg tiktok)
 */
 </script>
 
