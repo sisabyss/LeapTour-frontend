@@ -236,7 +236,6 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/pages/RestaurantList.vue')
   },
 
-
   {
     path: '/hotels',
     component: () => import('@/pages/HotelList.vue')
@@ -250,6 +249,36 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/map_view',
     component: () => import('@/pages/MapView.vue')
+  },
+
+  {
+    path: '/ai_itinerary',
+    component: () => import('@/pages/AITripSearch.vue')
+  },
+
+  {
+    path: '/profile',
+    component: () => import('@/pages/UserProfile.vue')
+  },
+
+  {
+    path: '/flight',
+    component: () => import('@/pages/Flights.vue')
+  },
+
+  {
+    path: '/ai_loading',
+    component: () => import('@/pages/AILoading.vue')
+  },
+
+  {
+    path: '/trip_build',
+    component: () => import('@/pages/TripBuild.vue')
+  },
+
+  {
+    path: '/ai_page',
+    component: () => import('@/pages/AITripPage.vue')
   }
 ]
 
