@@ -1,4 +1,5 @@
 <template>
+  <SideBar />
   <router-view v-slot="{ Component }">
     <transition :name="transitionName">
       <keep-alive :exclude="store.excludeNames">
@@ -19,8 +20,8 @@ import { useBaseStore } from '@/store/pinia.js'
 import { onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
-import BaseMask from '@/components/BaseMask.vue'
 import { BASE_URL } from '@/config'
+import SideBar from './components/SideBar.vue'
 
 const store = useBaseStore()
 const route = useRoute()

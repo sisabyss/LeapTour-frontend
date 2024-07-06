@@ -11,13 +11,11 @@
     >
       <div class="col-span-3 text-center py-6 flex flex-col items-center justify-center p-4 md:p-2">
         <img src="@/assets/logo.svg" alt="" class="h-16 lg:h-20 mb-5 lg:mb-10" />
-        <h2 class="text-white font-bold text-2xl md:text-[2.15em]">
-          Travelers' Choice Best of the Best
-        </h2>
+        <h2 class="text-white font-bold text-2xl md:text-[2.15em]">旅行者的至尊之选🐐</h2>
         <button
           class="rounded-full bg-black hover:bg-gray-600 transition ease-out duration-200 text-white w-fit py-2 sm:py-3 px-3 sm:px-4 mt-5 lg:mt-14"
         >
-          <p class="font-semibold text-sm">See the winners</p>
+          <p class="font-semibold text-sm">查看有哪些</p>
         </button>
       </div>
       <!-- Section Background Image - Displays only on Large devices, Like Desktop -->
@@ -122,6 +120,7 @@
 </template>
 
 <script setup>
+import SideBar from '@/components/SideBar.vue'
 import NavBar from '../components/NavBar.vue'
 import WhereTo from '../components/WhereTo.vue'
 import ToVisit from '../components/ToVisit.vue'

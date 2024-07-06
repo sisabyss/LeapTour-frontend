@@ -1,9 +1,28 @@
 <script setup>
 import PlaceCardLoader from './Loader/PlaceCardLoader.vue'
 import { useBaseStore } from '@/store/pinia'
-import PlaceCard from './PlaceCard.vue'
 const store = useBaseStore()
 import { NCarousel, NRate } from 'naive-ui'
+
+import { ref, onMounted, onBeforeUnmount } from 'vue'
+
+const slidesPerView = ref(getSlidesPerView())
+
+function getSlidesPerView() {
+  return window.innerWidth <= 768 ? 1 : 4
+}
+
+function updateSlidesPerView() {
+  slidesPerView.value = getSlidesPerView()
+}
+
+onMounted(() => {
+  window.addEventListener('resize', updateSlidesPerView)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', updateSlidesPerView)
+})
 </script>
 
 <template>
@@ -11,13 +30,13 @@ import { NCarousel, NRate } from 'naive-ui'
   <PlaceCardLoader v-if="store.hotels == [] || store.hotels.length < 1" />
   <!-- Places are ready, hence the element below is render -->
   <div v-else class="container mx-auto p-4">
-    <h2 class="font-semibold text-lg md:text-2xl">Place to Stay</h2>
+    <h2 class="font-semibold text-lg md:text-2xl">住哪儿？🏨</h2>
     <p class="text-sm text-dark mb-2">These are some places you might want to visit</p>
 
     <div class="relative">
       <!-- OwlCarousel to Render Places in Carousel -->
       <div class="relative">
-        <n-carousel draggable>
+        <n-carousel draggable :slides-per-view="slidesPerView">
           <div v-for="(place, i) in store.hotels" :key="i">
             <div v-if="place" class="group cursor-pointer">
               <!-- Place location_id is passed as parameter to place_type (hotels || restaurants || attractions) route for full place details -->

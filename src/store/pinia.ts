@@ -58,7 +58,8 @@ export const useBaseStore = defineStore('base', {
           }
         ]
       },
-      friends: resource.users
+      friends: resource.users,
+      sidebarOpen: false 
     }
   },
   getters: {
