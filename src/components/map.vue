@@ -1,5 +1,5 @@
 <template>
-  <div ref="mapChart" style="width: 600px; height: 500px"></div>
+  <div ref="mapChart" style="width: 100%; height: 500px; justify-content: center"></div>
   <div style="padding-left: 200px; padding-right: 200px">
     <!-- 使用计算出的进度条百分比 -->
     <n-progress

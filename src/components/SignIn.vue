@@ -40,12 +40,14 @@ const login = async () => {
     store.email = user.email
     const message = response.data
     store.token = message.data
+    localStorage.setItem('saemail', user.email)
+    console.log(localStorage.getItem('saemail'))
     localStorage.setItem('satoken', message.data)
     console.log(localStorage.getItem('satoken'))
     console.log(message)
     if (message.code == 200) {
       console.log('登陆成功')
-      alert(message.msg)
+      alert('登录成功')
       emit('closeModalFromSignIn')
     } else if (message.code == 500) {
       alert(message.msg)
@@ -160,7 +162,7 @@ const login = async () => {
             word-wrap: break-word;
           "
         >
-          Please login to continue to your account.
+          旅兔一直在等你
         </div>
       </div>
       <div
@@ -176,7 +178,7 @@ const login = async () => {
         <input
           type="text"
           class="Input"
-          placeholder="Email:"
+          placeholder="邮箱:"
           style="width: 399px; padding: 16px; border-radius: 10px; border: 1px #d9d9d9 solid"
           v-model="user1.email"
         />
@@ -184,13 +186,13 @@ const login = async () => {
         <input
           type="password"
           class="Input"
-          placeholder="Password:"
+          placeholder="密码:"
           style="width: 399px; padding: 16px; border-radius: 10px; border: 1px #d9d9d9 solid"
           v-model="user1.password"
         />
 
         <!-- 忘记登陆块 -->
-        <div class="KeepMeLoggedIn" @click="resetPSWD">Forget your password?</div>
+        <div class="KeepMeLoggedIn" @click="resetPSWD">忘记密码?</div>
 
         <!-- 提交按钮 -->
         <button
@@ -219,7 +221,7 @@ const login = async () => {
               word-wrap: break-word;
             "
           >
-            Sign in
+            登录
           </div>
         </button>
 
@@ -233,20 +235,6 @@ const login = async () => {
             display: inline-flex;
           "
         >
-          <div class="Vector1" style="flex: 1 1 0; height: 0px; border: 1px #d9d9d9 solid"></div>
-          <div
-            class="Or"
-            style="
-              color: #6e6e6e;
-              font-size: 16px;
-              font-family: Inter;
-              font-weight: 500;
-              line-height: 24px;
-              word-wrap: break-word;
-            "
-          >
-            非会员？
-          </div>
           <div class="Vector2" style="flex: 1 1 0; height: 0px; border: 1px #d9d9d9 solid"></div>
         </div>
 
@@ -269,7 +257,7 @@ const login = async () => {
             word-wrap: break-word;
           "
         >
-          Need an account?
+          需要一个账号?
         </span>
         <span
           style="
@@ -283,7 +271,7 @@ const login = async () => {
           "
           @click="signUp"
         >
-          Create one
+          这里创建
         </span>
       </div>
     </div>

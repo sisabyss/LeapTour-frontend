@@ -9,6 +9,18 @@ import Swiper from '@/components/Swiper.vue'
 import { useRouter } from 'vue-router'
 import { reactive } from 'vue'
 
+import { onMounted } from 'vue'
+
+const screenWidth = ref(document.documentElement.clientWidth)
+const isPhone = ref(screenWidth.value < 700) // 小于700视为平板及手机
+
+onMounted(() => {
+  window.addEventListener('resize', () => {
+    screenWidth.value = document.body.offsetWidth
+    isPhone.value = document.body.offsetWidth < 700 // 小于700视为平板及手机
+  })
+})
+
 const expandedNames = ref(['day1-place0'])
 const router = useRouter()
 
@@ -128,19 +140,19 @@ const day3Places = ref(
             </n-icon>
           </div>
           <div class="box2" style="padding: 5px">
-            <p style="color: darkgray; font-size: smaller">This Trip is Powered by AI</p>
+            <p style="color: darkgray; font-size: smaller">此次旅程规划由AI生成</p>
           </div>
         </div>
         <div class="buttoncontainer">
-          <NButton class="SaveItinerary"> ❤ Save Itinerary </NButton>
+          <NButton class="SaveItinerary"> ❤ 收藏 </NButton>
         </div>
       </div>
-      <h1 class="AITripTitle">Your Trip To {{ Data.addr }} for 3 days</h1>
+      <h1 class="AITripTitle">乐游{{ Data.addr }}</h1>
       <div class="Pagedescription">
         {{ Data.introduction }}
       </div>
       <n-divider class="AITripdivider" />
-      <p class="AITripSubTitle">Places To Stay</p>
+      <p class="AITripSubTitle">旅行者推荐地</p>
       <div class="AITripSwiper">
         <div id="app">
           <Swiper :items="cards" width="50%"></Swiper>
@@ -157,7 +169,7 @@ const day3Places = ref(
                 <input type="text" placeholder="Search">
             </div>
         </div> -->
-      <p class="AITripSubTitle">Itinerary For You</p>
+      <p class="AITripSubTitle">旅程规划</p>
       <div class="ItineraryAll">
         <div title="Day 1">
           <div class="container">

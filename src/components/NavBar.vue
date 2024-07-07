@@ -63,18 +63,23 @@
           <n-menu mode="horizontal" :options="menuOptions" responsive icon-size="30" />
         </ul>
 
-        <router-link to="/profile">
-          <div class="rounded-full cursor-pointer">
-            <div class="flex font-medium items-center">
-              <span class="kjIqZ I ui_social_avatar large xtra-large-tablet">
-                <img
-                  src="https://media-cdn.tripadvisor.com/media/photo-l/1a/f6/f2/7a/default-avatar-2020-25.jpg"
-                  alt="avatar-image"
-                />
-              </span>
+        <div>
+          <n-dropdown trigger="hover" :options="options" @select="handleSelect">
+            <div class="rounded-full cursor-pointer">
+              <div class="flex font-medium items-center">
+                <span class="kjIqZ I ui_social_avatar large xtra-large-tablet">
+                  <img :src="myavatar" alt="avatar-image" />
+                </span>
+              </div>
             </div>
-          </div>
-        </router-link>
+          </n-dropdown>
+        </div>
+        <n-modal v-model:show="showLogoutModal" title="确认退出登录？" preset="dialog" maskClosable>
+          <template #action>
+            <n-button @click="confirmLogout">确认</n-button>
+            <n-button @click="showLogoutModal = false">取消</n-button>
+          </template>
+        </n-modal>
       </div>
     </nav>
   </div>
@@ -82,10 +87,12 @@
 
 <script setup>
 import { useBaseStore } from '@/store/pinia'
+import axios from 'axios'
 import Modal from './Modal.vue'
 import SignIn from './SignIn.vue'
 import SignUp from './SignUp.vue'
-import { NMenu, NIcon, NButton } from 'naive-ui'
+import ResetPSWD from './ResetPSWD.vue'
+import { NMenu, NIcon, NDropdown, NModal, NButton } from 'naive-ui'
 import { ref, onMounted, onUnmounted, h, inject } from 'vue'
 import { RouterLink } from 'vue-router'
 import {
@@ -101,13 +108,113 @@ import {
   Review,
   Sunny
 } from '@vicons/carbon'
+import router from '@/router'
 
 const store = useBaseStore()
+const myavatar = ref(localStorage.getItem('saavatar'))
+const showLogoutModal = ref(false)
 
 function renderIcon(icon) {
   return () => h(NIcon, null, { default: () => h(icon) })
 }
 
+const open_sign_in = inject('openSign')
+
+console.log('dgyfud' + open_sign_in)
+
+const limitPosition = ref(500)
+const scrolled = ref(true)
+const lastPosition = ref(0)
+
+/* function clickProfile() {
+
+} */
+
+// 1 -- 登录 2 -- 注册 3 -- 重设密码
+const sign_in_or_up = ref(1)
+
+//关闭弹窗
+function closeSign() {
+  toSignIn()
+  open_sign_in.value = false
+}
+
+// 弹出注册页
+function toSignUp() {
+  sign_in_or_up.value = 2
+}
+// 弹出登录页
+function toSignIn() {
+  sign_in_or_up.value = 1
+}
+// 弹出重设密码页
+function toReset() {
+  sign_in_or_up.value = 3
+}
+
+const options = [
+  {
+    label: '个人主页',
+    key: 'userprofile'
+  },
+  {
+    label: '退出登录',
+    key: 'logout'
+  }
+]
+async function handleSelect(key) {
+  if (key == 'userprofile') {
+    router.push('/profile')
+  } else if (key == 'logout') {
+    console.log('退出')
+    const satoken = localStorage.getItem('satoken')
+    const response = await axios.get(`http://192.168.1.145:8080/check/checkLogin`, {
+      headers: {
+        satoken: `${satoken}`
+      }
+    })
+    console.log(response)
+    if (response.data.data == false) {
+      //未登录，打开登录弹窗
+      open_sign_in.value = true
+      toSignIn()
+    } else {
+      showLogoutModal.value = true
+    }
+  }
+}
+
+async function confirmLogout() {
+  try {
+    await logout()
+    localStorage.setItem(
+      'saavatar',
+      'https://media-cdn.tripadvisor.com/media/photo-l/1a/f6/f2/7a/default-avatar-2020-25.jpg'
+    )
+    showLogoutModal.value = false
+    router.push('/')
+  } catch (error) {
+    console.log('logout出错')
+    console.log(error)
+  }
+}
+async function logout() {
+  try {
+    const response = await axios.get('http://192.168.1.145:8080/user/logout')
+    const message = response.data
+    if (message.code == 200) {
+      console.log('退出登录成功')
+      alert(message.msg)
+      localStorage.removeItem('satoken')
+    } else if (message == 500) {
+      console.log('退出登录失败')
+      alert(message.msg)
+    }
+  } catch (error) {
+    console.error('获取失败', error)
+    alert('退出登录失败')
+  }
+}
 const menuOptions = [
   {
     label: '发现',
@@ -234,40 +341,6 @@ const menuOptions = [
     ]
   }
 ]
-
-const open_sign_in = inject('openSign')
-
-console.log('dgyfud' + open_sign_in)
-
-const limitPosition = ref(500)
-const scrolled = ref(true)
-const lastPosition = ref(0)
-
-/* function clickProfile() {
-
-} */
-
-// 1 -- 登录 2 -- 注册 3 -- 重设密码
-const sign_in_or_up = ref(1)
-
-//关闭弹窗
-function closeSign() {
-  toSignIn()
-  open_sign_in.value = false
-}
-
-// 弹出注册页
-function toSignUp() {
-  sign_in_or_up.value = 2
-}
-// 弹出登录页
-function toSignIn() {
-  sign_in_or_up.value = 1
-}
-// 弹出重设密码页
-function toReset() {
-  sign_in_or_up.value = 3
-}
 
 function handleScroll() {
   if (lastPosition.value < window.scrollY && limitPosition.value < window.scrollY) {
