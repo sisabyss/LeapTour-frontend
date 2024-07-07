@@ -156,7 +156,7 @@
               </div>
             </div>
             <div style="font-weight: bold">还有更多升级徽章等待你的探索😉</div>
-            <div style="width: 55%">
+            <div style="width: 60%">
               <div class="d-flex flex-wrap">
                 <img
                   class="achievementImg"
@@ -167,7 +167,7 @@
                 />
               </div>
             </div>
-            <div style="width: 55%">
+            <div style="width: 60%">
               <div class="d-flex flex-wrap">
                 <img
                   class="achievementImg"
@@ -178,7 +178,7 @@
                 />
               </div>
             </div>
-            <div style="width: 55%">
+            <div style="width: 60%">
               <div class="d-flex flex-wrap">
                 <img
                   class="achievementImg"
@@ -265,7 +265,7 @@ import { Add, Calendar, IbmCloudInternetServices, OrderDetails, Camera, Pen } fr
 import { NCard, NTabPane, NTabs, NModal, NTooltip } from 'naive-ui'
 import NavBar from '../components/NavBar.vue'
 import axios from 'axios'
-import { useMainContextStore } from '../store/MainContext'
+import { useBaseStore } from '../store/pinia.ts'
 import map1 from '../components/map.vue'
 import PhotoWall from '../components/PhotoWall.vue'
 import ModalInputCity from '../components/ModalInputCity.vue'
@@ -273,6 +273,7 @@ import ModalInputReview from '../components/ModalInputReview.vue'
 import CityStory from '../components/CityStory.vue'
 const PostPic = ref()
 const Photolist = ref([])
+const store = useBaseStore()
 
 // 上传头像子组件将数据emit发射给父组件触发的函数
 const UploadPhoto = (pic) => {
@@ -414,7 +415,6 @@ const UploadCity = (data) => {
   console.log(CityPost.value)
   PassUserCityList(CityPost.value)
 }
-const store = useMainContextStore()
 const userInfo = ref({
   username: '',
   city: '',
