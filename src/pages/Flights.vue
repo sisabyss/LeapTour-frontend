@@ -1,276 +1,298 @@
 <template>
+  <NavBar />
   <div class="FindFlightsAll">
     <div class="FlightsMainCard">
-      <n-card class="FindFlights" title="旅兔：开启新航行✈" header-style="font-size:2em">
-        <n-tabs
-          class="card-tabs"
-          size="small"
-          animated
-          pane-wrapper-style="margin: 0 -4px"
-          tab-style="font-size:1.2em"
-        >
-          <n-tab-pane name="Round Trip" tab="往返">
-            <n-form size="small">
-              <n-form-item-row class="FlightsFormItemRow">
-                <div class="FlightsLabelInput">
-                  <n-form-item label="出发地" label-style="font-size:1.3em;">
-                    <n-auto-complete
-                      v-model:value="RoundFrom"
-                      :options="filteredOptionsRoundFrom"
-                      placeholder="输入出发机场"
-                      clearable
-                      @select="handleSelect('RoundFrom', $event)"
-                    >
-                      <template #default="{ handleInput, handleBlur, handleFocus }">
-                        <n-input
-                          class="FlightsInput"
-                          placeholder="输入出发机场"
-                          @input="handleInput"
-                          @blur="handleBlur"
-                          @focus="handleFocus"
-                          v-model:value="RoundFrom"
-                        >
-                          <template #prefix>
-                            <n-icon class="FlightsLeft">
-                              <Location class="FlightsIcon" />
-                            </n-icon>
-                          </template>
-                        </n-input>
-                      </template>
-                    </n-auto-complete>
-                  </n-form-item>
-                </div>
-                <div class="FlightsLabelInput">
-                  <n-form-item label="目的地" label-style="font-size:1.3em;">
-                    <n-auto-complete
-                      v-model:value="RoundTo"
-                      :options="filteredOptionsRoundTo"
-                      placeholder="输入到达机场"
-                      clearable
-                      @select="handleSelect('RoundTo', $event)"
-                    >
-                      <template #default="{ handleInput, handleBlur, handleFocus }">
-                        <n-input
-                          class="FlightsInput"
-                          placeholder="输入到达机场"
-                          @input="handleInput"
-                          @blur="handleBlur"
-                          @focus="handleFocus"
-                          v-model:value="RoundTo"
-                        >
-                          <template #prefix>
-                            <n-icon class="FlightsLeft">
-                              <Location class="FlightsIcon" />
-                            </n-icon>
-                          </template>
-                        </n-input>
-                      </template>
-                    </n-auto-complete>
-                  </n-form-item>
-                </div>
-              </n-form-item-row>
-              <n-form-item-row class="FlightsFormItemRow">
-                <div class="FlightsLabelInput">
-                  <n-form-item label="出发日期" label-style="font-size:1.3em;">
-                    <n-date-picker
-                      class="FlightsInput"
-                      size="large"
-                      v-model:value="RoundDepart"
-                      type="date"
-                      placeholder="选择出发日期"
-                    />
-                  </n-form-item>
-                </div>
-                <div class="FlightsLabelInput">
-                  <n-form-item label="返程日期" label-style="font-size:1.3em;">
-                    <n-date-picker
-                      class="FlightsInput"
-                      size="large"
-                      v-model:value="RoundReturn"
-                      type="date"
-                      :disabled-date="disabledReturnDates"
-                      @click="checkRoundDepart"
-                      placeholder="选择返程日期"
-                    />
-                  </n-form-item>
-                </div>
-              </n-form-item-row>
-              <n-form-item-row class="FlightsFormItemRow" style="width: 200px">
-                <div class="FlightsLabelInput">
-                  <n-form-item
-                    label="乘客数量"
-                    label-style="font-size:1.3em;"
-                    :rules="[
+      <n-card class="FindFlights" :title="CardStart" header-style="font-size:2em">
+        <template #header-extra>
+          <n-button class="TransportButton" @click="toggleTransport">{{ transportMode }}</n-button>
+        </template>
+        <div v-if="ifFlight">
+          <n-tabs class="card-tabs" size="small" animated pane-wrapper-style="margin: 0 -4px"
+            tab-style="font-size:1.2em">
+            <n-tab-pane name="Round Trip" tab="往返">
+              <n-form size="small">
+                <n-form-item-row class="FlightsFormItemRow">
+                  <div class="FlightsLabelInput">
+                    <n-form-item label="出发地" label-style="font-size:1.3em;">
+                      <n-auto-complete v-model:value="RoundFrom" :options="filteredOptionsRoundFrom"
+                        placeholder="输入出发机场" clearable @select="handleSelect('RoundFrom', $event)">
+                        <template #default="{ handleInput, handleBlur, handleFocus }">
+                          <n-input class="FlightsInput" placeholder="输入出发机场" @input="handleInput" @blur="handleBlur"
+                            @focus="handleFocus" v-model:value="RoundFrom">
+                            <template #prefix>
+                              <n-icon class="FlightsLeft">
+                                <Location class="FlightsIcon" />
+                              </n-icon>
+                            </template>
+                          </n-input>
+                        </template>
+                      </n-auto-complete>
+                    </n-form-item>
+                  </div>
+                  <div class="FlightsLabelInput">
+                    <n-form-item label="目的地" label-style="font-size:1.3em;">
+                      <n-auto-complete v-model:value="RoundTo" :options="filteredOptionsRoundTo" placeholder="输入到达机场"
+                        clearable @select="handleSelect('RoundTo', $event)">
+                        <template #default="{ handleInput, handleBlur, handleFocus }">
+                          <n-input class="FlightsInput" placeholder="输入到达机场" @input="handleInput" @blur="handleBlur"
+                            @focus="handleFocus" v-model:value="RoundTo">
+                            <template #prefix>
+                              <n-icon class="FlightsLeft">
+                                <Location class="FlightsIcon" />
+                              </n-icon>
+                            </template>
+                          </n-input>
+                        </template>
+                      </n-auto-complete>
+                    </n-form-item>
+                  </div>
+                </n-form-item-row>
+                <n-form-item-row class="FlightsFormItemRow">
+                  <div class="FlightsLabelInput">
+                    <n-form-item label="出发日期" label-style="font-size:1.3em;">
+                      <n-date-picker class="FlightsInput" size="large" v-model:value="RoundDepart" type="date"
+                        placeholder="选择出发日期" />
+                    </n-form-item>
+                  </div>
+                  <div class="FlightsLabelInput">
+                    <n-form-item label="返程日期" label-style="font-size:1.3em;">
+                      <n-date-picker class="FlightsInput" size="large" v-model:value="RoundReturn" type="date"
+                        :disabled-date="disabledReturnDates" @click="checkRoundDepart" placeholder="选择返程日期" />
+                    </n-form-item>
+                  </div>
+                </n-form-item-row>
+                <n-form-item-row class="FlightsFormItemRow" style="width: 200px">
+                  <div class="FlightsLabelInput">
+                    <n-form-item label="乘客数量" label-style="font-size:1.3em;" :rules="[
                       { required: true, message: '请输入乘客数量' },
                       { type: 'number', min: 1, message: '乘客数量必须为正整数' }
-                    ]"
-                  >
-                    <n-input
-                      type="number"
-                      class="FlightsInput"
-                      placeholder="乘客数量"
-                      v-model:value="RoundPassengerCount"
-                    >
-                      <template #prefix>
-                        <n-icon class="FlightsLeft">
-                          <Group class="FlightsIcon" />
-                        </n-icon>
-                      </template>
-                    </n-input>
-                  </n-form-item>
-                </div>
-              </n-form-item-row>
-            </n-form>
-            <div class="preferences">
-              <n-checkbox
-                v-model:checked="withChildRound"
-                style="font-size: 1.3em; margin-left: 50px"
-                >带儿童</n-checkbox
-              >
-              <n-checkbox
-                v-model:checked="withInfantRound"
-                style="font-size: 1.3em; margin-right: 50px"
-                >带婴儿</n-checkbox
-              >
-            </div>
-            <n-button
-              class="FindFlightsButton"
-              type="primary"
-              block
-              secondary
-              strong
-              @click="FlightsSearch('Round')"
-            >
-              航班查询
-            </n-button>
-          </n-tab-pane>
-          <n-tab-pane name="One-way" tab="单程">
-            <n-form size="small">
-              <n-form-item-row class="FlightsFormItemRow">
-                <div class="FlightsLabelInput">
-                  <n-form-item label="出发地" label-style="font-size:1.3em;">
-                    <n-auto-complete
-                      v-model:value="OneFrom"
-                      :options="filteredOptionsOneFrom"
-                      placeholder="输入出发机场"
-                      clearable
-                      @select="handleSelect('OneFrom', $event)"
-                    >
-                      <template #default="{ handleInput, handleBlur, handleFocus }">
-                        <n-input
-                          class="FlightsInput"
-                          placeholder="输入出发机场"
-                          @input="handleInput"
-                          @blur="handleBlur"
-                          @focus="handleFocus"
-                          v-model:value="OneFrom"
-                        >
-                          <template #prefix>
-                            <n-icon class="FlightsLeft">
-                              <Location class="FlightsIcon" />
-                            </n-icon>
-                          </template>
-                        </n-input>
-                      </template>
-                    </n-auto-complete>
-                  </n-form-item>
-                </div>
-                <div class="FlightsLabelInput">
-                  <n-form-item label="目的地" label-style="font-size:1.3em;">
-                    <n-auto-complete
-                      v-model:value="OneTo"
-                      :options="filteredOptionsOneTo"
-                      placeholder="输入到达机场"
-                      clearable
-                      @select="handleSelect('OneTo', $event)"
-                    >
-                      <template #default="{ handleInput, handleBlur, handleFocus }">
-                        <n-input
-                          class="FlightsInput"
-                          placeholder="输入到达机场"
-                          @input="handleInput"
-                          @blur="handleBlur"
-                          @focus="handleFocus"
-                          v-model:value="OneTo"
-                        >
-                          <template #prefix>
-                            <n-icon class="FlightsLeft">
-                              <Location class="FlightsIcon" />
-                            </n-icon>
-                          </template>
-                        </n-input>
-                      </template>
-                    </n-auto-complete>
-                  </n-form-item>
-                </div>
-              </n-form-item-row>
-              <n-form-item-row class="FlightsFormItemRow">
-                <div class="FlightsLabelInput">
-                  <n-form-item label="出发日期" label-style="font-size:1.3em;">
-                    <n-date-picker
-                      class="FlightsInput"
-                      size="large"
-                      v-model:value="OneDepart"
-                      type="date"
-                      placeholder="选择出发日期"
-                    />
-                  </n-form-item>
-                </div>
-              </n-form-item-row>
-              <n-form-item-row class="FlightsFormItemRow" style="width: 200px">
-                <div class="FlightsLabelInput">
-                  <n-form-item
-                    label="乘客数量"
-                    label-style="font-size:1.3em;"
-                    :rules="[
+                    ]">
+                      <n-input type="number" class="FlightsInput" placeholder="乘客数量"
+                        v-model:value="RoundPassengerCount">
+                        <template #prefix>
+                          <n-icon class="FlightsLeft">
+                            <Group class="FlightsIcon" />
+                          </n-icon>
+                        </template>
+                      </n-input>
+                    </n-form-item>
+                  </div>
+                </n-form-item-row>
+              </n-form>
+              <div class="preferences">
+                <n-checkbox v-model:checked="withChildRound"
+                  style="font-size: 1.3em; margin-left: 50px">带儿童</n-checkbox>
+                <n-checkbox v-model:checked="withInfantRound"
+                  style="font-size: 1.3em; margin-right: 50px">带婴儿</n-checkbox>
+              </div>
+              <n-button class="FindFlightsButton" type="primary" block secondary strong @click="FlightsSearch('Round')">
+                航班查询
+              </n-button>
+            </n-tab-pane>
+            <n-tab-pane name="One-way" tab="单程">
+              <n-form size="small">
+                <n-form-item-row class="FlightsFormItemRow">
+                  <div class="FlightsLabelInput">
+                    <n-form-item label="出发地" label-style="font-size:1.3em;">
+                      <n-auto-complete v-model:value="OneFrom" :options="filteredOptionsOneFrom" placeholder="输入出发机场"
+                        clearable @select="handleSelect('OneFrom', $event)">
+                        <template #default="{ handleInput, handleBlur, handleFocus }">
+                          <n-input class="FlightsInput" placeholder="输入出发机场" @input="handleInput" @blur="handleBlur"
+                            @focus="handleFocus" v-model:value="OneFrom">
+                            <template #prefix>
+                              <n-icon class="FlightsLeft">
+                                <Location class="FlightsIcon" />
+                              </n-icon>
+                            </template>
+                          </n-input>
+                        </template>
+                      </n-auto-complete>
+                    </n-form-item>
+                  </div>
+                  <div class="FlightsLabelInput">
+                    <n-form-item label="目的地" label-style="font-size:1.3em;">
+                      <n-auto-complete v-model:value="OneTo" :options="filteredOptionsOneTo" placeholder="输入到达机场"
+                        clearable @select="handleSelect('OneTo', $event)">
+                        <template #default="{ handleInput, handleBlur, handleFocus }">
+                          <n-input class="FlightsInput" placeholder="输入到达机场" @input="handleInput" @blur="handleBlur"
+                            @focus="handleFocus" v-model:value="OneTo">
+                            <template #prefix>
+                              <n-icon class="FlightsLeft">
+                                <Location class="FlightsIcon" />
+                              </n-icon>
+                            </template>
+                          </n-input>
+                        </template>
+                      </n-auto-complete>
+                    </n-form-item>
+                  </div>
+                </n-form-item-row>
+                <n-form-item-row class="FlightsFormItemRow">
+                  <div class="FlightsLabelInput">
+                    <n-form-item label="出发日期" label-style="font-size:1.3em;">
+                      <n-date-picker class="FlightsInput" size="large" v-model:value="OneDepart" type="date"
+                        placeholder="选择出发日期" />
+                    </n-form-item>
+                  </div>
+                </n-form-item-row>
+                <n-form-item-row class="FlightsFormItemRow" style="width: 200px">
+                  <div class="FlightsLabelInput">
+                    <n-form-item label="乘客数量" label-style="font-size:1.3em;" :rules="[
                       { required: true, message: '请输入乘客数量' },
                       { type: 'number', min: 1, message: '乘客数量必须为正整数' }
-                    ]"
-                  >
-                    <n-input
-                      type="number"
-                      class="FlightsInput"
-                      placeholder="乘客数量"
-                      v-model:value="OnePassengerCount"
-                    >
-                      <template #prefix>
-                        <n-icon class="FlightsLeft">
-                          <Group class="FlightsIcon" />
-                        </n-icon>
-                      </template>
-                    </n-input>
-                  </n-form-item>
-                </div>
-              </n-form-item-row>
-            </n-form>
-            <div class="preferences">
-              <n-checkbox v-model:checked="withChildOne" style="font-size: 1.3em; margin-left: 50px"
-                >带儿童</n-checkbox
-              >
-              <n-checkbox
-                v-model:checked="withInfantOne"
-                style="font-size: 1.3em; margin-right: 50px"
-                >带婴儿</n-checkbox
-              >
-            </div>
-            <n-button
-              class="FindFlightsButton"
-              type="primary"
-              block
-              secondary
-              strong
-              @click="FlightsSearch('One')"
-            >
-              航班查询
-            </n-button>
-          </n-tab-pane>
-        </n-tabs>
+                    ]">
+                      <n-input type="number" class="FlightsInput" placeholder="乘客数量" v-model:value="OnePassengerCount">
+                        <template #prefix>
+                          <n-icon class="FlightsLeft">
+                            <Group class="FlightsIcon" />
+                          </n-icon>
+                        </template>
+                      </n-input>
+                    </n-form-item>
+                  </div>
+                </n-form-item-row>
+              </n-form>
+              <div class="preferences">
+                <n-checkbox v-model:checked="withChildOne" style="font-size: 1.3em; margin-left: 50px">带儿童</n-checkbox>
+                <n-checkbox v-model:checked="withInfantOne"
+                  style="font-size: 1.3em; margin-right: 50px">带婴儿</n-checkbox>
+              </div>
+              <n-button class="FindFlightsButton" type="primary" block secondary strong @click="FlightsSearch('One')">
+                航班查询
+              </n-button>
+            </n-tab-pane>
+          </n-tabs>
+        </div>
+
+        <div v-else>
+          <n-tabs class="card-tabs" size="small" animated pane-wrapper-style="margin: 0 -4px"
+            tab-style="font-size:1.2em">
+            <n-tab-pane name="Round Trip" tab="往返">
+              <n-form size="small">
+                <n-form-item-row class="FlightsFormItemRow">
+                  <div class="FlightsLabelInput">
+                    <n-form-item label="出发地" label-style="font-size:1.3em;">
+                      <n-auto-complete v-model:value="RoundFromTrain" :options="filteredOptionsRoundFromTrain"
+                        placeholder="输入出发城市" clearable @select="handleSelectTrain('RoundFrom', $event)">
+                        <template #default="{ handleInput, handleBlur, handleFocus }">
+                          <n-input class="FlightsInput" placeholder="输入出发城市" @input="handleInput" @blur="handleBlur"
+                            @focus="handleFocus" v-model:value="RoundFromTrain">
+                            <template #prefix>
+                              <n-icon class="FlightsLeft">
+                                <Location class="FlightsIcon" />
+                              </n-icon>
+                            </template>
+                          </n-input>
+                        </template>
+                      </n-auto-complete>
+                    </n-form-item>
+                  </div>
+                  <div class="FlightsLabelInput">
+                    <n-form-item label="目的地" label-style="font-size:1.3em;">
+                      <n-auto-complete v-model:value="RoundToTrain" :options="filteredOptionsRoundToTrain"
+                        placeholder="输入到达城市" clearable @select="handleSelectTrain('RoundTo', $event)">
+                        <template #default="{ handleInput, handleBlur, handleFocus }">
+                          <n-input class="FlightsInput" placeholder="输入到达城市" @input="handleInput" @blur="handleBlur"
+                            @focus="handleFocus" v-model:value="RoundToTrain">
+                            <template #prefix>
+                              <n-icon class="FlightsLeft">
+                                <Location class="FlightsIcon" />
+                              </n-icon>
+                            </template>
+                          </n-input>
+                        </template>
+                      </n-auto-complete>
+                    </n-form-item>
+                  </div>
+                </n-form-item-row>
+                <n-form-item-row class="FlightsFormItemRow">
+                  <div class="FlightsLabelInput">
+                    <n-form-item label="出发日期" label-style="font-size:1.3em;">
+                      <n-date-picker class="FlightsInput" size="large" v-model:value="RoundDepartTrain" type="date"
+                        placeholder="选择出发日期" />
+                    </n-form-item>
+                  </div>
+                  <div class="FlightsLabelInput">
+                    <n-form-item label="返程日期" label-style="font-size:1.3em;">
+                      <n-date-picker class="FlightsInput" size="large" v-model:value="RoundReturnTrain" type="date"
+                        :disabled-date="disabledReturnDates" @click="checkRoundDepartTrain" placeholder="选择返程日期" />
+                    </n-form-item>
+                  </div>
+                </n-form-item-row>
+              </n-form>
+              <div class="preferences">
+                <n-checkbox v-model:checked="withGCRound"
+                  style="font-size: 1.3em; margin-left: 50px">高铁(G/C)</n-checkbox>
+                <n-checkbox v-model:checked="withDRound" style="font-size: 1.3em; margin-right: 50px">动车(D)</n-checkbox>
+              </div>
+              <n-button class="FindFlightsButton" type="primary" block secondary strong @click="TrainSearch('Round')">
+                火车票查询
+              </n-button>
+            </n-tab-pane>
+            <n-tab-pane name="One-way" tab="单程">
+              <n-form size="small">
+                <n-form-item-row class="FlightsFormItemRow">
+                  <div class="FlightsLabelInput">
+                    <n-form-item label="出发地" label-style="font-size:1.3em;">
+                      <n-auto-complete v-model:value="OneFromTrain" :options="filteredOptionsOneFromTrain"
+                        placeholder="输入出发城市" clearable @select="handleSelectTrain('OneFrom', $event)">
+                        <template #default="{ handleInput, handleBlur, handleFocus }">
+                          <n-input class="FlightsInput" placeholder="输入出发城市" @input="handleInput" @blur="handleBlur"
+                            @focus="handleFocus" v-model:value="OneFromTrain">
+                            <template #prefix>
+                              <n-icon class="FlightsLeft">
+                                <Location class="FlightsIcon" />
+                              </n-icon>
+                            </template>
+                          </n-input>
+                        </template>
+                      </n-auto-complete>
+                    </n-form-item>
+                  </div>
+                  <div class="FlightsLabelInput">
+                    <n-form-item label="目的地" label-style="font-size:1.3em;">
+                      <n-auto-complete v-model:value="OneToTrain" :options="filteredOptionsOneToTrain"
+                        placeholder="输入到达城市" clearable @select="handleSelectTrain('OneTo', $event)">
+                        <template #default="{ handleInput, handleBlur, handleFocus }">
+                          <n-input class="FlightsInput" placeholder="输入到达城市" @input="handleInput" @blur="handleBlur"
+                            @focus="handleFocus" v-model:value="OneToTrain">
+                            <template #prefix>
+                              <n-icon class="FlightsLeft">
+                                <Location class="FlightsIcon" />
+                              </n-icon>
+                            </template>
+                          </n-input>
+                        </template>
+                      </n-auto-complete>
+                    </n-form-item>
+                  </div>
+                </n-form-item-row>
+                <n-form-item-row class="FlightsFormItemRow">
+                  <div class="FlightsLabelInput">
+                    <n-form-item label="出发日期" label-style="font-size:1.3em;">
+                      <n-date-picker class="FlightsInput" size="large" v-model:value="OneDepartTrain" type="date"
+                        placeholder="选择出发日期" />
+                    </n-form-item>
+                  </div>
+                </n-form-item-row>
+              </n-form>
+              <div class="preferences">
+                <n-checkbox v-model:checked="withGCOne" style="font-size: 1.3em; margin-left: 50px">高铁(G/C)</n-checkbox>
+                <n-checkbox v-model:checked="withDOne" style="font-size: 1.3em; margin-right: 50px">动车(D)</n-checkbox>
+              </div>
+              <n-button class="FindFlightsButton" type="primary" block secondary strong @click="TrainSearch('One')">
+                火车票查询
+              </n-button>
+            </n-tab-pane>
+          </n-tabs>
+        </div>
       </n-card>
     </div>
   </div>
 </template>
 
 <script setup>
+import NavBar from '../components/NavBar.vue'
 import {
   NCard,
   NTabPane,
@@ -302,6 +324,23 @@ const withChildRound = ref(false)
 const withInfantRound = ref(false)
 const withChildOne = ref(false)
 const withInfantOne = ref(false)
+
+const RoundFromTrain = ref('')
+const RoundToTrain = ref('')
+const OneFromTrain = ref('')
+const OneToTrain = ref('')
+const RoundDepartTrain = ref(null)
+const RoundReturnTrain = ref(null)
+const OneDepartTrain = ref(null)
+
+const withGCRound = ref(false)
+const withDRound = ref(false)
+const withGCOne = ref(false)
+const withDOne = ref(false)
+
+const transportMode = ref('切换火车票')
+const CardStart = ref('旅兔：开启新航行✈')
+const ifFlight = ref('true')
 const airports = [
   { code: 'AAT', name: '阿勒泰机场' },
   { code: 'AHJ', name: '阿坝红原机场' },
@@ -928,9 +967,1002 @@ const FlightsSearch = (SelectTrip) => {
 
   window.location.href = url
 }
+
+const toggleTransport = () => {
+  if (transportMode.value === '切换火车票') {
+    transportMode.value = '切换飞机票'
+    CardStart.value = "旅兔：开启新旅途🚆"
+    ifFlight.value = false;
+  } else {
+    transportMode.value = '切换火车票';
+    CardStart.value = "旅兔：开启新航行✈"
+    ifFlight.value = true;
+  }
+}
+const citys = [
+  '香港',
+  '澳门',
+  '台北',
+  '台湾',
+  '北京',
+  '上海',
+  '成都',
+  '广州',
+  '杭州',
+  '南京',
+  '厦门',
+  '深圳',
+  '重庆',
+  '三亚',
+  '苏州',
+  '珠海',
+  '西安',
+  '武汉',
+  '大连',
+  '垦丁',
+  '天津',
+  '济南',
+  '青岛',
+  '丽江',
+  '桂林',
+  '长沙',
+  '无锡',
+  '高雄市',
+  '昆明',
+  '常州',
+  '沈阳',
+  '哈尔滨',
+  '大理',
+  '花莲',
+  '长春',
+  '都江堰',
+  '峨眉山',
+  '台中市',
+  '福州',
+  '开封',
+  '扬州',
+  '海口',
+  '郑州',
+  '宁波',
+  '银川',
+  '九寨沟',
+  '威海',
+  '太原',
+  '兰州',
+  '乌鲁木齐',
+  '台南',
+  '九份',
+  '烟台',
+  '连云港',
+  '洛阳',
+  '武夷山',
+  '南通',
+  '南投',
+  '平遥',
+  '南昌',
+  '淡水',
+  '拉萨',
+  '佛山',
+  '绍兴',
+  '清远',
+  '屏东',
+  '合肥',
+  '婺源',
+  '石家庄',
+  '黄山市',
+  '敦煌',
+  '阳朔',
+  '嘉兴',
+  '秦皇岛',
+  '腾冲',
+  '南宁',
+  '中山',
+  '稻城',
+  '张家界市',
+  '温州',
+  '西宁',
+  '泉州',
+  '香格里拉',
+  '徐州',
+  '保定',
+  '贵阳',
+  '东莞',
+  '承德',
+  '北海',
+  '镇江',
+  '肇庆',
+  '安吉',
+  '满洲里',
+  '呼和浩特',
+  '宜昌',
+  '桃园',
+  '台东',
+  '西双版纳',
+  '大同',
+  '湖州',
+  '日照',
+  '昆山',
+  '呼伦贝尔',
+  '景德镇',
+  '台州',
+  '乐山',
+  '凤凰',
+  '林芝',
+  '丽水',
+  '嘉义',
+  '金华',
+  '太鲁阁国家公园',
+  '惠州',
+  '上饶',
+  '平溪',
+  '基隆市',
+  '泰安',
+  '吉林市',
+  '恒春',
+  '九江',
+  '舟山',
+  '宜兰',
+  '阿坝州',
+  '嵊泗',
+  '湘西',
+  '嘉峪关',
+  '神农架',
+  '晋中',
+  '丹东',
+  '漳州',
+  '保山',
+  '韶关',
+  '张掖',
+  '甘孜州',
+  '大邑',
+  '日喀则',
+  '葫芦岛',
+  '乌镇',
+  '康定',
+  '金瓜石',
+  '新竹',
+  '桐乡',
+  '牡丹江',
+  '西塘',
+  '黔东南州',
+  '酒泉',
+  '宜春',
+  '额尔古纳',
+  '彰化',
+  '青海湖',
+  '鹿港',
+  '工布江达',
+  '迪庆州',
+  '临安',
+  '漠河',
+  '梅里雪山',
+  '朱家尖',
+  '北戴河',
+  '青城山',
+  '蓬莱',
+  '金门',
+  '四姑娘山',
+  '甘南',
+  '千岛湖',
+  '喀纳斯',
+  '阿里',
+  '延边',
+  '昌黎',
+  '泸沽湖',
+  '波密',
+  '喀什',
+  '余姚',
+  '汕头',
+  '伊犁',
+  '周庄',
+  '宏村镇',
+  '宜兴',
+  '理县',
+  '常熟',
+  '溧阳',
+  '苗栗',
+  '长白山',
+  '莫干山',
+  '海西州',
+  '长岛县',
+  '江孜',
+  '荣成',
+  '江阴',
+  '景洪',
+  '义乌',
+  '延吉',
+  '绿岛',
+  '瑞安',
+  '阿勒泰',
+  '嵩山',
+  '汶川',
+  '歙县',
+  '镇远',
+  '海盐',
+  '涠洲岛',
+  '同里',
+  '象山',
+  '华山',
+  '晋江',
+  '禾木',
+  '庐山',
+  '吐鲁番',
+  '顺德',
+  '黟县',
+  '夹江',
+  '海螺沟',
+  '色达',
+  '海宁',
+  '平潭',
+  '雁荡山',
+  '长乐',
+  '浪卡子',
+  '易县',
+  '潮州',
+  '克拉玛依',
+  '万宁',
+  '邛崃',
+  '乐清',
+  '当雄',
+  '泰顺',
+  '建德',
+  '黄果树',
+  '布尔津',
+  '仙居',
+  '东阳',
+  '茂县',
+  '荔波',
+  '埔里',
+  '桐庐',
+  '云林县',
+  '澎湖',
+  '宁海',
+  '延安',
+  '石林',
+  '阳澄湖',
+  '巩义',
+  '连州',
+  '石狮',
+  '三清山',
+  '德钦',
+  '墨脱',
+  '理塘',
+  '栾川',
+  '东海县',
+  '惠东',
+  '泸定',
+  '礁溪',
+  '五台山',
+  '慈溪',
+  '慈溪',
+  '廊坊',
+  '张家口',
+  '丰宁',
+  '若尔盖',
+  '武功山',
+  '龙脊梯田',
+  '格尔木',
+  '新都桥',
+  '安顺',
+  '米林',
+  '湟中',
+  '陈巴尔虎旗',
+  '琉球屿',
+  '瑞穗乡',
+  '太仓',
+  '平湖',
+  '雪乡',
+  '湛江',
+  '阿尔山',
+  '登封',
+  '雅安',
+  '潍坊',
+  '博乐',
+  '张家港',
+  '新沂',
+  '塔什库尔干',
+  '普兰',
+  '龙门',
+  '恩施',
+  '东极岛',
+  '温岭',
+  '桃花岛',
+  '中卫',
+  '瓜州',
+  '双廊',
+  '丹巴',
+  '丰城',
+  '包头',
+  '巢湖',
+  '临海',
+  '夏河',
+  '珠穆朗玛峰自然保护区',
+  '诸暨',
+  '昌都',
+  '扎兰屯',
+  '仪征',
+  '楠溪江',
+  '松潘',
+  '根河',
+  '武义',
+  '巴音布鲁克',
+  '湟源',
+  '库尔勒',
+  '正定',
+  '库车',
+  '兰屿',
+  '凯里',
+  '马祖',
+  '崂山',
+  '启东',
+  '沙坡头',
+  '乳源',
+  '犍为',
+  '额济纳旗',
+  '兴城',
+  '揭阳',
+  '柳州',
+  '江门',
+  '太湖',
+  '八宿',
+  '盐城',
+  '黄龙',
+  '遵义',
+  '黑水县',
+  '曲阜',
+  '赤峰',
+  '郎木寺',
+  '阳江',
+  '德清',
+  '英德',
+  '郴州',
+  '梵净山',
+  '山南',
+  '灌云',
+  '山海关',
+  '文昌',
+  '如皋',
+  '如皋',
+  '井陉',
+  '临汾',
+  '那曲',
+  '可可西里',
+  '乌兰察布',
+  '金川',
+  '海拉尔',
+  '新昌',
+  '休宁',
+  '番禺',
+  '陵水',
+  '农安',
+  '吉首',
+  '喜洲',
+  '迭部',
+  '咸阳',
+  '龙海',
+  '拉孜',
+  '建水',
+  '淳安',
+  '绵阳',
+  '西岭雪山',
+  '束河',
+  '兴隆',
+  '连南',
+  '阿拉善盟',
+  '新源',
+  '天水',
+  '剑川',
+  '睢宁',
+  '涞水',
+  '普洱',
+  '巽寮湾',
+  '德令哈',
+  '南靖',
+  '勐腊',
+  '岳阳',
+  '阿克苏',
+  '红原',
+  '霞浦',
+  '汕尾',
+  '野三坡',
+  '野三坡',
+  '普者黑',
+  '唐山',
+  '宽甸',
+  '聂拉木',
+  '西昌',
+  '南戴河',
+  '元阳',
+  '牙克石',
+  '榆林',
+  '甘孜县',
+  '察隅',
+  '平山',
+  '吐鲁番市',
+  '鄂尔多斯',
+  '札达',
+  '洱源',
+  '新郑',
+  '澄江',
+  '西江苗寨',
+  '连江',
+  '闽侯',
+  '巴塘',
+  '哈密',
+  '宝鸡',
+  '南浔',
+  '安图',
+  '南澳岛',
+  '大兴安岭',
+  '冈仁波齐',
+  '大兴安岭',
+  '昭苏',
+  '德阳',
+  '徽州',
+  '宜宾',
+  '永嘉',
+  '惠安',
+  '伊宁市',
+  '亚丁神山',
+  '雨崩',
+  '哈巴河',
+  '肇兴侗寨',
+  '黔西南州',
+  '永泰',
+  '宁蒗',
+  '武当山',
+  '福清',
+  '安溪',
+  '汉中',
+  '铜仁',
+  '如东',
+  '芜湖',
+  '无锡灵山',
+  '武隆',
+  '鲁朗',
+  '小金县',
+  '和顺',
+  '德天瀑布',
+  '从化',
+  '门源',
+  '青岩古镇',
+  '锡林郭勒盟',
+  '本溪',
+  '永康',
+  '崇左',
+  '木兰围场',
+  '赵县',
+  '特克斯',
+  '永登',
+  '雅江',
+  '芒康',
+  '衡山',
+  '广元',
+  '赣州',
+  '襄阳',
+  '芒市',
+  '眉山',
+  '衡阳',
+  '东营',
+  '嵊州',
+  '抚松',
+  '庐江',
+  '兰溪',
+  '平阳',
+  '双流',
+  '祁连',
+  '黎平',
+  '崇州',
+  '五常',
+  '弥勒市',
+  '浏阳',
+  '河源',
+  '衢州',
+  '长兴',
+  '长海',
+  '井冈山',
+  '龙口',
+  '花都',
+  '然乌',
+  '瑞丽',
+  '龙岩',
+  '灵石',
+  '齐齐哈尔',
+  '阿克塞',
+  '阿拉善左旗',
+  '遂昌',
+  '旅顺',
+  '毕节',
+  '忻州',
+  '茂名',
+  '泰州',
+  '和田',
+  '宁德',
+  '德格',
+  '渭南',
+  '梅州',
+  '龙井市',
+  '百色',
+  '临沂',
+  '邯郸',
+  '淮安',
+  '宁安',
+  '庄河',
+  '仲巴',
+  '南安',
+  '合作',
+  '巍山',
+  '萧山',
+  '祁县',
+  '防城港',
+  '海北州',
+  '霍林郭勒',
+  '乳山',
+  '长治',
+  '兴义',
+  '昌吉',
+  '阜康',
+  '武威',
+  '莆田',
+  '介休',
+  '增城',
+  '阆中',
+  '灵武',
+  '沙溪',
+  '安阳',
+  '盘锦',
+  '罗平',
+  '绥芬河市',
+  '碌曲',
+  '黄姚古镇',
+  '云台山',
+  '宣城',
+  '荆州',
+  '珲春',
+  '锦州',
+  '枣庄',
+  '宁乡',
+  '诸葛八卦村',
+  '句容',
+  '萍乡',
+  '开平',
+  '和静',
+  '连山',
+  '韶山',
+  '金堂',
+  '湖口县',
+  '四会',
+  '永定',
+  '东山岛',
+  '浮梁',
+  '清新',
+  '高邮',
+  '霍城',
+  '楚雄',
+  '莱阳',
+  '从江',
+  '运城',
+  '十堰',
+  '朔州',
+  '新乡',
+  '秀林乡',
+  '海阳',
+  '漳浦',
+  '芙蓉镇',
+  '六盘水',
+  '蒙自',
+  '日土',
+  '曲靖',
+  '梧州',
+  '鹰潭',
+  '岱山',
+  '敦化',
+  '富春江',
+  '贺州',
+  '营口',
+  '奉化',
+  '巴音郭楞',
+  '榕江',
+  '赤水',
+  '东台',
+  '广汉',
+  '浦江县',
+  '勐海',
+  '济宁',
+  '剑河县',
+  '丙中洛',
+  '色达县',
+  '屯溪',
+  '伊春',
+  '焦作',
+  '龙胜',
+  '巴丹吉林沙漠',
+  '玉树',
+  '株洲',
+  '怀化',
+  '六安',
+  '自贡',
+  '信阳',
+  '图们',
+  '儋州',
+  '云龙',
+  '余杭',
+  '安庆',
+  '贡嘎山',
+  '富阳',
+  '邳州',
+  '德化',
+  '奎屯',
+  '抚顺',
+  '胶州',
+  '怒江州',
+  '常德',
+  '克什克腾旗',
+  '攀枝花',
+  '南雄',
+  '大庆',
+  '云浮',
+  '罗布泊',
+  '鄯善',
+  '云和',
+  '吉安',
+  '南阳',
+  '长泰',
+  '湘潭',
+  '施秉',
+  '道孚',
+  '鞍山',
+  '玉林',
+  '南充',
+  '玉林',
+  '临夏',
+  '室韦',
+  '通州',
+  '红河州',
+  '塔城',
+  '泸州',
+  '尚志',
+  '磐安',
+  '郭亮',
+  '张北',
+  '修水',
+  '东兴',
+  '马鞍山',
+  '三明',
+  '龙山',
+  '丹阳',
+  '池州',
+  '黄龙溪古镇',
+  '盐源',
+  '青田',
+  '蛟河市',
+  '莎车',
+  '巴中',
+  '海门',
+  '宿迁',
+  '尼玛',
+  '轮台',
+  '绩溪',
+  '丁青',
+  '蚌埠',
+  '三门峡',
+  '晋城',
+  '佳木斯',
+  '东江湖',
+  '叶城',
+  '武宁',
+  '天柱',
+  '简阳',
+  '左贡',
+  '石林彝族自治县',
+  '沧州',
+  '凉山州',
+  '沈家门',
+  '弋阳',
+  '绥中',
+  '木渎',
+  '班戈',
+  '永修',
+  '新安江',
+  '许昌',
+  '黄石',
+  '贵德',
+  '台山',
+  '兴化',
+  '德州',
+  '安康',
+  '塔公',
+  '惠山古镇',
+  '泾县',
+  '永春',
+  '惠山古镇',
+  '闽清',
+  '墨竹工卡',
+  '东方',
+  '都匀',
+  '措勤',
+  '南平',
+  '五大连池市',
+  '秭归',
+  '长阳',
+  '沛县',
+  '克孜勒苏',
+  '库布齐沙漠',
+  '巴彦淖尔',
+  '黄冈',
+  '昭通',
+  '溪口',
+  '恩和俄罗斯民族乡',
+  '比如',
+  '聊城',
+  '亚东',
+  '上林',
+  '山丹',
+  '黔南州',
+  '江山',
+  '涿州',
+  '萨迦',
+  '阳山',
+  '德宏州',
+  '白银',
+  '徐闻',
+  '罗源',
+  '滁州',
+  '格聂',
+  '辽阳',
+  '奉新',
+  '万年县',
+  '钦州',
+  '莒县',
+  '凭祥',
+  '乐昌',
+  '邢台',
+  '兴安盟',
+  '内江',
+  '文山州',
+  '咸宁',
+  '靖边',
+  '丰都',
+  '吕梁',
+  '牛背山',
+  '海安',
+  '广安',
+  '余干',
+  '龙陵',
+  '达州',
+  '抚远',
+  '遂宁',
+  '天台',
+  '玉环',
+  '蓟县',
+  '宁国',
+  '狮泉河',
+  '崇明岛',
+  '富蕴',
+  '巫山',
+  '白玉',
+  '铜鼓',
+  '乌海',
+  '雷山',
+  '镜泊湖',
+  '卧龙',
+  '铜陵',
+  '八美',
+  '河池',
+  '抚州',
+  '商丘',
+  '羊八井',
+  '五指山市',
+  '永州',
+  '若羌',
+  '靖西',
+  '青州',
+  '江油',
+  '锡林浩特',
+  '资兴',
+  '荆门',
+  '奉节',
+  '通化',
+  '炉霍',
+  '三江侗族自治县',
+  '果洛州',
+  '龙泉市',
+  '樟树市',
+  '驻马店',
+  '资阳',
+  '玛曲',
+  '临沧',
+  '榆社',
+  '铅山',
+  '黑河市',
+  '淮南',
+  '南屏',
+  '广丰',
+  '孝感',
+  '太白山',
+  '赤坎古镇',
+  '黑龙江鹤岗',
+  '诏安',
+  '滨海',
+  '封开',
+  '安宁市',
+  '西沙群岛',
+  '蔚县',
+  '平顶山',
+  '宾县',
+  '石河子',
+  '陇南',
+  '塘沽',
+  '东川',
+  '当阳',
+  '亳州',
+  '阜平',
+  '万州',
+  '天门',
+  '涪陵',
+  '新巴尔虎左旗',
+  '三水',
+  '石柱',
+  '临江',
+  '商洛',
+  '松原',
+  '娄底',
+  '碛口',
+  '元谋',
+  '康平',
+  '肥东',
+  '浑源',
+  '乌兰',
+  '阜阳',
+  '昌江',
+  '六横岛',
+  '吴忠',
+  '年保玉则',
+  '朗县',
+  '靖安',
+  '达坂城',
+  '平凉',
+  '乐东',
+  '鄱阳县',
+  '千山',
+  '菏泽',
+  '郫县',
+  '贵港',
+  '海南州',
+  '华阴',
+  '铁岭',
+  '庆元',
+  '土默特左旗',
+  '高安',
+  '阳泉',
+  '龙游',
+  '玉山县',
+  '湄洲岛',
+  '邵阳',
+  '玛多',
+  '桑植',
+  '林州',
+  '盱眙',
+  '沙县'
+];
+const filteredOptionsRoundFromTrain = computed(() => {
+  return citys
+    .filter((city) => city.includes(RoundFromTrain.value))
+    .map((city) => ({
+      label: city,
+      value: city
+    }))
+})
+
+const filteredOptionsRoundToTrain = computed(() => {
+  return citys
+    .filter((city) => city.includes(RoundToTrain.value))
+    .map((city) => ({
+      label: city,
+      value: city
+    }))
+})
+const filteredOptionsOneFromTrain = computed(() => {
+  return citys
+    .filter((city) => city.includes(OneFromTrain.value))
+    .map((city) => ({
+      label: city,
+      value: city
+    }))
+})
+const filteredOptionsOneToTrain = computed(() => {
+  return citys
+    .filter((city) => city.includes(OneToTrain.value))
+    .map((city) => ({
+      label: city,
+      value: city
+    }))
+})
+
+const handleSelectTrain = (field, value) => {
+  if (field === 'RoundFrom') {
+    RoundFromTrain.value = value
+  } else if (field === 'RoundTo') {
+    RoundToTrain.value = value
+  } else if (field === 'OneFrom') {
+    OneFromTrain.value = value
+  } else if (field === 'OneTo') {
+    OneToTrain.value = value
+  }
+}
+
+const checkRoundDepartTrain = () => {
+  if (!RoundDepartTrain.value) {
+    alert('请先选择出发日期')
+  }
+}
+
+const TrainSearch = (SelectTrip) => {
+  let url = 'https://trains.ctrip.com/webapp/train/list?'
+  let fromCode = '',
+    toCode = '',
+    depdate = '',
+    retdate = '',
+    GC = 0,
+    D = 0
+  if (SelectTrip === 'Round') {
+    if (
+      RoundFromTrain.value === '' ||
+      RoundToTrain.value === '' ||
+      RoundDepartTrain.value === '' ||
+      RoundReturnTrain.value === ''
+    ) {
+      alert('火车票信息未填写完整')
+      return
+    } else {
+      depdate = new Date(RoundDepartTrain.value).toISOString().split('T')[0]
+      retdate = new Date(RoundReturnTrain.value).toISOString().split('T')[0]
+      depdate = formatDate(RoundDepartTrain.value)
+      retdate = formatDate(RoundReturnTrain.value)
+      GC = withGCRound.value ? 1 : 0
+      D = withDRound.value ? 1 : 0
+      url += `ticketType=1&dStation=${RoundFromTrain.value}&aStation=${RoundToTrain.value}&dDate=${depdate}&rDate=${retdate}`
+      RoundFromTrain.value = ''
+      RoundToTrain.value = ''
+      RoundDepartTrain.value = ''
+      RoundReturnTrain.value = ''
+    }
+  } else if (SelectTrip === 'One') {
+    if (
+      OneFromTrain.value === '' ||
+      OneToTrain.value === '' ||
+      OneDepartTrain.value === ''
+    ) {
+      alert('火车票信息未填写完整')
+      return
+    }
+    depdate = formatDate(OneDepartTrain.value)
+    GC = withGCOne.value ? 1 : 0
+    D = withDOne.value ? 1 : 0
+    url += `ticketType=0&dStation=${OneFromTrain.value}&aStation=${OneToTrain.value}&dDate=${depdate}`
+    OneFromTrain.value = ''
+    OneToTrain.value = ''
+    OneDepartTrain.value = ''
+  }
+
+  window.location.href = url
+}
 </script>
 
 <style scoped>
+.TransportButton {
+  color: white;
+  background-color: rgb(30, 156, 30);
+  border-radius: 20px;
+  height: 40px;
+  font-size: medium;
+}
+
+.TransportButton.hover {
+  color: green;
+  background-color: white;
+}
+
 .FlightsMainCard {
   padding-top: 20px;
   margin-top: 30px;
@@ -968,6 +2000,7 @@ const FlightsSearch = (SelectTrip) => {
   /* 缩放的起点位置 */
   margin: 0 auto;
   float: center;
+  background-color: rgba(255, 255, 255, 0.79);
 }
 
 .FindFlightsAll {
