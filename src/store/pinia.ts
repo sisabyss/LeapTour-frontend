@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
-import { friends, panel } from '@/api/user'
-import { getLatLngByIP } from '@/api/amap';
+import { friends, panel, fetchAvatar, fetchEmail } from '@/api/user'
+import { getLatLngByIP } from '@/api/amap'
 import { getPlacesByCity } from '@/api/tripadvisor'
 import enums from '@/utils/enums'
 import resource from '@/assets/data/resource'
@@ -15,6 +15,8 @@ export const useBaseStore = defineStore('base', {
       maskDialogMode: 'dark',
       version: '17.1.0',
       excludeNames: [],
+      email: null,
+      avatar: null,
       judgeValue: 20,
       homeRefresh: 60,
       loading: false,
@@ -59,7 +61,7 @@ export const useBaseStore = defineStore('base', {
         ]
       },
       friends: resource.users,
-      sidebarOpen: false 
+      sidebarOpen: false
     }
   },
   getters: {
@@ -67,13 +69,13 @@ export const useBaseStore = defineStore('base', {
       return this.friends.all.filter((v) => v.select)
     },
     getRestaurants() {
-      return this.restaurants;
+      return this.restaurants
     },
     getHotels() {
-      return this.hotels;
+      return this.hotels
     },
     getAttractions() {
-      return this.attractions;
+      return this.attractions
     }
   },
   actions: {
@@ -89,23 +91,26 @@ export const useBaseStore = defineStore('base', {
         this.users = r2.data
       }
       await getLatLngByIP().then((coordinates) => {
-        this.coordinates = coordinates;
-      });
+        this.coordinates = coordinates
+      })
 
-      let source = axios.CancelToken.source()
+      const source = axios.CancelToken.source()
 
       // Loading state is set to true while data is being fetched from endpoint
       store.isLoading = true
 
+      const fetchemail = await fetchEmail()
+      this.email = fetchemail
+      this.avatar = await fetchAvatar(fetchemail)
       // Calling on the getPlacesByLatLng endpoint passing in the 'attraction' as place type, coordinates (longitude and latitude), a limit parameter and source for error handling
       getPlacesByCity('foods', this.coordinates.city, source).then((data) => {
-        this.restaurants = data;
+        this.restaurants = data
       })
       getPlacesByCity('hotels', this.coordinates.city, source).then((data) => {
-        this.hotels = data;
+        this.hotels = data
       })
       getPlacesByCity('sights', this.coordinates.city, source).then((data) => {
-        this.attractions = data;
+        this.attractions = data
       })
 
       // Setting loading state back to false to stop loading

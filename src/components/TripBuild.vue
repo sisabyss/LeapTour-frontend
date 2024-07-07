@@ -966,7 +966,7 @@ async function searchAI(search) {
   console.log('before:')
   console.log(router)
   router.push({
-    path: '/ai_itinerary',
+    path: '/ai_page',
     query: {
       AIGC: AIGC,
       addr: Data.searchContent
@@ -983,7 +983,7 @@ async function getPlanFromAI(addr) {
 
   const client = new OpenAI({
     apiKey:
-      'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ1c2VyLWNlbnRlciIsImV4cCI6MTcyNzY4NjcwMiwiaWF0IjoxNzE5OTEwNzAyLCJqdGkiOiJjcTFzMmJocDJrMTIycjAzZDA1MCIsInR5cCI6InJlZnJlc2giLCJzdWIiOiJjb3ZvNnFpdG5uMHF0MzRqNWZjMCIsInNwYWNlX2lkIjoiY292bzZxaXRubjBxdDM0ajVmYmciLCJhYnN0cmFjdF91c2VyX2lkIjoiY292bzZxaXRubjBxdDM0ajVmYjAifQ.rr2TZbstwoT6Ts2Ce8yh4gLDR9zUO9SCHmLO2tp9Z76v4YhNwD3SNUgbHu6uJ8T0yycjXrluuQ9_n1gYhrwzOw',
+      'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ1c2VyLWNlbnRlciIsImV4cCI6MTcyODA5MjEyMywiaWF0IjoxNzIwMzE2MTIzLCJqdGkiOiJjcTR2MW10dmJmNnRwNGxlMHNuMCIsInR5cCI6InJlZnJlc2giLCJzdWIiOiJjcTRqMWpyM2Flc3Vob2FpazlnMCIsInNwYWNlX2lkIjoiY3E0ajFqcjNhZXN1aG9haWs5ZjAiLCJhYnN0cmFjdF91c2VyX2lkIjoiY3E0ajFqcjNhZXN1aG9haWs5ZWcifQ.5FFprz8lYGc2sKEmHy3U7BIxAvbipwK0E1IxTp184-MZDCW8ehDOIPo_VfGWnmNLJ1BMwB_EdRX0dKkpvbttRw',
     baseURL: 'http://192.168.1.152:8000/v1',
     dangerouslyAllowBrowser: true
   })
