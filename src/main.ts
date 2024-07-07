@@ -46,22 +46,24 @@ const open_sign = ref(false)
 app.provide('openSign', open_sign)
 
 router.beforeEach(async (to) => {
+  const satoken = localStorage.getItem('satoken')
+  // if (token) {
+  console.log(satoken)
   if (to.path !== '/home') {
-    const store = useBaseStore()
-    console.log(store.email, store.token)
-    const para_email = store.email ? store.email : 'undefined'
-    const para_token = store.token ? store.token : 'undefined'
-    const response = await axios.get(
-      `http://192.168.1.145:8080/check/checkLogin?email=${para_email}&token=${para_token}`
-    )
+    const response = await axios.get(`http://192.168.1.145:8080/check/checkLogin`, {
+      headers: {
+        satoken: `${satoken}`
+      }
+    })
     console.log(response.data)
-    if (response.data.data == 'false') {
+    if (response.data.data == false) {
       //未登录，打开登录弹窗
       open_sign.value = true
       return false
     }
+  } else {
+    return true
   }
-  return true
 })
 
 app.mixin(mixin)

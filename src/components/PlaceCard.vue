@@ -2,7 +2,6 @@
 import { NRate } from 'naive-ui'
 const props = defineProps(['place'])
 
-console.log(props.place)
 const processedPhotoUrl = (url) => {
   if (url) {
     // 去掉最后的尺寸参数

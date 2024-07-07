@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-import { friends, panel, fetchAvatar, fetchEmail } from '@/api/user'
 import { getLatLngByIP } from '@/api/amap'
 import { getPlacesByCity } from '@/api/tripadvisor'
 import enums from '@/utils/enums'
@@ -63,7 +62,6 @@ export const useBaseStore = defineStore('base', {
       friends: resource.users,
       sidebarOpen: false,
       isTiktok: false,
-      email: null,
       token: null,
       isSignIn: false
     }
@@ -85,15 +83,6 @@ export const useBaseStore = defineStore('base', {
   actions: {
     async init() {
       const store = useBaseStore()
-
-      const r = await panel()
-      if (r.success) {
-        this.userinfo = Object.assign(this.userinfo, r.data)
-      }
-      const r2 = await friends()
-      if (r2.success) {
-        this.users = r2.data
-      }
       await getLatLngByIP().then((coordinates) => {
         this.coordinates = coordinates
       })
@@ -103,9 +92,6 @@ export const useBaseStore = defineStore('base', {
       // Loading state is set to true while data is being fetched from endpoint
       store.isLoading = true
 
-      const fetchemail = await fetchEmail()
-      this.email = fetchemail
-      this.avatar = await fetchAvatar(fetchemail)
       // Calling on the getPlacesByLatLng endpoint passing in the 'attraction' as place type, coordinates (longitude and latitude), a limit parameter and source for error handling
       getPlacesByCity('foods', this.coordinates.city, source).then((data) => {
         this.restaurants = data

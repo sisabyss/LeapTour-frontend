@@ -40,6 +40,8 @@ const login = async () => {
     store.email = user.email
     const message = response.data
     store.token = message.data
+    localStorage.setItem('satoken', message.data)
+    console.log(localStorage.getItem('satoken'))
     console.log(message)
     if (message.code == 200) {
       console.log('登陆成功')
