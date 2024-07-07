@@ -7,7 +7,7 @@ const routes: RouteRecordRaw[] = [
 
   { path: '/tiktok', component: TikTok },
 
-  { path: '/home', component: Home},
+  { path: '/home', component: Home },
 
   // {path: '/album-detail', component: () => import('@/pages/other/AlbumDetail.vue')},
 
@@ -59,6 +59,10 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/ai_page',
     component: () => import('@/pages/AITripPage.vue')
+  },
+  {
+    path: '/city_page',
+    component: () => import('@/pages/CityPage.vue')
   }
 ]
 

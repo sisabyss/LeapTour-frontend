@@ -32,7 +32,7 @@ onBeforeUnmount(() => {
   <!-- Places are ready, hence the element below is render -->
   <div v-else class="container mx-auto p-4">
     <h2 class="font-semibold text-lg md:text-2xl">去哪儿？🧳</h2>
-    <p class="text-sm text-dark mb-2">These are some places you might want to visit</p>
+    <p class="text-sm text-dark mb-2">你可能想尝试这些活动</p>
 
     <div class="relative">
       <!-- OwlCarousel to Render Places in Carousel -->
