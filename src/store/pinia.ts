@@ -61,7 +61,11 @@ export const useBaseStore = defineStore('base', {
         ]
       },
       friends: resource.users,
-      sidebarOpen: false
+      sidebarOpen: false,
+      isTiktok: false,
+      email: null,
+      token: null,
+      isSignIn: false
     }
   },
   getters: {

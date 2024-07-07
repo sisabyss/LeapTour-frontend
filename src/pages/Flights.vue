@@ -1,5 +1,4 @@
 <template>
-  <NavBar />
   <div class="FindFlightsAll">
     <div class="FlightsMainCard">
       <n-card class="FindFlights" title="旅兔：开启新航行✈" header-style="font-size:2em">
@@ -272,7 +271,6 @@
 </template>
 
 <script setup>
-import NavBar from '../components/NavBar.vue'
 import {
   NCard,
   NTabPane,

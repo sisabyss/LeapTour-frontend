@@ -113,7 +113,7 @@ const t = [
 
 async function fetchData() {
   const baseStore = useBaseStore()
-  _fetch(BASE_URL + '/data/videos.md').then((r) => {
+  _fetch(BASE_URL + '/data/videos.json').then((r) => {
     r.json().then(async (v) => {
       let userList = cloneDeep(baseStore.users)
       if (!userList.length) {

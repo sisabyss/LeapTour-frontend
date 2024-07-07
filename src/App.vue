@@ -1,19 +1,25 @@
 <template>
-  <SideBar />
-  <router-view v-slot="{ Component }">
-    <transition :name="transitionName">
-      <keep-alive :exclude="store.excludeNames">
-        <component :is="Component" />
-      </keep-alive>
-    </transition>
-  </router-view>
-  <Call />
+  <header>
+    <NavBar />
+    <SideBar />
+  </header>
+  <main :style="{ opacity: store.sidebarOpen ? 0.3 : 1 }">
+    <router-view v-slot="{ Component }">
+      <transition :name="transitionName">
+        <keep-alive :exclude="store.excludeNames">
+          <component :is="Component" />
+        </keep-alive>
+      </transition>
+    </router-view>
+    <Call />
+  </main>
 </template>
 <script setup lang="ts">
 /*
 * try {navigator.control.gesture(false);} catch (e) {} //UC浏览器关闭默认手势事件
 try {navigator.control.longpressMenu(false);} catch (e) {} //关闭长按弹出菜单
 * */
+import NavBar from '@/components/NavBar.vue'
 import routes from './router/routes'
 import Call from './components/Call.vue'
 import { useBaseStore } from '@/store/pinia.js'

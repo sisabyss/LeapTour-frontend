@@ -1,8 +1,4 @@
 <template>
-  <div class="absolute -z-1 w-full">
-    <NavBar class="-z-1" />
-  </div>
-
   <div class="test-slide-wrapper tiktok" id="home-index">
     <SlideItem>
       <!-- <IndicatorHome
@@ -80,10 +76,6 @@ const state = reactive({
   }
 })
 
-function delayShowDialog(cb: Function) {
-  setTimeout(cb, 400)
-}
-
 function setCurrentItem(item) {
   if (!state.active) return
   // console.log('sss',item,state.baseIndex)
@@ -130,10 +122,13 @@ onMounted(() => {
     state.baseIndex = 2
   })
   bus.on(EVENT_KEY.CURRENT_ITEM, setCurrentItem)
+
+  baseStore.isTiktok = true
 })
 
 onUnmounted(() => {
   bus.offAll()
+  baseStore.isTiktok = false
 })
 
 onActivated(() => {

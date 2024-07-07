@@ -1,20 +1,19 @@
 <script setup>
-import NavBar from '../components/NavBar.vue';
-import RatingCard from '../components/RatingCard.vue';
-import { NButton, NCollapse, NCollapseItem } from 'naive-ui';
-import { NDivider } from 'naive-ui';
-import { Map, Calendar } from '@vicons/carbon';
-import { BMap, BZoom } from 'vue3-baidu-map-gl';
+import RatingCard from '../components/RatingCard.vue'
+import { NButton, NCollapse, NCollapseItem } from 'naive-ui'
+import { NDivider } from 'naive-ui'
+import { Map, Calendar } from '@vicons/carbon'
+import { BMap, BZoom } from 'vue3-baidu-map-gl'
 import { ref } from 'vue'
 import Swiper from '@/components/Swiper.vue'
-import { useRouter } from "vue-router";
-import { reactive } from 'vue';
+import { useRouter } from 'vue-router'
+import { reactive } from 'vue'
 
-const expandedNames = ref(['day1-place0']);
-const router = useRouter();
+const expandedNames = ref(['day1-place0'])
+const router = useRouter()
 
 //AI生成内容
-const AIGC = JSON.parse(router.currentRoute._rawValue.query.AIGC);
+const AIGC = JSON.parse(router.currentRoute._rawValue.query.AIGC)
 //页面数据
 const Data = reactive({
   //旅游地点
@@ -45,9 +44,7 @@ const Data = reactive({
     "Conclusion": "第三天的行程更加注重体验成都的现代生活和夜生活。从人民公园的悠闲到春熙路的繁华，再到九眼桥的热闹，这一天的行程让游客深入感受成都的活力和魅力。"
    */
   //!!!数目不固定
-
-
-});
+})
 
 console.log(AIGC)
 console.log(Data.introduction)
@@ -55,55 +52,67 @@ console.log(Data.OneDay)
 
 const cards = ref([
   {
-    ImgSrc: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/08/48/2f/eb/mahamrityunjay-temple.jpg?w=300&h=300&s=1',
+    ImgSrc:
+      'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/08/48/2f/eb/mahamrityunjay-temple.jpg?w=300&h=300&s=1',
     PlaceName: 'Discover Darwin',
     Ifo: 'Find out why travelers like you are raving about Darwin'
   },
   {
-    ImgSrc: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/21/f7/1d/4d/caption.jpg?w=1000&h=-1&s=1',
+    ImgSrc:
+      'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/21/f7/1d/4d/caption.jpg?w=1000&h=-1&s=1',
     PlaceName: 'Scenic Autumn Spot',
     Ifo: 'Best of the Best tours, attractions & activities you won’t want to miss.'
   },
   {
-    ImgSrc: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/21/ab/94/ba/2de5214a-d5dc-42d2.jpg?w=400&h=-1&s=1',
+    ImgSrc:
+      'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/21/ab/94/ba/2de5214a-d5dc-42d2.jpg?w=400&h=-1&s=1',
     PlaceName: 'Beautiful Hill Station',
     Ifo: '5 beautiful hill stations in South India'
   },
   {
-    ImgSrc: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/21/f7/1d/4d/caption.jpg?w=1000&h=-1&s=1',
+    ImgSrc:
+      'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/21/f7/1d/4d/caption.jpg?w=1000&h=-1&s=1',
     PlaceName: 'Scenic Autumn Spot',
     Ifo: 'Best of the Best tours, attractions & activities you won’t want to miss.'
   },
   {
-    ImgSrc: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/25/c8/20/d4/45276d36-cc36-4a32.jpg?w=400&h=-1&s=1',
+    ImgSrc:
+      'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/25/c8/20/d4/45276d36-cc36-4a32.jpg?w=400&h=-1&s=1',
     PlaceName: 'Stunning Places in India',
     Ifo: '11 beautiful places in India that have to be seen to be believed'
   },
   {
-    ImgSrc: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/21/f7/1d/4d/caption.jpg?w=1000&h=-1&s=1',
+    ImgSrc:
+      'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/21/f7/1d/4d/caption.jpg?w=1000&h=-1&s=1',
     PlaceName: 'Scenic Autumn Spot',
     Ifo: 'Best of the Best tours, attractions & activities you won’t want to miss.'
   },
   {
-    ImgSrc: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/25/c8/20/d4/45276d36-cc36-4a32.jpg?w=400&h=-1&s=1',
+    ImgSrc:
+      'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/25/c8/20/d4/45276d36-cc36-4a32.jpg?w=400&h=-1&s=1',
     PlaceName: 'Stunning Places in India',
     Ifo: '11 beautiful places in India that have to be seen to be believed'
   },
   {
-    ImgSrc: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/25/c8/2e/9a/2520956e-5665-4e9f.jpg?w=400&h=-1&s=1',
+    ImgSrc:
+      'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/25/c8/2e/9a/2520956e-5665-4e9f.jpg?w=400&h=-1&s=1',
     PlaceName: 'Best Time to Visit Dubai',
     Ifo: 'Best time to visit Dubai for great weather and deals'
   }
 ])
-const day1Places = ref(Object.values(Data.OneDay[0] || {}).filter(item => typeof item === 'object'));
-const day2Places = ref(Object.values(Data.OneDay[1] || {}).filter(item => typeof item === 'object'));
-const day3Places = ref(Object.values(Data.OneDay[2] || {}).filter(item => typeof item === 'object'));
+const day1Places = ref(
+  Object.values(Data.OneDay[0] || {}).filter((item) => typeof item === 'object')
+)
+const day2Places = ref(
+  Object.values(Data.OneDay[1] || {}).filter((item) => typeof item === 'object')
+)
+const day3Places = ref(
+  Object.values(Data.OneDay[2] || {}).filter((item) => typeof item === 'object')
+)
 </script>
 
 <template>
   <div>
-    <NavBar />
-
     <div class="AITripMap">
       <BMap>
         <BZoom />
@@ -159,8 +168,7 @@ const day3Places = ref(Object.values(Data.OneDay[2] || {}).filter(item => typeof
             </div>
             <p class="AITripSubSubTitle">Day1</p>
           </div>
-          <div class="day-description">{{ Data.OneDay[0].Conclusion }}
-          </div>
+          <div class="day-description">{{ Data.OneDay[0].Conclusion }}</div>
           <view v-for="(place, index) in day1Places" :key="'day1-' + index">
             <n-collapse v-model:expandedNames="expandedNames" arrow-placement="right">
               <n-collapse-item :title="place.name" :name="'day1-place' + index">
@@ -181,8 +189,7 @@ const day3Places = ref(Object.values(Data.OneDay[2] || {}).filter(item => typeof
             </div>
             <p class="AITripSubSubTitle">Day2</p>
           </div>
-          <div class="day-description">{{ Data.OneDay[1].Conclusion }}
-          </div>
+          <div class="day-description">{{ Data.OneDay[1].Conclusion }}</div>
           <view v-for="(place, index) in day2Places" :key="'day2-' + index">
             <n-collapse arrow-placement="right">
               <n-collapse-item :title="place.name" :name="'day2-place' + index">
@@ -203,8 +210,7 @@ const day3Places = ref(Object.values(Data.OneDay[2] || {}).filter(item => typeof
             </div>
             <p class="AITripSubSubTitle">Day3</p>
           </div>
-          <div class="day-description">{{ Data.OneDay[2].Conclusion }}
-          </div>
+          <div class="day-description">{{ Data.OneDay[2].Conclusion }}</div>
           <view v-for="(place, index) in day3Places" :key="'day3-' + index">
             <n-collapse arrow-placement="right">
               <n-collapse-item :title="place.name" :name="'day3-place' + index">

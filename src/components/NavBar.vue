@@ -1,76 +1,83 @@
 <template>
-  <modal :open="open_sign_in" @closeSignFromModal="closeSign">
-    <div class="NavBarSignIn" v-if="sign_in_or_up">
-      <SignIn @closeModalFromSignIn="closeSign" @openSignUp="toSignUp" />
-    </div>
-    <div v-else>
-      <SignUp @closeModalFromSignUp="closeSign" @openSignIn="toSignIn"></SignUp>
-    </div>
-  </modal>
-  <!-- NavBar adds scrolled class to nav element when window's scroll down is greater than 20 -->
-  <nav
-    v-show="handleScroll"
-    :class="{ 'border-b-2 sticky top-0': scrolled }"
-    class="relative z-50 transition duration-700 lp-blur"
-  >
-    <!-- TODO: element gets a shadow when menu is toggled -->
-    <div class="container mx-auto w-full flex justify-between items-center px-4 py-3 shadow-md">
-      <!-- Menu toggle button -->
-      <div class="md:hidden rounded-full hover:bg-gray-200 p-2 cursor-pointer" @click="toggle">
-        <svg
-          v-if="!isMenuToggled"
-          class="h-6 w-6"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth="2"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" d="M4 8h16M4 16h16" />
-        </svg>
-        <svg
-          v-else
-          class="h-6 w-6"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth="2"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-        </svg>
+  <div :class="{ 'absolute -z-1 w-full': store.isTiktok }">
+    <modal :open="open_sign_in" @closeSignFromModal="closeSign">
+      <div class="NavBarSignIn" v-if="sign_in_or_up == 1">
+        <SignIn @closeModalFromSignIn="closeSign" @openSignUp="toSignUp" @openReset="toReset" />
       </div>
-      <!-- LOGO -->
-      <router-link to="/">
-        <img
-          src="@/assets/logo.svg"
-          class="logo w-[37px] sm:w-[60px] md:w-[80px]"
-          alt="LeapTour logo"
-        />
-      </router-link>
+      <div v-else-if="sign_in_or_up == 2">
+        <SignUp @closeModalFromSignUp="closeSign" @openSignIn="toSignIn"></SignUp>
+      </div>
+      <div v-else-if="sign_in_or_up == 3">
+        <ResetPSWD
+          @closeModalFromReset="closeSign"
+          @openSignIn="toSignIn"
+          @openSignUp="toSignUp"
+        ></ResetPSWD>
+      </div>
+    </modal>
 
-      <!-- Discover -->
-      <ul class="hidden md:flex space-x-1" mode="horizontal">
-        <n-menu mode="horizontal" :options="menuOptions" responsive icon-size="30" />
-      </ul>
-
-      <router-link v-if="true" to="/profile">
-        <div class="rounded-full cursor-pointer">
-          <div class="flex font-medium items-center">
-            <span class="kjIqZ I ui_social_avatar large xtra-large-tablet">
-              <img
-                src="https://media-cdn.tripadvisor.com/media/photo-l/1a/f6/f2/7a/default-avatar-2020-25.jpg"
-                alt="avatar-image"
-              />
-            </span>
-          </div>
+    <!-- NavBar adds scrolled class to nav element when window's scroll down is greater than 20 -->
+    <nav
+      v-show="handleScroll"
+      :class="{ 'border-b-2 sticky top-0': scrolled }"
+      class="relative z-50 transition duration-700 lp-blur"
+    >
+      <!-- TODO: element gets a shadow when menu is toggled -->
+      <div class="container mx-auto w-full flex justify-between items-center px-4 py-3 shadow-md">
+        <!-- Menu toggle button -->
+        <div class="md:hidden rounded-full hover:bg-gray-200 p-2 cursor-pointer" @click="toggle">
+          <svg
+            v-if="!isMenuToggled"
+            class="h-6 w-6"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4 8h16M4 16h16" />
+          </svg>
+          <svg
+            v-else
+            class="h-6 w-6"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
         </div>
-      </router-link>
-      <router-link v-else="false" to="/sign_in">
-        <n-button color="#ff69b4"> 登陆 </n-button>
-      </router-link>
-    </div>
-  </nav>
+        <!-- LOGO -->
+        <router-link to="/">
+          <img
+            src="@/assets/logo.svg"
+            class="logo w-[37px] sm:w-[60px] md:w-[80px]"
+            alt="LeapTour logo"
+          />
+        </router-link>
+
+        <!-- Discover -->
+        <ul class="hidden md:flex space-x-1" mode="horizontal">
+          <n-menu mode="horizontal" :options="menuOptions" responsive icon-size="30" />
+        </ul>
+
+        <router-link to="/profile">
+          <div class="rounded-full cursor-pointer">
+            <div class="flex font-medium items-center">
+              <span class="kjIqZ I ui_social_avatar large xtra-large-tablet">
+                <img
+                  src="https://media-cdn.tripadvisor.com/media/photo-l/1a/f6/f2/7a/default-avatar-2020-25.jpg"
+                  alt="avatar-image"
+                />
+              </span>
+            </div>
+          </div>
+        </router-link>
+      </div>
+    </nav>
+  </div>
 </template>
 
 <script setup>
@@ -78,9 +85,8 @@ import { useBaseStore } from '@/store/pinia'
 import Modal from './Modal.vue'
 import SignIn from './SignIn.vue'
 import SignUp from './SignUp.vue'
-import { NMenu, NIcon } from 'naive-ui'
-import { ref, onMounted, onUnmounted, h } from 'vue'
-import { inject } from 'vue'
+import { NMenu, NIcon, NButton } from 'naive-ui'
+import { ref, onMounted, onUnmounted, h, inject } from 'vue'
 import { RouterLink } from 'vue-router'
 import {
   AiResults,
@@ -237,26 +243,30 @@ const limitPosition = ref(500)
 const scrolled = ref(true)
 const lastPosition = ref(0)
 
-// 默认 true 为登录
-const sign_in_or_up = ref(true)
-const isMenuToggled = ref(false)
+/* function clickProfile() {
 
-//打开登录弹窗
+} */
+
+// 1 -- 登录 2 -- 注册 3 -- 重设密码
+const sign_in_or_up = ref(1)
+
+//关闭弹窗
 function closeSign() {
+  toSignIn()
   open_sign_in.value = false
 }
-//关闭登录弹窗
-/* function openSign() {
-  open_sign_in.value = true
-} */
 
 // 弹出注册页
 function toSignUp() {
-  sign_in_or_up.value = false
+  sign_in_or_up.value = 2
 }
 // 弹出登录页
 function toSignIn() {
-  sign_in_or_up.value = true
+  sign_in_or_up.value = 1
+}
+// 弹出重设密码页
+function toReset() {
+  sign_in_or_up.value = 3
 }
 
 function handleScroll() {
