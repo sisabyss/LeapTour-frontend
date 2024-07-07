@@ -1,5 +1,4 @@
 <template>
-  <NavBar />
   <WhereTo />
   <ToVisit />
   <ToEat />
@@ -7,7 +6,7 @@
   <!-- Traveler Choice Section -->
   <div class="bg-[#D1A6FE]">
     <div
-      class="container mx-auto mmd:grid mmd:grid-cols-12 h-[400px] sm:h-[500px] mmd:h-[600px] overflow-hidden"
+      class="container mx-auto md:grid md:grid-cols-12 h-[400px] sm:h-[500px] md:h-[600px] overflow-hidden"
     >
       <div class="col-span-3 text-center py-6 flex flex-col items-center justify-center p-4 md:p-2">
         <img src="@/assets/logo.svg" alt="" class="h-16 lg:h-20 mb-5 lg:mb-10" />
@@ -20,11 +19,11 @@
       </div>
       <!-- Section Background Image - Displays only on Large devices, Like Desktop -->
       <div
-        class="hidden mmd:block h-full col-span-9 bg-cover bg-[url('/src/assets/tc_cards_desktop.png')]"
+        class="hidden md:block h-full col-span-9 bg-cover bg-[url('/src/assets/tc_cards_desktop.png')]"
       ></div>
       <!-- Section Background Image - Displays only on Small Devices, Mobile -->
       <div
-        class="block mmd:hidden h-full bg-contain bg-top bg-[url('/src/assets/tc_cards_tablet.png')] bg-no-repeat"
+        class="block md:hidden h-full bg-contain bg-top bg-[url('/src/assets/tc_cards_tablet.png')] bg-no-repeat"
       />
     </div>
   </div>
@@ -120,8 +119,6 @@
 </template>
 
 <script setup>
-import SideBar from '@/components/SideBar.vue'
-import NavBar from '../components/NavBar.vue'
 import WhereTo from '../components/WhereTo.vue'
 import ToVisit from '../components/ToVisit.vue'
 import ToEat from '../components/ToEat.vue'

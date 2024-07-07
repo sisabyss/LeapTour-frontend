@@ -1,6 +1,5 @@
 <template>
   <div>
-    <NavBar />
     <div class="ProfileAll">
       <div class="ui_container mTWoR YRrgV">
         <div class="VrhFU _T ui_card section">
@@ -263,9 +262,8 @@ import { ref, onMounted } from 'vue'
 import EditProfile from '../components/EditProfile.vue'
 import { Add, Calendar, IbmCloudInternetServices, OrderDetails, Camera, Pen } from '@vicons/carbon'
 import { NCard, NTabPane, NTabs, NModal, NTooltip } from 'naive-ui'
-import NavBar from '../components/NavBar.vue'
 import axios from 'axios'
-import { useBaseStore } from '../store/pinia.ts'
+import { useBaseStore } from '@/store/pinia'
 import map1 from '../components/map.vue'
 import PhotoWall from '../components/PhotoWall.vue'
 import ModalInputCity from '../components/ModalInputCity.vue'

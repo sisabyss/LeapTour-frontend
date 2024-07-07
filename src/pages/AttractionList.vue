@@ -1,6 +1,5 @@
 <script setup>
 // import AttractionLoader from '../components/Loader/AttractionLoader.vue';
-import Navbar from '../components/NavBar.vue'
 import HomeFooter from '../components/HomeFooter.vue'
 import { useBaseStore } from '../store/pinia'
 import { watch } from 'vue'
@@ -45,9 +44,6 @@ const processedPhotoUrl = (url) => {
 </script>
 
 <template>
-  <!-- Navbar with Border -->
-  <Navbar />
-
   <div class="container mx-auto pb-4">
     <div class="text-center my-10">
       <h1 class="font-semibold text-lg md:text-3xl">Attractions near you</h1>

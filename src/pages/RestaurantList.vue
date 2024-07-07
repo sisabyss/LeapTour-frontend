@@ -1,13 +1,11 @@
 <template>
-  <NavBar />
-
   <div class="container mx-auto pb-4">
     <div class="text-center my-10">
       <h1 class="font-semibold text-lg md:text-3xl">你周围的餐厅</h1>
     </div>
 
     <div class="px-4 lg:grid lg:grid-cols-12 lg:gap-2">
-      <!-- {/* Map view with Route Link to map view */} -->
+      <!-- Map view with Route Link to map view -->
       <div class="lg:col-span-3">
         <div class="w-full border shadow mt-2 p-2">
           <div class="relative">
@@ -151,7 +149,6 @@
 </template>
 
 <script setup>
-import NavBar from '../components/NavBar.vue'
 import HomeFooter from '../components/HomeFooter.vue'
 // import PlaceListLoader from '../components/Loader/PlaceCardLoader.vue';
 import { NRate } from 'naive-ui'

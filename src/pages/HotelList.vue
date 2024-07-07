@@ -1,7 +1,4 @@
 <template>
-  <!-- Navigation Bar with Border -->
-  <NavBar />
-
   <div class="pb-4">
     <div class="container mx-auto text-center my-10">
       <h1 class="font-semibold text-lg md:text-3xl">你想住的地方</h1>
@@ -187,7 +184,6 @@
 <style></style>
 
 <script setup>
-import NavBar from '../components/NavBar.vue'
 import HomeFooter from '../components/HomeFooter.vue'
 import HotelCard from '../components/HotelCard.vue'
 // import PlaceListLoader from '../components/Loader/PlaceCardLoader.vue';

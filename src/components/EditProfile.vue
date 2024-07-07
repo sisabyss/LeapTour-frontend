@@ -248,8 +248,7 @@
 import { ref } from 'vue'
 import axios from 'axios'
 import { NUpload, NButton } from 'naive-ui'
-import { useBaseStore } from '../store/pinia.ts'
-
+import { useBaseStore } from '@/store/pinia'
 const store = useBaseStore()
 const upuser = {
   username: '',
