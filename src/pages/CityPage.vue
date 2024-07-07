@@ -1,5 +1,4 @@
 <template>
-  <NavBar />
   <div
     class="container mx-auto p-4"
     style="margin-top: 10px; display: flex; justify-content: center; align-items: center"

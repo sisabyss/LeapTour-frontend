@@ -79,6 +79,8 @@ import { ref, computed } from 'vue'
 import { NAutoComplete } from 'naive-ui'
 import { useRouter } from 'vue-router'
 import { useBaseStore } from '../store/pinia'
+import axios from 'axios'
+import { getPlacesByCity } from '@/api/tripadvisor'
 const store = useBaseStore()
 const router = useRouter()
 const search = ref('')
@@ -966,6 +968,26 @@ function handleSubmit() {
   // 处理提交逻辑
   console.log('输入值', search.value)
   store.coordinates.city = search.value
+
+  const source = axios.CancelToken.source()
+
+  // Loading state is set to true while data is being fetched from endpoint
+  store.isLoading = true
+
+  // Calling on the getPlacesByLatLng endpoint passing in the 'attraction' as place type, coordinates (longitude and latitude), a limit parameter and source for error handling
+  getPlacesByCity('foods', search.value, source).then((data) => {
+    store.restaurants = data
+  })
+  getPlacesByCity('hotels', search.value, source).then((data) => {
+    store.hotels = data
+  })
+  getPlacesByCity('sights', search.value, source).then((data) => {
+    store.attractions = data
+  })
+
+  // Setting loading state back to false to stop loading
+  store.isLoading = false
+
   console.log('Search submitted:', store.coordinates.city)
   router.push('/city_page')
 }
