@@ -1,7 +1,7 @@
 <template>
   <div class="container mx-auto pb-4">
     <div class="text-center my-10">
-      <h1 class="font-semibold text-lg md:text-3xl">Restaurants near you</h1>
+      <h1 class="font-semibold text-lg md:text-3xl">你周围的餐厅</h1>
     </div>
 
     <div class="px-4 lg:grid lg:grid-cols-12 lg:gap-2">
@@ -43,6 +43,7 @@
           v-for="(restaurant, i) in store.restaurants"
           :key="i"
           class="grid grid-cols-12 my-2 border border-gray-200 rounded shadow hover:shadow-xl cursor-pointer"
+          @click="RestaurantsDetails(restaurant)"
         >
           <!-- Restaurant Image -->
           <div class="col-span-12 md:col-span-4 h-[180px]">
@@ -155,7 +156,9 @@ import { useBaseStore } from '../store/pinia'
 import { watch } from 'vue'
 import axios from 'axios'
 import { getPlacesByCity } from '../api/tripadvisor'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const store = useBaseStore()
 
 watch(
@@ -181,7 +184,14 @@ watch(
     }
   }
 )
-
+function RestaurantsDetails(restaurant) {
+  console.log('发生点击')
+  console.log(restaurant)
+  router.push({
+    path: '/info_page',
+    query: restaurant
+  })
+}
 const processedPhotoUrl = (url) => {
   if (url) {
     // 去掉最后的尺寸参数
