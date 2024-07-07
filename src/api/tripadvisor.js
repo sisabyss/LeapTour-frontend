@@ -13,6 +13,30 @@ export const getPlacesByCity = async (type, city, source) => {
     )
 
     // Data is returned once resolved
+    return data
+  } catch (error) {
+    // Error Handling
+    if (axios.isCancel(error)) {
+      console.log('axios Call Cancelled!')
+    } else {
+      throw error
+    }
+  }
+}
+
+export const getCityByName = async (city, source) => {
+  try {
+    const { data } = await axios.get(
+      `http://192.168.1.145:8080/api/v2/city`,
+      {
+        params: {
+          name: city
+        }
+      },
+      { cancelToken: source.token }
+    )
+
+    // Data is returned once resolved
     console.log(data)
     return data
   } catch (error) {
@@ -61,7 +85,6 @@ export const getPlacesByBounds = async (type, sw, ne, source) => {
 
 // Get Places by Latitude and longitude, receives 'type', 'lat', 'lng', some 'params' and source for effect cleanup and error handling as parameter to endpoint call
 export const getPlacesByLatLng = async (type, lat, lng, params, source) => {
-  console.log(lat, lng, type)
   try {
     const {
       data: { data }
