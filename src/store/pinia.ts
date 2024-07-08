@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { getLatLngByIP } from '@/api/amap'
-import { getPlacesByCity, fetchAvatar } from '@/api/tripadvisor'
+import { getPlacesByCity, fetchAvatar, getCityByName } from '@/api/tripadvisor'
 import enums from '@/utils/enums'
 import resource from '@/assets/data/resource'
 import axios from 'axios'
@@ -22,6 +22,7 @@ export const useBaseStore = defineStore('base', {
       avatar: null,
       users: [],
       isLoading: false,
+      city_detail: null,
       coordinates: {},
       restaurants: [],
       hotels: [],
@@ -102,7 +103,12 @@ export const useBaseStore = defineStore('base', {
       getPlacesByCity('sights', this.coordinates.city, source).then((data) => {
         this.attractions = data
       })
+      
       this.avatar = await fetchAvatar()
+      
+      getCityByName(this.coordinates.city, source).then((data) => {
+        this.city_detail = data
+      })
 
       // Setting loading state back to false to stop loading
       store.isLoading = false

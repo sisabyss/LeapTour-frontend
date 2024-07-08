@@ -32,7 +32,7 @@
               d="M10 19l-7-7m0 0l7-7m-7 7h18"
             ></path>
           </svg>
-          <p @click="Backto">回到所有餐厅</p>
+          <p @click="Backto">回到所有酒店</p>
         </div>
       </a>
     </div>
@@ -54,8 +54,8 @@
         >
           <n-rate readonly :default-value="Number(Rest?.grade) / 2" />
           <!-- 评论条数和排名 --> </span
-        >{{ Rest?.commentCount }} 条评论</span
-      >~#{{ Rest?.city }}美食排行榜第{{ ((Number(Rest?.commentCount) / 2) % 10) + 2 }}名~￥
+        >{{ Rest?.review_num }} 条评论</span
+      >~#{{ Rest?.city }}酒店排行榜第{{ ((Number(Rest?.review_num) / 2) % 10) + 2 }}名~￥
     </p>
     <div class="text-sm flex flex-wrap items-center my-2 leading-relaxed">
       <p class="flex items-center mr-2">
@@ -72,7 +72,7 @@
           ></path>
         </svg>
         <!-- 地点 -->
-        <span class="underline decoration-dotted decoration-gray-400">中国,{{ Rest?.city }}</span>
+        <span class="underline decoration-dotted decoration-gray-400">{{ Rest?.nearby }}</span>
       </p>
       <p class="hidden md:flex items-center mr-2">
         <svg
@@ -104,7 +104,7 @@
         </svg>
         <!-- 餐厅网址 -->
         <a href="#" target="_blank" class="underline decoration-dotted decoration-gray-400"
-          >网址<svg
+          >酒店网址<svg
             class="h-3 w-3 ml-1 inline"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
@@ -126,7 +126,7 @@
     <div class="container mx-auto grid grid-cols-2" style="height: 400px">
       <div class="col-span-2" style="padding: 2%">
         <n-carousel autoplay>
-          <img class="carousel-img" :src="processedPhotoUrl(Rest?.photo)" />
+          <img class="carousel-img" :src="processedPhotoUrl(Rest?.img)" />
         </n-carousel>
       </div>
     </div>
@@ -198,10 +198,10 @@
             >
               <n-rate readonly :default-value="Number(Rest?.grade) / 2"
             /></span>
-            <span class="text-sm font-medium">{{ Rest?.commentCount }} 条评论 </span>
+            <span class="text-sm font-medium">{{ Rest?.review_num }} 条评论 </span>
           </p>
           <p class="my-2 text-sm">
-            #{{ Rest?.city }}美食排行榜第{{ ((Number(Rest?.commentCount) / 2) % 10) + 2 }}名
+            #{{ Rest?.city }}酒店排行榜第{{ ((Number(Rest?.review_num) / 2) % 10) + 2 }}名
           </p>
         </div>
 
@@ -211,22 +211,22 @@
         >
           <h2 class="font-medium text-lg">细节</h2>
           <div class="text-xs space-y-2">
-            <h3 class="font-medium uppercase">菜色</h3>
+            <h3 class="font-medium uppercase">风格</h3>
             <p>
-              <span class="bg-gray-200 rounded-full py-1 px-2 mb-2 mr-2 inline-block">食材新鲜</span
+              <span class="bg-gray-200 rounded-full py-1 px-2 mb-2 mr-2 inline-block">温馨家园</span
               ><span class="bg-gray-200 rounded-full py-1 px-2 mb-2 mr-2 inline-block"
                 >富有特色</span
               ><span class="bg-gray-200 rounded-full py-1 px-2 mb-2 mr-2 inline-block"
-                >菜品多样</span
+                >价格合适</span
               >
             </p>
           </div>
           <div class="text-xs space-y-2">
-            <h3 class="font-medium uppercase">口味</h3>
+            <h3 class="font-medium uppercase">体验</h3>
             <p>
-              <span class="bg-gray-200 rounded-full py-1 px-2 mb-2 mr-2 inline-block">人人皆可</span
+              <span class="bg-gray-200 rounded-full py-1 px-2 mb-2 mr-2 inline-block">床比较软</span
               ><span class="bg-gray-200 rounded-full py-1 px-2 mb-2 mr-2 inline-block"
-                >特别好吃</span
+                >环境安静</span
               ><span class="bg-gray-200 rounded-full py-1 px-2 mb-2 mr-2 inline-block">
                 老少皆宜</span
               >
@@ -255,7 +255,7 @@
               </svg>
             </div>
             <span class="underline decoration-dotted decoration-gray-400"
-              >中国,{{ Rest?.city }}</span
+              >中国,{{ Rest?.nearby }}</span
             >
           </div>
           <div class="flex items-center mr-2 text-sm">
@@ -291,7 +291,7 @@
               </svg>
             </div>
             <a href="#" target="_blank" class="underline decoration-dotted decoration-gray-400"
-              >餐厅网址<svg
+              >酒店网址<svg
                 class="h-3 w-3 ml-1 inline"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"

@@ -1,7 +1,7 @@
 <template>
   <div class="pb-4">
     <div class="container mx-auto text-center my-10">
-      <h1 class="font-semibold text-lg md:text-3xl">Hotels and Places to stay</h1>
+      <h1 class="font-semibold text-lg md:text-3xl">你想住的地方</h1>
     </div>
 
     <!-- Check In/Out and Guests Filter -->
@@ -11,7 +11,7 @@
       >
         <!-- Check In -->
         <div class="w-full relative">
-          <span class="absolute text-xs bg-white font-semibold px-2 -top-2 left-2"> Check In </span>
+          <span class="absolute text-xs bg-white font-semibold px-2 -top-2 left-2"> 入住时间 </span>
           <!-- Input Field for 'checkin' date -->
           <input
             type="date"
@@ -23,9 +23,7 @@
 
         <!-- Check Out -->
         <div class="w-full relative">
-          <span class="absolute text-xs bg-white font-semibold px-2 -top-2 left-2">
-            Check Out
-          </span>
+          <span class="absolute text-xs bg-white font-semibold px-2 -top-2 left-2"> 退房时间 </span>
 
           <!-- Input field for 'checkout' date -->
           <input
@@ -168,7 +166,12 @@
       <div class="lg:col-span-9">
         <!-- Displays a loading if 'hotels' has no data in state or data fetching is in loading state -->
         <!-- <PlaceListLoader v-if="store.hotels == [] || store.isLoading" /> -->
-        <HotelCard v-for="(hotel, i) in store.hotels" :key="i" :hotel="hotel"> </HotelCard>
+        <HotelCard
+          v-for="(hotel, i) in store.hotels"
+          :key="i"
+          :hotel="hotel"
+          @click="HotelDetails(hotel)"
+        />
         <!-- Maps through 'hotels' list when it is ready or data fetching is not in loading state -->
       </div>
     </div>
@@ -189,6 +192,9 @@ import { watch } from 'vue'
 import axios from 'axios'
 import moment from 'moment/moment'
 import { getPlacesByCity } from '../api/tripadvisor'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const store = useBaseStore()
 const filterParams = {
@@ -201,6 +207,15 @@ const filterParams = {
   nights: 1,
   pricesmax: '',
   pricesmin: ''
+}
+
+function HotelDetails(hotel) {
+  console.log('发生点击')
+  console.log(hotel)
+  router.push({
+    path: '/hotel_page',
+    query: hotel
+  })
 }
 
 let guestsToggle = false
