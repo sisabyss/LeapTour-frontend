@@ -1,5 +1,4 @@
 <template>
-  <AINav />
   <div>
     <p class="AITripTitle">您想去哪 ?</p>
     <div class="BuildSearch">
@@ -532,7 +531,6 @@
   </div>
 </template>
 <script setup>
-import AINav from '../components/AINav.vue'
 import TripBuild from '../components/TripBuild.vue'
 </script>
 <style scoped>

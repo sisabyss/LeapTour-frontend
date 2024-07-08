@@ -24,7 +24,7 @@
                       }}</span>
                     </h1>
                   </span>
-                  <span class="Dsdjn _R">{{ store.email }}</span>
+                  <span class="Dsdjn _R">{{ myemail }}</span>
                 </span>
                 <div class="BNUSk Md">
                   <div class="ObCEB">
@@ -263,15 +263,48 @@ import EditProfile from '../components/EditProfile.vue'
 import { Add, Calendar, IbmCloudInternetServices, OrderDetails, Camera, Pen } from '@vicons/carbon'
 import { NCard, NTabPane, NTabs, NModal, NTooltip } from 'naive-ui'
 import axios from 'axios'
-import { useBaseStore } from '@/store/pinia'
 import map1 from '../components/map.vue'
 import PhotoWall from '../components/PhotoWall.vue'
 import ModalInputCity from '../components/ModalInputCity.vue'
 import ModalInputReview from '../components/ModalInputReview.vue'
 import CityStory from '../components/CityStory.vue'
+import achievement1 from '../assets/Achievements1.png'
+import achievement2 from '../assets/Achievements2.png'
+import achievement3 from '../assets/Achievements3.png'
+import achievement4 from '../assets/Achievements4.png'
+import achievement5 from '../assets/Achievements5.png'
+import achievement6 from '../assets/Achievements6.png'
+import achievement7 from '../assets/Achievements7.png'
+import achievement8 from '../assets/Achievements8.png'
+import achievement9 from '../assets/Achievements9.png'
+import achievement10 from '../assets/Achievements10.png'
+import achievement11 from '../assets/Achievements11.png'
+import achievement12 from '../assets/Achievements12.png'
+import achievement13 from '../assets/Achievements13.png'
+import achievement14 from '../assets/Achievements14.png'
+import achievement15 from '../assets/Achievements15.png'
+import achievement16 from '../assets/Achievements16.png'
+import achievement17 from '../assets/Achievements17.png'
+import achievement18 from '../assets/Achievements18.png'
+import achievement19 from '../assets/Achievements19.png'
+import achievement20 from '../assets/Achievements20.png'
+import achievement21 from '../assets/Achievements21.png'
+import achievement22 from '../assets/Achievements22.png'
+import achievement23 from '../assets/Achievements23.png'
+import achievement24 from '../assets/Achievements24.png'
+import achievement25 from '../assets/Achievements25.png'
+import achievement26 from '../assets/Achievements26.png'
+import achievement27 from '../assets/Achievements27.png'
+import achievement28 from '../assets/Achievements28.png'
+import achievement29 from '../assets/Achievements29.png'
+
 const PostPic = ref()
 const Photolist = ref([])
-const store = useBaseStore()
+console.log('看看email', localStorage.getItem('saemail'))
+console.log('看看avatar', localStorage.getItem('saemail'))
+const myemail = ref(localStorage.getItem('saemail'))
+const myavatar = ref(localStorage.getItem('saavatar'))
+console.log('看看myemail', myemail)
 
 // 上传头像子组件将数据emit发射给父组件触发的函数
 const UploadPhoto = (pic) => {
@@ -308,7 +341,7 @@ async function PicTransform() {
 async function GetUserPhotoList() {
   try {
     const response = await axios.get('http://192.168.1.145:8080/info/getPhoto', {
-      params: { email: store.email }
+      params: { email: myemail.value }
     })
     console.log('获取成功')
     console.log(response.data.data)
@@ -324,7 +357,7 @@ async function PassUserPhoto(pic) {
     //console.log("参数",story);
     const response = await axios.get('http://192.168.1.145:8080/info/sendPhoto', {
       params: {
-        email: store.email,
+        email: myemail.value,
         photo: pic
       }
     })
@@ -349,7 +382,7 @@ const UploadCityStory = (data) => {
 async function GetUserStoryList() {
   try {
     const response = await axios.get('http://192.168.1.145:8080/info/getComment', {
-      params: { email: store.email }
+      params: { email: myemail.value }
     })
     console.log('获取成功')
     console.log(response.data.data)
@@ -364,7 +397,7 @@ async function PassUserStoryList(story) {
     //console.log("参数",story);
     const response = await axios.get('http://192.168.1.145:8080/info/sendComment', {
       params: {
-        email: store.email,
+        email: myemail.value,
         comment: story
       }
     })
@@ -383,7 +416,7 @@ const CityList = ref([])
 async function GetUserCityList() {
   try {
     const response = await axios.get('http://192.168.1.145:8080/info/getMarkedCity', {
-      params: { email: store.email }
+      params: { email: myemail.value }
     })
     console.log('获取成功')
     CityList.value = response.data.data
@@ -397,7 +430,7 @@ async function PassUserCityList(city) {
   try {
     const response = await axios.get('http://192.168.1.145:8080/info/markCity', {
       params: {
-        email: store.email,
+        email: myemail.value,
         markedCity: city
       }
     })
@@ -419,7 +452,7 @@ const userInfo = ref({
   phone: '',
   details: '',
   avatar: '',
-  email: store.email
+  email: myemail.value
 })
 const showModal = ref(false)
 const showModalnew = ref(false)
@@ -427,7 +460,7 @@ const showModalnew = ref(false)
 async function fetchUserInfo() {
   try {
     const response = await axios.get('http://192.168.1.145:8080/user/getUserInfo', {
-      params: { email: store.email }
+      params: { email: myemail.value }
     })
     userInfo.value = {
       username: response.data.data.name,
@@ -452,44 +485,33 @@ onMounted(() => {
   GetUserCityList()
 })
 const achievementImgs = ref([
-  'https://github.githubassets.com/assets/starstruck-default--light-a594e2a027e0.png',
-  'https://github.githubassets.com/assets/public-sponsor-default-9fa68986b057.png',
-  'https://github.githubassets.com/assets/pair-extraordinaire-default-579438a20e01.png',
-  'https://github.githubassets.com/assets/pull-shark-default-498c279a747d.png',
-  'https://github.githubassets.com/assets/quickdraw-default--light-8f798b35341a.png',
-  'https://github.githubassets.com/assets/yolo-default-be0bbff04951.png',
-  'https://github.githubassets.com/assets/arctic-code-vault-contributor-default-df8d74122a06.png',
-  'https://camo.githubusercontent.com/377db1e303a8ed9960613167f01ee9134373e51aaedecdeebf667a31527b6763/68747470733a2f2f6769746875622e6769746875626173736574732e636f6d2f696d616765732f6d6f64756c65732f70726f66696c652f616368696576656d656e74732f68656172742d6f6e2d796f75722d736c656576652d64656661756c742e706e67',
-  'https://camo.githubusercontent.com/2707c37fdc92995dbe3f3c0c4420caf856000dd08c4e09e867845cb620bdf87d/68747470733a2f2f6769746875622e6769746875626173736574732e636f6d2f696d616765732f6d6f64756c65732f70726f66696c652f616368696576656d656e74732f67616c6178792d627261696e2d64656661756c742e706e67'
+  achievement1,
+  achievement2,
+  achievement3,
+  achievement4,
+  achievement5,
+  achievement6,
+  achievement7,
+  achievement8,
+  achievement9
 ])
+
 const achievementImgsWait = ref([
-  'https://github.githubassets.com/assets/public-sponsor-default-9fa68986b057.png',
-  'https://github.githubassets.com/assets/pair-extraordinaire-default-579438a20e01.png',
-  'https://github.githubassets.com/assets/pull-shark-default-498c279a747d.png',
-  'https://github.githubassets.com/assets/quickdraw-default--light-8f798b35341a.png',
-  'https://github.githubassets.com/assets/yolo-default-be0bbff04951.png',
-  'https://github.githubassets.com/assets/arctic-code-vault-contributor-default-df8d74122a06.png',
-  'https://camo.githubusercontent.com/377db1e303a8ed9960613167f01ee9134373e51aaedecdeebf667a31527b6763/68747470733a2f2f6769746875622e6769746875626173736574732e636f6d2f696d616765732f6d6f64756c65732f70726f66696c652f616368696576656d656e74732f68656172742d6f6e2d796f75722d736c656576652d64656661756c742e706e67',
-  'https://camo.githubusercontent.com/2707c37fdc92995dbe3f3c0c4420caf856000dd08c4e09e867845cb620bdf87d/68747470733a2f2f6769746875622e6769746875626173736574732e636f6d2f696d616765732f6d6f64756c65732f70726f66696c652f616368696576656d656e74732f67616c6178792d627261696e2d64656661756c742e706e67'
+  achievement10,
+  achievement11,
+  achievement12,
+  achievement13,
+  achievement14,
+  achievement15,
+  achievement16,
+  achievement17
 ])
-const ImgsStart1 = ref([
-  'https://github.githubassets.com/assets/starstruck-default--light-a594e2a027e0.png',
-  'https://camo.githubusercontent.com/67da564746f3782c02dbec0007a20d08801959823846662c04bc9720f0ec5b3e/68747470733a2f2f6769746875622e6769746875626173736574732e636f6d2f696d616765732f6d6f64756c65732f70726f66696c652f616368696576656d656e74732f7374617273747275636b2d62726f6e7a652e706e67',
-  'https://camo.githubusercontent.com/5e2586deada291f85d913a4626be437d12d04fd515a315f278bedb864aa44fc7/68747470733a2f2f6769746875622e6769746875626173736574732e636f6d2f696d616765732f6d6f64756c65732f70726f66696c652f616368696576656d656e74732f7374617273747275636b2d73696c7665722e706e67',
-  'https://camo.githubusercontent.com/f47c96383a4e6f1bc669a38c343ee580102130822d8087559229cebf0892efa0/68747470733a2f2f6769746875622e6769746875626173736574732e636f6d2f696d616765732f6d6f64756c65732f70726f66696c652f616368696576656d656e74732f7374617273747275636b2d676f6c642e706e67'
-])
-const ImgsStart2 = ref([
-  'https://camo.githubusercontent.com/2707c37fdc92995dbe3f3c0c4420caf856000dd08c4e09e867845cb620bdf87d/68747470733a2f2f6769746875622e6769746875626173736574732e636f6d2f696d616765732f6d6f64756c65732f70726f66696c652f616368696576656d656e74732f67616c6178792d627261696e2d64656661756c742e706e67',
-  'https://camo.githubusercontent.com/378462348b141036fe79d0fd60676872a267457df1227a2e47df16397af39626/68747470733a2f2f6769746875622e6769746875626173736574732e636f6d2f696d616765732f6d6f64756c65732f70726f66696c652f616368696576656d656e74732f67616c6178792d627261696e2d62726f6e7a652e706e67',
-  'https://camo.githubusercontent.com/27fb87c59e8c8666971b419f0cf78189394bf8bd3cdc7f46e7c5b77c6f650fde/68747470733a2f2f6769746875622e6769746875626173736574732e636f6d2f696d616765732f6d6f64756c65732f70726f66696c652f616368696576656d656e74732f67616c6178792d627261696e2d73696c7665722e706e67',
-  'https://camo.githubusercontent.com/48b7c5de3829e4d23237dc8cee9162fb221d34378d0b8346b3925d4c8cb9aa23/68747470733a2f2f6769746875622e6769746875626173736574732e636f6d2f696d616765732f6d6f64756c65732f70726f66696c652f616368696576656d656e74732f67616c6178792d627261696e2d676f6c642e706e67'
-])
-const ImgsStart3 = ref([
-  'https://camo.githubusercontent.com/2ae0861e97bfba2d3250ceb7db103356b3b35161e273d48120199382d6eac03a/68747470733a2f2f6769746875622e6769746875626173736574732e636f6d2f696d616765732f6d6f64756c65732f70726f66696c652f616368696576656d656e74732f706169722d65787472616f7264696e616972652d64656661756c742e706e67',
-  'https://camo.githubusercontent.com/645d31b844b73bb68a69e49a353d717a722f909fd080aa3a49517b19f0a3183a/68747470733a2f2f6769746875622e6769746875626173736574732e636f6d2f696d616765732f6d6f64756c65732f70726f66696c652f616368696576656d656e74732f706169722d65787472616f7264696e616972652d62726f6e7a652e706e67',
-  'https://camo.githubusercontent.com/244a3ed22ac7dec6faf02c6f35e26004315fc98128978038238b8bb93d276250/68747470733a2f2f6769746875622e6769746875626173736574732e636f6d2f696d616765732f6d6f64756c65732f70726f66696c652f616368696576656d656e74732f706169722d65787472616f7264696e616972652d73696c7665722e706e67',
-  'https://camo.githubusercontent.com/9905e598009c18ffd715f77634df97498b28784d515f825d71610a8043a1284c/68747470733a2f2f6769746875622e6769746875626173736574732e636f6d2f696d616765732f6d6f64756c65732f70726f66696c652f616368696576656d656e74732f706169722d65787472616f7264696e616972652d676f6c642e706e67'
-])
+
+const ImgsStart1 = ref([achievement18, achievement19, achievement20, achievement21])
+
+const ImgsStart2 = ref([achievement22, achievement23, achievement24, achievement25])
+
+const ImgsStart3 = ref([achievement26, achievement27, achievement28, achievement29])
 </script>
 
 <style scoped>
@@ -541,7 +563,7 @@ const ImgsStart3 = ref([
 .ProfileColumn {
   margin: 5px;
   padding: 5px;
-  width: 350px;
+  width: 100%;
   float: left;
 }
 
@@ -556,7 +578,7 @@ const ImgsStart3 = ref([
 
 .ProfileTabs {
   margin: 5px;
-  width: 750px;
+  width: 100%;
   padding: 5px;
   text-align: center;
   float: right;

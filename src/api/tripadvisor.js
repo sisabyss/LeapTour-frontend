@@ -119,6 +119,22 @@ export const getPlacesByLatLng = async (type, lat, lng, params, source) => {
   }
 }
 
+export const fetchAvatar = async () => {
+  try {
+    const myemail = localStorage.getItem('saemail')
+    const response = await axios.get('http://192.168.1.145:8080/user/getUserInfo', {
+      params: { email: myemail }
+    })
+    const avatar = response.data.data.avatar
+    localStorage.setItem('saavatar', avatar)
+    console.log('调用fetchAvatar成功:', avatar)
+    return avatar
+  } catch (error) {
+    console.error('调用fetchAvatar失败', error)
+    return null
+  }
+}
+
 export const getLatLngByIP = async () => {
   try {
     const response = await axios.get('https://restapi.amap.com/v3/ip', {

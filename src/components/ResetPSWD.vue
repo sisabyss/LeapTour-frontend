@@ -14,35 +14,43 @@ let countdown_flag = ref(true)
 const emit = defineEmits(['openSignIn', 'openSignUp', 'closeModalFromReset'])
 
 async function verify() {
-  const response = await axios.get('http://192.168.1.145:8080/mail/checkMail', {
-    params: {
-      email: user.value.email,
-      number: user.value.verifycode,
-      newPassword: user.value.password
+  if (user.value.verifycode !== '' && user.value.verifycode !== null) {
+    const response = await axios.get('http://192.168.1.145:8080/mail/checkMail', {
+      params: {
+        email: user.value.email,
+        number: user.value.verifycode,
+        newPassword: user.value.password
+      }
+    })
+    console.log(response)
+    if (response.data.code == 200) {
+      alert('修改成功')
+      emit('closeModalFromReset')
     }
-  })
-  console.log(response)
-  if (response.data.code == 200) {
-    alert('修改成功')
-    emit('closeModalFromReset')
+  } else {
+    alert('请输入验证码')
   }
 }
 
 async function getVerifyCode() {
-  await axios.get('http://192.168.1.145:8080/mail/sendMail', {
-    params: {
-      email: user.value.email
-    }
-  })
-  countdown.value = 60
-  countdown_flag.value = false
-  let timer = setInterval(() => {
-    countdown.value = countdown.value - 1
-    if (countdown.value == 0) {
-      clearInterval(timer)
-      countdown_flag.value = true
-    }
-  }, 1000)
+  if (user.value.email !== '' && user.value.email != null) {
+    await axios.get('http://192.168.1.145:8080/mail/sendMail', {
+      params: {
+        email: user.value.email
+      }
+    })
+    countdown.value = 60
+    countdown_flag.value = false
+    let timer = setInterval(() => {
+      countdown.value = countdown.value - 1
+      if (countdown.value == 0) {
+        clearInterval(timer)
+        countdown_flag.value = true
+      }
+    }, 1000)
+  } else {
+    alert('请输入正确的邮箱')
+  }
 }
 
 function toSignUp() {
@@ -168,7 +176,7 @@ function toSignIn() {
         <input
           type="text"
           class="Input"
-          placeholder="Email:"
+          placeholder="邮箱:"
           v-model="user.email"
           style="width: 399px; padding: 16px; border-radius: 10px; border: 1px #d9d9d9 solid"
         />
@@ -176,7 +184,7 @@ function toSignIn() {
         <input
           type="password"
           class="Input"
-          placeholder="Password:"
+          placeholder="密码:"
           style="width: 399px; padding: 16px; border-radius: 10px; border: 1px #d9d9d9 solid"
           v-model="user.password"
         />
@@ -189,7 +197,21 @@ function toSignIn() {
             style="width: 399px; padding: 16px; border-radius: 10px; border: 1px #d9d9d9 solid"
           />
         </div>
-        <div v-if="countdown_flag" @click="getVerifyCode">获取验证码</div>
+        <div
+          v-if="countdown_flag"
+          @click="getVerifyCode"
+          style="
+            color: black;
+            font-size: 18px;
+            font-family: Inter;
+            font-weight: 600;
+            text-decoration: underline;
+            line-height: 27px;
+            word-wrap: break-word;
+          "
+        >
+          获取验证码
+        </div>
         <div v-else>
           {{ countdown }}
         </div>
@@ -268,7 +290,7 @@ function toSignIn() {
             word-wrap: break-word;
           "
         >
-          Need an account?
+          需要一个新账号?
         </span>
         <span
           style="
@@ -282,7 +304,7 @@ function toSignIn() {
           "
           @click="toSignUp"
         >
-          Create one
+          创建
         </span>
       </div>
     </div>

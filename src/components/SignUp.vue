@@ -90,6 +90,34 @@
         @input="checkPassword"
       />
 
+      <div>
+        <input
+          type="text"
+          class="Input"
+          placeholder="验证码:"
+          v-model="user.verifycode"
+          style="width: 399px; padding: 16px; border-radius: 10px; border: 1px #367aff solid"
+        />
+      </div>
+      <div
+        v-if="countdown_flag"
+        @click="getVerifyCode"
+        style="
+          color: black;
+          font-size: 18px;
+          font-family: Inter;
+          font-weight: 600;
+          text-decoration: underline;
+          line-height: 27px;
+          word-wrap: break-word;
+        "
+      >
+        获取验证码
+      </div>
+      <div v-else>
+        {{ countdown }}
+      </div>
+
       <!-- 新增密码要求 -->
       <div class="password-requirements">
         <div :class="{ 'requirement-met': isLongEnough, 'requirement-not-met': !isLongEnough }">
@@ -175,13 +203,44 @@ import axios from 'axios'
 const user = ref({
   name: '',
   email: '',
-  password: ''
+  password: '',
+  verifycode: ''
 })
 
 const isLongEnough = computed(() => user1.value.password.length >= 10)
 const hasSpecialChar = computed(() => /[!@#$%^&*(),.?":{}|<>]/.test(user1.value.password))
 
 const emit = defineEmits(['closeModalFromSignUp', 'openSignIn'])
+
+// 验证码倒计时
+let countdown = ref(60)
+let countdown_flag = ref(true)
+
+async function getVerifyCode() {
+  console.log(user.value.email)
+  try {
+    if (user.value.email !== '' && user.value.email != null) {
+      await axios.get('http://192.168.1.145:8080/mail/sendLoginMail', {
+        params: {
+          email: user.value.email
+        }
+      })
+      countdown.value = 60
+      countdown_flag.value = false
+      let timer = setInterval(() => {
+        countdown.value = countdown.value - 1
+        if (countdown.value == 0) {
+          clearInterval(timer)
+          countdown_flag.value = true
+        }
+      }, 1000)
+    } else {
+      alert('请输入正确的邮箱')
+    }
+  } catch (err) {
+    console.log(err)
+  }
+}
 
 // 返回登录
 function backToSignIn() {
@@ -191,29 +250,39 @@ function backToSignIn() {
 const user1 = ref(user)
 
 const register = async () => {
-  try {
-    // const jsonstring = JSON.stringify(user1.value);
-    const response = await axios.get(
-      `http://192.168.1.145:8080/user/register`,
-      {
-        params: {
-          name: user1.value.name,
-          email: user1.value.email,
-          password: user1.value.password
-        }
-      },
-      {}
-    )
-    if (response.data.code == 200) {
-      alert(response.data.msg)
-
-      emit('closeModalFromSignUp')
-    } else if (response.data.code == 500) {
-      alert(response.data.msg)
+  const res_code = await axios.get('http://192.168.1.145:8080/mail/checkNumber', {
+    params: {
+      email: user1.value.email,
+      number: user1.value.verifycode
     }
-  } catch (error) {
-    console.log('发送数据时出错', error)
-    alert('登录请求失败，请稍后再试')
+  })
+  if (res_code.data.code == 200) {
+    try {
+      // const jsonstring = JSON.stringify(user1.value);
+      const response = await axios.get(
+        `http://192.168.1.145:8080/user/register`,
+        {
+          params: {
+            name: user1.value.name,
+            email: user1.value.email,
+            password: user1.value.password
+          }
+        },
+        {}
+      )
+      if (response.data.code == 200) {
+        alert(response.data.msg)
+
+        emit('closeModalFromSignUp')
+      } else if (response.data.code == 500) {
+        alert(response.data.msg)
+      }
+    } catch (error) {
+      console.log('发送数据时出错', error)
+      alert('登录请求失败，请稍后再试')
+    }
+  } else {
+    alert('验证码错误')
   }
 }
 </script>

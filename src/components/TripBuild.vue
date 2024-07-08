@@ -949,32 +949,34 @@ function handleSubmit() {
   searchAI(search.value)
 }
 
-import { reactive } from 'vue'
+//import { reactive } from 'vue'
 import { OpenAI } from 'openai'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
-//页面数据
+
+/* //页面数据
 const Data = reactive({
   searchContent: ''
-})
+}) */
 
 async function searchAI(search) {
-  Data.searchContent = search
-  console.log(Data.searchContent)
-  let AIGC = await getPlanFromAI(Data.searchContent)
+  //Data.searchContent = search
+  //console.log(Data.searchContent)
+  //let AIGC = await getPlanFromAI(Data.searchContent)
+  let AIGC = await getPlanFromAI(search)
   console.log('before:')
   console.log(router)
   router.push({
     path: '/ai_page',
     query: {
       AIGC: AIGC,
-      addr: Data.searchContent
+      addr: search
     }
   })
   console.log('after:')
   console.log(router)
-  router.go(1)
+  //router.go(1)
   console.log('end')
 }
 

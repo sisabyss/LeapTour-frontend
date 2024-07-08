@@ -248,15 +248,15 @@
 import { ref } from 'vue'
 import axios from 'axios'
 import { NUpload, NButton } from 'naive-ui'
-import { useBaseStore } from '@/store/pinia'
-const store = useBaseStore()
+const myemail = ref(localStorage.getItem('saemail'))
+const myavatar = ref(localStorage.getItem('saavatar'))
 const upuser = {
   username: '',
   city: '',
   phone: '',
   details: '',
-  picture: store.avatar,
-  email: store.email
+  picture: '',
+  email: myemail.value
 }
 const up1 = ref(upuser)
 console.log(upuser)
@@ -291,6 +291,7 @@ async function updateimg() {
       console.log(message.data.imageUrl)
       console.log(message)
       up1.value.picture = 'http://' + message.data.imageUrl[0]
+      localStorage.setItem('saavatar', up1.value.picture)
       alert('头像上传成功')
     } else if (message.code == 500) {
       console.log('更新头像失败')
@@ -310,8 +311,8 @@ async function update() {
         ip_city: up1.value.city,
         phone: up1.value.phone,
         about_me: up1.value.details,
-        email: store.email, // 使用 store.email
-        avatar: store.avatar
+        email: myemail.value, // 使用 store.email
+        avatar: up1.value.picture
       }
     })
     const message = response.data

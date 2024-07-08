@@ -1,5 +1,4 @@
 <template>
-  <NavBar />
   <div class="FindFlightsAll">
     <div class="FlightsMainCard">
       <n-card class="FindFlights" :title="CardStart" header-style="font-size:2em">
@@ -7,18 +6,34 @@
           <n-button class="TransportButton" @click="toggleTransport">{{ transportMode }}</n-button>
         </template>
         <div v-if="ifFlight">
-          <n-tabs class="card-tabs" size="small" animated pane-wrapper-style="margin: 0 -4px"
-            tab-style="font-size:1.2em">
+          <n-tabs
+            class="card-tabs"
+            size="small"
+            animated
+            pane-wrapper-style="margin: 0 -4px"
+            tab-style="font-size:1.2em"
+          >
             <n-tab-pane name="Round Trip" tab="往返">
               <n-form size="small">
                 <n-form-item-row class="FlightsFormItemRow">
                   <div class="FlightsLabelInput">
                     <n-form-item label="出发地" label-style="font-size:1.3em;">
-                      <n-auto-complete v-model:value="RoundFrom" :options="filteredOptionsRoundFrom"
-                        placeholder="输入出发机场" clearable @select="handleSelect('RoundFrom', $event)">
+                      <n-auto-complete
+                        v-model:value="RoundFrom"
+                        :options="filteredOptionsRoundFrom"
+                        placeholder="输入出发机场"
+                        clearable
+                        @select="handleSelect('RoundFrom', $event)"
+                      >
                         <template #default="{ handleInput, handleBlur, handleFocus }">
-                          <n-input class="FlightsInput" placeholder="输入出发机场" @input="handleInput" @blur="handleBlur"
-                            @focus="handleFocus" v-model:value="RoundFrom">
+                          <n-input
+                            class="FlightsInput"
+                            placeholder="输入出发机场"
+                            @input="handleInput"
+                            @blur="handleBlur"
+                            @focus="handleFocus"
+                            v-model:value="RoundFrom"
+                          >
                             <template #prefix>
                               <n-icon class="FlightsLeft">
                                 <Location class="FlightsIcon" />
@@ -31,11 +46,22 @@
                   </div>
                   <div class="FlightsLabelInput">
                     <n-form-item label="目的地" label-style="font-size:1.3em;">
-                      <n-auto-complete v-model:value="RoundTo" :options="filteredOptionsRoundTo" placeholder="输入到达机场"
-                        clearable @select="handleSelect('RoundTo', $event)">
+                      <n-auto-complete
+                        v-model:value="RoundTo"
+                        :options="filteredOptionsRoundTo"
+                        placeholder="输入到达机场"
+                        clearable
+                        @select="handleSelect('RoundTo', $event)"
+                      >
                         <template #default="{ handleInput, handleBlur, handleFocus }">
-                          <n-input class="FlightsInput" placeholder="输入到达机场" @input="handleInput" @blur="handleBlur"
-                            @focus="handleFocus" v-model:value="RoundTo">
+                          <n-input
+                            class="FlightsInput"
+                            placeholder="输入到达机场"
+                            @input="handleInput"
+                            @blur="handleBlur"
+                            @focus="handleFocus"
+                            v-model:value="RoundTo"
+                          >
                             <template #prefix>
                               <n-icon class="FlightsLeft">
                                 <Location class="FlightsIcon" />
@@ -50,25 +76,45 @@
                 <n-form-item-row class="FlightsFormItemRow">
                   <div class="FlightsLabelInput">
                     <n-form-item label="出发日期" label-style="font-size:1.3em;">
-                      <n-date-picker class="FlightsInput" size="large" v-model:value="RoundDepart" type="date"
-                        placeholder="选择出发日期" />
+                      <n-date-picker
+                        class="FlightsInput"
+                        size="large"
+                        v-model:value="RoundDepart"
+                        type="date"
+                        placeholder="选择出发日期"
+                      />
                     </n-form-item>
                   </div>
                   <div class="FlightsLabelInput">
                     <n-form-item label="返程日期" label-style="font-size:1.3em;">
-                      <n-date-picker class="FlightsInput" size="large" v-model:value="RoundReturn" type="date"
-                        :disabled-date="disabledReturnDates" @click="checkRoundDepart" placeholder="选择返程日期" />
+                      <n-date-picker
+                        class="FlightsInput"
+                        size="large"
+                        v-model:value="RoundReturn"
+                        type="date"
+                        :disabled-date="disabledReturnDates"
+                        @click="checkRoundDepart"
+                        placeholder="选择返程日期"
+                      />
                     </n-form-item>
                   </div>
                 </n-form-item-row>
                 <n-form-item-row class="FlightsFormItemRow" style="width: 200px">
                   <div class="FlightsLabelInput">
-                    <n-form-item label="乘客数量" label-style="font-size:1.3em;" :rules="[
-                      { required: true, message: '请输入乘客数量' },
-                      { type: 'number', min: 1, message: '乘客数量必须为正整数' }
-                    ]">
-                      <n-input type="number" class="FlightsInput" placeholder="乘客数量"
-                        v-model:value="RoundPassengerCount">
+                    <n-form-item
+                      label="乘客数量"
+                      label-style="font-size:1.3em;"
+                      :rules="[
+                        { required: true, message: '请输入乘客数量' },
+                        { type: 'number', min: 1, message: '乘客数量必须为正整数' }
+                      ]"
+                    >
+                      <n-input
+                        type="number"
+                        class="FlightsInput"
+                        placeholder="乘客数量"
+                        v-model:value="RoundPassengerCount"
+                      >
                         <template #prefix>
                           <n-icon class="FlightsLeft">
                             <Group class="FlightsIcon" />
@@ -80,12 +126,25 @@
                 </n-form-item-row>
               </n-form>
               <div class="preferences">
-                <n-checkbox v-model:checked="withChildRound"
-                  style="font-size: 1.3em; margin-left: 50px">带儿童</n-checkbox>
-                <n-checkbox v-model:checked="withInfantRound"
-                  style="font-size: 1.3em; margin-right: 50px">带婴儿</n-checkbox>
+                <n-checkbox
+                  v-model:checked="withChildRound"
+                  style="font-size: 1.3em; margin-left: 50px"
+                  >带儿童</n-checkbox
+                >
+                <n-checkbox
+                  v-model:checked="withInfantRound"
+                  style="font-size: 1.3em; margin-right: 50px"
+                  >带婴儿</n-checkbox
+                >
               </div>
-              <n-button class="FindFlightsButton" type="primary" block secondary strong @click="FlightsSearch('Round')">
+              <n-button
+                class="FindFlightsButton"
+                type="primary"
+                block
+                secondary
+                strong
+                @click="FlightsSearch('Round')"
+              >
                 航班查询
               </n-button>
             </n-tab-pane>
@@ -94,11 +153,22 @@
                 <n-form-item-row class="FlightsFormItemRow">
                   <div class="FlightsLabelInput">
                     <n-form-item label="出发地" label-style="font-size:1.3em;">
-                      <n-auto-complete v-model:value="OneFrom" :options="filteredOptionsOneFrom" placeholder="输入出发机场"
-                        clearable @select="handleSelect('OneFrom', $event)">
+                      <n-auto-complete
+                        v-model:value="OneFrom"
+                        :options="filteredOptionsOneFrom"
+                        placeholder="输入出发机场"
+                        clearable
+                        @select="handleSelect('OneFrom', $event)"
+                      >
                         <template #default="{ handleInput, handleBlur, handleFocus }">
-                          <n-input class="FlightsInput" placeholder="输入出发机场" @input="handleInput" @blur="handleBlur"
-                            @focus="handleFocus" v-model:value="OneFrom">
+                          <n-input
+                            class="FlightsInput"
+                            placeholder="输入出发机场"
+                            @input="handleInput"
+                            @blur="handleBlur"
+                            @focus="handleFocus"
+                            v-model:value="OneFrom"
+                          >
                             <template #prefix>
                               <n-icon class="FlightsLeft">
                                 <Location class="FlightsIcon" />
@@ -111,11 +181,22 @@
                   </div>
                   <div class="FlightsLabelInput">
                     <n-form-item label="目的地" label-style="font-size:1.3em;">
-                      <n-auto-complete v-model:value="OneTo" :options="filteredOptionsOneTo" placeholder="输入到达机场"
-                        clearable @select="handleSelect('OneTo', $event)">
+                      <n-auto-complete
+                        v-model:value="OneTo"
+                        :options="filteredOptionsOneTo"
+                        placeholder="输入到达机场"
+                        clearable
+                        @select="handleSelect('OneTo', $event)"
+                      >
                         <template #default="{ handleInput, handleBlur, handleFocus }">
-                          <n-input class="FlightsInput" placeholder="输入到达机场" @input="handleInput" @blur="handleBlur"
-                            @focus="handleFocus" v-model:value="OneTo">
+                          <n-input
+                            class="FlightsInput"
+                            placeholder="输入到达机场"
+                            @input="handleInput"
+                            @blur="handleBlur"
+                            @focus="handleFocus"
+                            v-model:value="OneTo"
+                          >
                             <template #prefix>
                               <n-icon class="FlightsLeft">
                                 <Location class="FlightsIcon" />
@@ -130,18 +211,32 @@
                 <n-form-item-row class="FlightsFormItemRow">
                   <div class="FlightsLabelInput">
                     <n-form-item label="出发日期" label-style="font-size:1.3em;">
-                      <n-date-picker class="FlightsInput" size="large" v-model:value="OneDepart" type="date"
-                        placeholder="选择出发日期" />
+                      <n-date-picker
+                        class="FlightsInput"
+                        size="large"
+                        v-model:value="OneDepart"
+                        type="date"
+                        placeholder="选择出发日期"
+                      />
                     </n-form-item>
                   </div>
                 </n-form-item-row>
                 <n-form-item-row class="FlightsFormItemRow" style="width: 200px">
                   <div class="FlightsLabelInput">
-                    <n-form-item label="乘客数量" label-style="font-size:1.3em;" :rules="[
-                      { required: true, message: '请输入乘客数量' },
-                      { type: 'number', min: 1, message: '乘客数量必须为正整数' }
-                    ]">
-                      <n-input type="number" class="FlightsInput" placeholder="乘客数量" v-model:value="OnePassengerCount">
+                    <n-form-item
+                      label="乘客数量"
+                      label-style="font-size:1.3em;"
+                      :rules="[
+                        { required: true, message: '请输入乘客数量' },
+                        { type: 'number', min: 1, message: '乘客数量必须为正整数' }
+                      ]"
+                    >
+                      <n-input
+                        type="number"
+                        class="FlightsInput"
+                        placeholder="乘客数量"
+                        v-model:value="OnePassengerCount"
+                      >
                         <template #prefix>
                           <n-icon class="FlightsLeft">
                             <Group class="FlightsIcon" />
@@ -153,11 +248,25 @@
                 </n-form-item-row>
               </n-form>
               <div class="preferences">
-                <n-checkbox v-model:checked="withChildOne" style="font-size: 1.3em; margin-left: 50px">带儿童</n-checkbox>
-                <n-checkbox v-model:checked="withInfantOne"
-                  style="font-size: 1.3em; margin-right: 50px">带婴儿</n-checkbox>
+                <n-checkbox
+                  v-model:checked="withChildOne"
+                  style="font-size: 1.3em; margin-left: 50px"
+                  >带儿童</n-checkbox
+                >
+                <n-checkbox
+                  v-model:checked="withInfantOne"
+                  style="font-size: 1.3em; margin-right: 50px"
+                  >带婴儿</n-checkbox
+                >
               </div>
-              <n-button class="FindFlightsButton" type="primary" block secondary strong @click="FlightsSearch('One')">
+              <n-button
+                class="FindFlightsButton"
+                type="primary"
+                block
+                secondary
+                strong
+                @click="FlightsSearch('One')"
+              >
                 航班查询
               </n-button>
             </n-tab-pane>
@@ -165,18 +274,34 @@
         </div>
 
         <div v-else>
-          <n-tabs class="card-tabs" size="small" animated pane-wrapper-style="margin: 0 -4px"
-            tab-style="font-size:1.2em">
+          <n-tabs
+            class="card-tabs"
+            size="small"
+            animated
+            pane-wrapper-style="margin: 0 -4px"
+            tab-style="font-size:1.2em"
+          >
             <n-tab-pane name="Round Trip" tab="往返">
               <n-form size="small">
                 <n-form-item-row class="FlightsFormItemRow">
                   <div class="FlightsLabelInput">
                     <n-form-item label="出发地" label-style="font-size:1.3em;">
-                      <n-auto-complete v-model:value="RoundFromTrain" :options="filteredOptionsRoundFromTrain"
-                        placeholder="输入出发城市" clearable @select="handleSelectTrain('RoundFrom', $event)">
+                      <n-auto-complete
+                        v-model:value="RoundFromTrain"
+                        :options="filteredOptionsRoundFromTrain"
+                        placeholder="输入出发城市"
+                        clearable
+                        @select="handleSelectTrain('RoundFrom', $event)"
+                      >
                         <template #default="{ handleInput, handleBlur, handleFocus }">
-                          <n-input class="FlightsInput" placeholder="输入出发城市" @input="handleInput" @blur="handleBlur"
-                            @focus="handleFocus" v-model:value="RoundFromTrain">
+                          <n-input
+                            class="FlightsInput"
+                            placeholder="输入出发城市"
+                            @input="handleInput"
+                            @blur="handleBlur"
+                            @focus="handleFocus"
+                            v-model:value="RoundFromTrain"
+                          >
                             <template #prefix>
                               <n-icon class="FlightsLeft">
                                 <Location class="FlightsIcon" />
@@ -189,11 +314,22 @@
                   </div>
                   <div class="FlightsLabelInput">
                     <n-form-item label="目的地" label-style="font-size:1.3em;">
-                      <n-auto-complete v-model:value="RoundToTrain" :options="filteredOptionsRoundToTrain"
-                        placeholder="输入到达城市" clearable @select="handleSelectTrain('RoundTo', $event)">
+                      <n-auto-complete
+                        v-model:value="RoundToTrain"
+                        :options="filteredOptionsRoundToTrain"
+                        placeholder="输入到达城市"
+                        clearable
+                        @select="handleSelectTrain('RoundTo', $event)"
+                      >
                         <template #default="{ handleInput, handleBlur, handleFocus }">
-                          <n-input class="FlightsInput" placeholder="输入到达城市" @input="handleInput" @blur="handleBlur"
-                            @focus="handleFocus" v-model:value="RoundToTrain">
+                          <n-input
+                            class="FlightsInput"
+                            placeholder="输入到达城市"
+                            @input="handleInput"
+                            @blur="handleBlur"
+                            @focus="handleFocus"
+                            v-model:value="RoundToTrain"
+                          >
                             <template #prefix>
                               <n-icon class="FlightsLeft">
                                 <Location class="FlightsIcon" />
@@ -208,24 +344,50 @@
                 <n-form-item-row class="FlightsFormItemRow">
                   <div class="FlightsLabelInput">
                     <n-form-item label="出发日期" label-style="font-size:1.3em;">
-                      <n-date-picker class="FlightsInput" size="large" v-model:value="RoundDepartTrain" type="date"
-                        placeholder="选择出发日期" />
+                      <n-date-picker
+                        class="FlightsInput"
+                        size="large"
+                        v-model:value="RoundDepartTrain"
+                        type="date"
+                        placeholder="选择出发日期"
+                      />
                     </n-form-item>
                   </div>
                   <div class="FlightsLabelInput">
                     <n-form-item label="返程日期" label-style="font-size:1.3em;">
-                      <n-date-picker class="FlightsInput" size="large" v-model:value="RoundReturnTrain" type="date"
-                        :disabled-date="disabledReturnDates" @click="checkRoundDepartTrain" placeholder="选择返程日期" />
+                      <n-date-picker
+                        class="FlightsInput"
+                        size="large"
+                        v-model:value="RoundReturnTrain"
+                        type="date"
+                        :disabled-date="disabledReturnDates"
+                        @click="checkRoundDepartTrain"
+                        placeholder="选择返程日期"
+                      />
                     </n-form-item>
                   </div>
                 </n-form-item-row>
               </n-form>
               <div class="preferences">
-                <n-checkbox v-model:checked="withGCRound"
-                  style="font-size: 1.3em; margin-left: 50px">高铁(G/C)</n-checkbox>
-                <n-checkbox v-model:checked="withDRound" style="font-size: 1.3em; margin-right: 50px">动车(D)</n-checkbox>
+                <n-checkbox
+                  v-model:checked="withGCRound"
+                  style="font-size: 1.3em; margin-left: 50px"
+                  >高铁(G/C)</n-checkbox
+                >
+                <n-checkbox
+                  v-model:checked="withDRound"
+                  style="font-size: 1.3em; margin-right: 50px"
+                  >动车(D)</n-checkbox
+                >
               </div>
-              <n-button class="FindFlightsButton" type="primary" block secondary strong @click="TrainSearch('Round')">
+              <n-button
+                class="FindFlightsButton"
+                type="primary"
+                block
+                secondary
+                strong
+                @click="TrainSearch('Round')"
+              >
                 火车票查询
               </n-button>
             </n-tab-pane>
@@ -234,11 +396,22 @@
                 <n-form-item-row class="FlightsFormItemRow">
                   <div class="FlightsLabelInput">
                     <n-form-item label="出发地" label-style="font-size:1.3em;">
-                      <n-auto-complete v-model:value="OneFromTrain" :options="filteredOptionsOneFromTrain"
-                        placeholder="输入出发城市" clearable @select="handleSelectTrain('OneFrom', $event)">
+                      <n-auto-complete
+                        v-model:value="OneFromTrain"
+                        :options="filteredOptionsOneFromTrain"
+                        placeholder="输入出发城市"
+                        clearable
+                        @select="handleSelectTrain('OneFrom', $event)"
+                      >
                         <template #default="{ handleInput, handleBlur, handleFocus }">
-                          <n-input class="FlightsInput" placeholder="输入出发城市" @input="handleInput" @blur="handleBlur"
-                            @focus="handleFocus" v-model:value="OneFromTrain">
+                          <n-input
+                            class="FlightsInput"
+                            placeholder="输入出发城市"
+                            @input="handleInput"
+                            @blur="handleBlur"
+                            @focus="handleFocus"
+                            v-model:value="OneFromTrain"
+                          >
                             <template #prefix>
                               <n-icon class="FlightsLeft">
                                 <Location class="FlightsIcon" />
@@ -251,11 +424,22 @@
                   </div>
                   <div class="FlightsLabelInput">
                     <n-form-item label="目的地" label-style="font-size:1.3em;">
-                      <n-auto-complete v-model:value="OneToTrain" :options="filteredOptionsOneToTrain"
-                        placeholder="输入到达城市" clearable @select="handleSelectTrain('OneTo', $event)">
+                      <n-auto-complete
+                        v-model:value="OneToTrain"
+                        :options="filteredOptionsOneToTrain"
+                        placeholder="输入到达城市"
+                        clearable
+                        @select="handleSelectTrain('OneTo', $event)"
+                      >
                         <template #default="{ handleInput, handleBlur, handleFocus }">
-                          <n-input class="FlightsInput" placeholder="输入到达城市" @input="handleInput" @blur="handleBlur"
-                            @focus="handleFocus" v-model:value="OneToTrain">
+                          <n-input
+                            class="FlightsInput"
+                            placeholder="输入到达城市"
+                            @input="handleInput"
+                            @blur="handleBlur"
+                            @focus="handleFocus"
+                            v-model:value="OneToTrain"
+                          >
                             <template #prefix>
                               <n-icon class="FlightsLeft">
                                 <Location class="FlightsIcon" />
@@ -270,17 +454,33 @@
                 <n-form-item-row class="FlightsFormItemRow">
                   <div class="FlightsLabelInput">
                     <n-form-item label="出发日期" label-style="font-size:1.3em;">
-                      <n-date-picker class="FlightsInput" size="large" v-model:value="OneDepartTrain" type="date"
-                        placeholder="选择出发日期" />
+                      <n-date-picker
+                        class="FlightsInput"
+                        size="large"
+                        v-model:value="OneDepartTrain"
+                        type="date"
+                        placeholder="选择出发日期"
+                      />
                     </n-form-item>
                   </div>
                 </n-form-item-row>
               </n-form>
               <div class="preferences">
-                <n-checkbox v-model:checked="withGCOne" style="font-size: 1.3em; margin-left: 50px">高铁(G/C)</n-checkbox>
-                <n-checkbox v-model:checked="withDOne" style="font-size: 1.3em; margin-right: 50px">动车(D)</n-checkbox>
+                <n-checkbox v-model:checked="withGCOne" style="font-size: 1.3em; margin-left: 50px"
+                  >高铁(G/C)</n-checkbox
+                >
+                <n-checkbox v-model:checked="withDOne" style="font-size: 1.3em; margin-right: 50px"
+                  >动车(D)</n-checkbox
+                >
               </div>
-              <n-button class="FindFlightsButton" type="primary" block secondary strong @click="TrainSearch('One')">
+              <n-button
+                class="FindFlightsButton"
+                type="primary"
+                block
+                secondary
+                strong
+                @click="TrainSearch('One')"
+              >
                 火车票查询
               </n-button>
             </n-tab-pane>
@@ -971,12 +1171,12 @@ const FlightsSearch = (SelectTrip) => {
 const toggleTransport = () => {
   if (transportMode.value === '切换火车票') {
     transportMode.value = '切换飞机票'
-    CardStart.value = "旅兔：开启新旅途🚆"
-    ifFlight.value = false;
+    CardStart.value = '旅兔：开启新旅途🚆'
+    ifFlight.value = false
   } else {
-    transportMode.value = '切换火车票';
-    CardStart.value = "旅兔：开启新航行✈"
-    ifFlight.value = true;
+    transportMode.value = '切换火车票'
+    CardStart.value = '旅兔：开启新航行✈'
+    ifFlight.value = true
   }
 }
 const citys = [
@@ -1844,7 +2044,7 @@ const citys = [
   '林州',
   '盱眙',
   '沙县'
-];
+]
 const filteredOptionsRoundFromTrain = computed(() => {
   return citys
     .filter((city) => city.includes(RoundFromTrain.value))
@@ -1928,11 +2128,7 @@ const TrainSearch = (SelectTrip) => {
       RoundReturnTrain.value = ''
     }
   } else if (SelectTrip === 'One') {
-    if (
-      OneFromTrain.value === '' ||
-      OneToTrain.value === '' ||
-      OneDepartTrain.value === ''
-    ) {
+    if (OneFromTrain.value === '' || OneToTrain.value === '' || OneDepartTrain.value === '') {
       alert('火车票信息未填写完整')
       return
     }
